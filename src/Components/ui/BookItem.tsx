@@ -1,13 +1,58 @@
-import React , {FC} from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React , {FC, useEffect} from 'react'
 import styled from 'styled-components'
 
 interface Props {
-    titre  : string ,
-    auteur : string,
-    prix : number,
-    quantite : number,
-    imageUrl : string
+    titre: string,
+    auteur: string,
+    prix: number,
+    quantite: number,
+    imageUrl: string,
+    redirect?: (page: string) => void,
+    showButtons : boolean
+  }
+  
+  const BookItem: FC<Props> = ({ titre, auteur, prix, quantite, imageUrl, redirect , showButtons }) => {
+        console.log("trying this log")
+        console.log(showButtons)
+ 
+    
+    const handleClickdetails = () => redirect?.('details');
+    const handleClickAchat = () => redirect?.('achat');
+
+   
+  return <Container>
+            <ImageContainer>
+                <img src={imageUrl} alt={titre} />
+            </ImageContainer>
+            <InfoContainer>
+                <h3>{titre}</h3>
+                <div className='rowContainer'>
+                <small>Auteur :</small><span> {auteur}</span>
+                </div>
+
+                <div className='rowContainer'>
+                <small>Prix :</small> <span> €{prix}</span>
+                </div>
+                
+                <div className='rowContainer'>
+                <small> Quantité dans stock :</small><span>  {quantite}</span>
+                </div>
+                
+                { showButtons ? <div className='buttons'>
+                    <button onClick={handleClickdetails}>Details</button>
+                    <button onClick={handleClickAchat}>Acheter</button>
+                </div> : <p>NEW !!</p>}
+            </InfoContainer>
+  </Container>
 }
+
+
+
+
+export default BookItem;
+
 
 const Container = styled.div`
 border: solid 1px black;
@@ -27,7 +72,9 @@ transition: all ease 400ms;
 
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
-flex-direction: column;
+    &:hover{
+        width: 15rem;
+    }
 }
 `
 const ImageContainer = styled.div`
@@ -93,36 +140,3 @@ small {
 }
 
 `
-const BookItem:FC<Props> = ({titre , auteur , prix , quantite , imageUrl}) => {
-
-   
-  return <Container>
-            <ImageContainer>
-                <img src={imageUrl} alt={titre} />
-            </ImageContainer>
-            <InfoContainer>
-                <h3>{titre}</h3>
-                <div className='rowContainer'>
-                <small>Auteur :</small><span> {auteur}</span>
-                </div>
-
-                <div className='rowContainer'>
-                <small>Prix :</small> <span> €{prix}</span>
-                </div>
-                
-                <div className='rowContainer'>
-                <small> Quantité dans stock :</small><span>  {quantite}</span>
-                </div>
-                
-                <div className='buttons'>
-                <button>Details</button>
-                <button>Acheter</button>    
-                </div>
-            </InfoContainer>
-  </Container>
-}
-
-
-
-
-export default BookItem

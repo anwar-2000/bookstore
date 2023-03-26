@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Menu, Search } from "lucide-react";
 import {ShoppingCart} from "lucide-react"
+import Link from "next/link";
 
 interface Props {}
 
@@ -28,14 +29,14 @@ const NavBar = () => {
               <Search strokeWidth="4" className="cursor-pointer hidden md:block" />
             </div>
             <div className='hidden md:block'>
-              <a href="" > 
+              <Link href="" > 
                 Acceuil
-              </a>
+              </Link>
             </div>
             <div className="">
-              <a href="" className="hidden md:block">
+              <Link href="" className="hidden md:block">
                 Tous Livres
-              </a>
+              </Link>
             </div>
           </div>
           <button
