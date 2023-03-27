@@ -67,7 +67,7 @@ const Left = styled.div`
     gap: 2rem;
 
     h1{
-        font-size: 2.5rem;
+        font-size: 4rem;
         font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -204,7 +204,7 @@ const index = () => {
     <Left>
                     <div className='infos'>
                     <h1>Harry Potter 2</h1>
-                    <small> <span>By</span> J.K Rowling</small>
+                    <small> <span>Auteur :</span> J.K Rowling</small>
                     <p> <span>Description :</span> Harry Potter and the Chamber of Secrets begins when Harry is spending a miserable summer with his only remaining family, the Dursleys. During a dinner party hosted by his uncle and aunt, Harry is visited by Dobby, a house-elf. Dobby warns Harry not to return to Hogwarts, the magical school for wizards that Harry attended the previous year ...</p>
                     <h6><span>Prix :</span> 15€</h6>
                     </div>
