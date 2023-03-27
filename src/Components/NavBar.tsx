@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React  from "react";
 import { Menu, Search } from "lucide-react";
 import {ShoppingCart} from "lucide-react"
 import Link from "next/link";
@@ -6,11 +6,6 @@ import Link from "next/link";
 interface Props {}
 
 const NavBar = () => {
-  const [isOpen,setIsOpen] = useState(false)
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
   return (
     <section className="flex items-start justify-center ">
       <div className="flex justify-center items-center w-screen">
@@ -40,7 +35,6 @@ const NavBar = () => {
             </div>
           </div>
           <button
-              onClick={toggleMenu}
               className="md:hidden text-slate-900 focus:outline-none p-2"
             >
               <Menu strokeWidth="4" />

@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import styled from "styled-components"
@@ -12,7 +11,7 @@ const Hero = () => {
           <Left>
               <h1>Quelles Livres Vous Cherchez ?</h1>
               <small>Vous êtes pas sûre ! Okay <br /> Explorez nos categories et liste des livres .</small>
-             <Link href={'/details'} ><button>Explorer maintenant !!</button></Link> 
+             <Link href={'/all'} ><button>Explorer maintenant !!</button></Link> 
           </Left>
           <Right>
                 <img src="/book1.jpeg" alt='book1'  id="book1" />
@@ -33,6 +32,7 @@ const Container = styled.div`
   justify-content: space-evenly;
   flex-direction: row;
   margin-top: 2.5rem;
+  margin-bottom: 7.5rem;
   
 
 

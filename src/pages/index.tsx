@@ -7,7 +7,7 @@ export default function Home() {
   return <>
         <NavBar />
         <Hero />
-        {/*<RecentBooks */}
+        <RecentBooks />
     </>
   
 }
