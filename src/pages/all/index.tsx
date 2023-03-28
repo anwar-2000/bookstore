@@ -3,9 +3,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {Search} from "lucide-react";
-
 import { motion } from "framer-motion";
 import BookItemSecond from "@/Components/ui/BookItemSecond";
+
+import { useQuery } from "react-query";
+import {fetchBooks} from "@/lib/helpers"
+import  FallingLines  from "react-loader-spinner";
 
 interface Props {}
 
@@ -17,6 +20,8 @@ const variants = {
 const transition = { duration: 0.3, ease: "easeIn" };
 
 const index = () => {
+  const {isLoading , data , isError , error} = useQuery('books',fetchBooks);
+
   const { isOpen } = useSelector((state: any) => state.toggle);
 
  
@@ -34,7 +39,7 @@ const index = () => {
         </motion.div>
 
 
-        <motion.div
+        { isLoading ? <p>loading</p> : <motion.div
         initial="open"
           animate={isOpen ? "open" : "closed"}
           variants={variants}
@@ -61,19 +66,12 @@ const index = () => {
               </div>
 
               <div className="allBooks">
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
+              {data.map((book : any)=>(
+                   <BookItemSecond title={book.titre} image={book.image} rating={3} />
+              ))}
               </div>
         </MainContent>
-        </motion.div>
+        </motion.div>}
       
     </Container>
   );

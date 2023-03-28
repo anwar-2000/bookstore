@@ -17,20 +17,65 @@ export async function getBooks(req: NextApiRequest, res: NextApiResponse) {
     }
   }
 
+  // GET : https://localhost/api/bookId
+export async function getBook(req: NextApiRequest, res: NextApiResponse) {
+  try {
+        const {bookId} = req.query
+        if(bookId){
+          const book = await Book.findOne({_id: bookId})
+          console.log(bookId)
+          res.status(200).json(book)
+          console.log(book)
+        }
+        res.status(404).json({error : "Book Not Found"})
+  } catch (err) {
+      res.status(404).json({error : "Can Not Get The Book "})
+  }
+}
+
 // Post : https://localhost/api/books
 
-export async function postBook(req: NextApiRequest, res: NextApiResponse){
-    try {
-            const formData = req.body;
-            if(!formData)  { return res.status(404).json({error :'Form Data not provided'})}
-            Book.create(formData, (err: any, book: any) => {
-                if (err) {
-                  return res.status(500).json({ error: 'Error while creating book' });
-                }
-                res.status(201).json(book);
-              });
-            } catch (err) {
-              return res.status(500).json({ error: 'Error while creating book' });
-              res.end()
-            }
-          }
+export async function postBook(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const formData = req.body;
+    if (!formData) {
+      return res.status(404).json({ error: 'Form Data not provided' });
+    }
+    const book = await Book.create(formData);
+    res.status(201).json(book);
+  } catch (err) {
+    return res.status(500).json({ error: 'Error while creating book' });
+  }
+}
+
+// Put : https://localhost/api/books/bookId || titre
+
+export async function editBook(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const {bookId} = req.query;
+    const formData = req.body;
+
+    if(bookId && formData){
+      const book = await Book.findByIdAndUpdate(bookId,formData)
+      res.status(200).json(book)
+    }
+    res.status(404).json({error : "Book Not Selected"})
+  } catch (err) {
+    return res.status(500).json({ error: 'Error while updating the book' });
+  }
+}
+// Delete : https://localhost/api/books/bookId || titre
+
+export async function deleteBook(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const {bookId} = req.query;
+
+    if(bookId){
+      const book = await Book.findByIdAndDelete(bookId)
+      return res.status(200).json(book)
+    }
+    res.status(404).json({error : "Book Not Deleted"})
+  } catch (err) {
+    return res.status(500).json({ error: 'Error while Deleting the book' });
+  }
+}
