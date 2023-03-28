@@ -12,10 +12,7 @@ const formReducer = (state : Object, e : any) =>{
 }
 
 const index = () => {
-    const [formData,setFormData] = useReducer(formReducer,{})
-    const [disable,setDisable] =useState<boolean>(true)
-
-    
+    const [formData,setFormData] = useReducer(formReducer,{})    
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

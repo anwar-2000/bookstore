@@ -2,11 +2,11 @@
 
 const BASE_URL:String ="http://localhost:3000"
 
-export const fetchBooks = async () =>{
-   const response = await fetch(`${BASE_URL}/api/books`);
-   const data = await response.json()
-    return data
-}
+export const fetchBooks = async (page = 1, limit = 10) => {
+    const response = await fetch(`${BASE_URL}/api/books?page=${page}&limit=${limit}`);
+    const data = await response.json();
+    return data;
+  };
 //single book
 export const fetchBook = async (bookId : string) =>{
     const response = await fetch(`${BASE_URL}/api/${bookId}`);
@@ -65,3 +65,10 @@ export const deleteBook = async (bookId : string ,formData:Object) =>{
         return error
     }
  }
+
+ // quering books having the title or auteur when search input triggered
+ export const fetchCategories = async () => {
+    const response = await fetch(`${BASE_URL}/api/categories`);
+    const data = await response.json();
+    return data;
+  };

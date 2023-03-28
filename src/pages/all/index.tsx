@@ -1,11 +1,10 @@
 import SideNav from "@/Components/ui/SideNav";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import {Search} from "lucide-react";
+import {ArrowBigLeft, ArrowBigRight, Search} from "lucide-react";
 import { motion } from "framer-motion";
 import BookItemSecond from "@/Components/ui/BookItemSecond";
-
 import { useQuery } from "react-query";
 import {fetchBooks} from "@/lib/helpers"
 
@@ -22,10 +21,24 @@ const variants = {
 const transition = { duration: 0.3, ease: "easeIn" };
 
 const index = () => {
+  /** STATES */
   const router = useRouter();
-  const {isLoading , data , isError , error} = useQuery('books',fetchBooks);
-
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(20);
+  /** REACT-QUERY */
+  const { isLoading, data, isError, error } = useQuery(
+    ['books', page, limit],
+    () => fetchBooks(page, limit)
+  );
+  /** REDUX STATE OF THE SIDENAV */
   const { isOpen } = useSelector((state: any) => state.toggle);
+/** LOGIC FOR CONTROLLING THE LIMIT AND PAGE */
+
+const addPageHandler = () => setPage(page+1)
+const addLimitHandler = () => setLimit(limit+1)
+
+const minusPageHandler = () => setPage(page > 1 ? page-1 : 1)
+const minusLimitHandler = () => setLimit(limit > 15 ? limit-1 : 15)
 
  
 const getBookIdHandler = (id : string) =>{
@@ -40,7 +53,7 @@ const getBookIdHandler = (id : string) =>{
           variants={variants}
           transition={transition}
         >
-          <SideNav />
+          <SideNav id="sideNAv" />
         </motion.div>
 
 
@@ -62,14 +75,13 @@ const getBookIdHandler = (id : string) =>{
                 <Search id="icon" />
                 <input type="text" autoComplete="false"  placeholder="Trouver un livre" /></div>  
               </div>
-
-              <div className="popularNow">
-              <h1>Récent :</h1>
-              <div className="items">
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
-              </div>
-              <h1>Tout Livres :</h1>
+              <div className="controls">
+                  <div className="controls__page">
+                    <ArrowBigLeft onClick={minusPageHandler} /> Pages : {page} <ArrowBigRight onClick={addPageHandler}  />
+                  </div>
+                  <div className="controls__limit">
+                    <ArrowBigLeft onClick={minusLimitHandler}  /> Limite : {limit} <ArrowBigRight onClick={addLimitHandler}   />
+                  </div>
               </div>
 
               <div className="allBooks">
@@ -89,6 +101,22 @@ export default index;
 const Container = styled.div`
   display: flex;
   overflow: hidden;
+
+   /* styles for screens smaller than 768px */
+   @media screen and (max-width: 767px) {
+    sideNAv{
+      z-index: 11;
+    }
+  }
+
+  /* styles for screens between 768px and 1024px */
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    
+  }
+
+  @media screen and (min-width: 912px) and (max-width: 1024px) {
+    
+  }
 `;
 
 const MainContent = styled.div`
@@ -106,6 +134,23 @@ const MainContent = styled.div`
   display: none;
 }
 
+.allBooks{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+
+    /* styles for screens smaller than 768px */
+    @media screen and (max-width: 767px) {
+      align-items: center;
+      justify-content: center;
+}
+}
+h1{
+        font-size: 3rem;
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+
 /* Hide scrollbar for IE, Edge and Firefox */
 
   -ms-overflow-style: none;  /* IE and Edge */
@@ -118,6 +163,13 @@ const MainContent = styled.div`
       align-items: center;
       gap: 5rem;
       justify-content: start;
+
+               /* styles for screens smaller than 768px */
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+}
       
       h1{
         font-size: 3rem;
@@ -129,6 +181,11 @@ const MainContent = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+
+                 /* styles for screens smaller than 768px */
+    @media screen and (max-width: 767px) {
+      margin-right: 1.9rem;
+    }
 
         input {
         padding: 1rem 3rem;
@@ -148,26 +205,29 @@ const MainContent = styled.div`
       }
     }
 
-    .popularNow{
-      h1{
-        font-size: 2.5rem;
-        font-family: sans-serif;
-        font-weight: bold;
-      }
-      .items{
+    .controls{
         display: flex;
-        gap: 1.5rem;
-        flex-wrap: nowrap;
-        overflow-x: hidden;
-      }
+        align-items: center;
+        justify-content: center;
+        gap: 4rem;
+
+        .controls__page {
+          display: flex; 
+          gap: 2rem;
+        }
+        .controls__limit {
+          display: flex; 
+          gap: 2rem;
+        }
+          /* styles for screens smaller than 768px */
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+      margin-left: 4.3rem;
+}
     }
 
-    .allBooks{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem ;
-    }
-`
+
+      `
 const Spiner = styled.div`
     display: flex;
     align-items: center;

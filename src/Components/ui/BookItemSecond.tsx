@@ -34,6 +34,8 @@ const Container = styled.div`
     
     #imgg{
         border-radius: 5% ;
+        width: 300px;
+        height: 200px;
     }
     .rating{
         display: flex;

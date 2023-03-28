@@ -2,10 +2,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import Book from '@/models/Book'
 
-// GET : https://localhost/api/books
+// GET : https://localhost/api/books : sorted in reverse 'date'
 export async function getBooks(req: NextApiRequest, res: NextApiResponse) {
     try {
-      const books = await Book.find({});
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 15;
+      const skip = (page - 1) * limit;
+      const books = await Book.find({}).sort({ date: -1 }).skip(skip).limit(limit);
       if (!books) {
        res.status(404).json({ error: "Data Not Found" });
       }
@@ -76,5 +79,20 @@ export async function deleteBook(req: NextApiRequest, res: NextApiResponse) {
     res.status(404).json({error : "Book Not Deleted"})
   } catch (err) {
     return res.status(500).json({ error: 'Error while Deleting the book' });
+  }
+}
+
+// GET : https://localhost/api/categories :
+export async function getCategories(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const categories = await Book.distinct('categorie');
+    if (!categories) {
+     res.status(404).json({ error: "Categories Not Found" });
+    }
+     res.status(200).json(categories); // send categories data in the response
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: "Error while Fetching categories" });
+    res.end()
   }
 }

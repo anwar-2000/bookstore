@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { FC, HtmlHTMLAttributes } from 'react'
 import styled from 'styled-components'
 import {ChevronRight , Menu} from "lucide-react"
 import Link from 'next/link'
 import { SET_OPEN } from '@/redux/reducers/Toggle'
 import { useDispatch} from 'react-redux'
 
+interface Props extends React.HTMLAttributes<HTMLElement>{
 
-const SideNav = () => {
+}
+
+const SideNav:FC<Props> = ({...rest}) => {
     const dispatch = useDispatch()
     const toggle = () => {
         dispatch(SET_OPEN());
@@ -54,6 +57,10 @@ const Container = styled.div`
     background-color: white;
     border-right: #4F6398 solid 1px;
    
+     /* styles for screens smaller than 768px */
+     @media screen and (max-width: 767px) {
+      width: 27rem;
+}
     
     .header{
         margin-top: 0.5rem;
@@ -96,6 +103,3 @@ const Container = styled.div`
     }
 `
 
-function dispatch(arg0: any) {
-    throw new Error('Function not implemented.')
-}

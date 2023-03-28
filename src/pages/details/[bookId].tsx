@@ -45,7 +45,6 @@ const index: NextPage<MyPageProps> = ({ data }) => {
 
         setDate(`${day}-${month}-${year}`)
 
-const formattedDate = `${day}-${month}-${year}`;
     })
   const router = useRouter();
 
