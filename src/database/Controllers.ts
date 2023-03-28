@@ -25,7 +25,6 @@ export async function getBook(req: NextApiRequest, res: NextApiResponse) {
           const book = await Book.findOne({_id: bookId})
           console.log(bookId)
           res.status(200).json(book)
-          console.log(book)
         }
         res.status(404).json({error : "Book Not Found"})
   } catch (err) {

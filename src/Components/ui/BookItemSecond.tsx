@@ -2,14 +2,14 @@ import { Star } from 'lucide-react'
 import React, { FC } from 'react'
 import styled from 'styled-components'
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLElement>{
     title : string 
     image : string
     rating : number
 }
 
-const BookItemSecond:FC<Props> = ({title , image , rating}) => {
-  return <Container>
+const BookItemSecond:FC<Props> = ({title , image , rating,...rest}) => {
+  return <Container {...rest}>
         <div className='image__rating'>
                 <img src={image} alt={title} id="imgg" />
         </div>

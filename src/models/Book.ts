@@ -8,6 +8,10 @@ interface IBook {
   image: string;
   status: string;
   date: Date;
+  rating: number;
+  pages : string,
+  date_du_livre : string,
+  categorie : string
 }
 
 const bookSchema: Schema<IBook> = new Schema({
@@ -21,8 +25,13 @@ const bookSchema: Schema<IBook> = new Schema({
     type: Date,
     default: Date.now,
   },
+  rating: Number ,
+  pages : Number,
+  date_du_livre : String,
+  categorie : String
 });
 
-const Book = models.Book  || model("Book", bookSchema);
+// Overwrite the existing Book model with the new schema
 
-export default Book;
+const Book = models.Book || model("Book", bookSchema);
+export default Book

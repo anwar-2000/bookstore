@@ -8,7 +8,9 @@ import BookItemSecond from "@/Components/ui/BookItemSecond";
 
 import { useQuery } from "react-query";
 import {fetchBooks} from "@/lib/helpers"
-import  FallingLines  from "react-loader-spinner";
+
+import { ClipLoader } from "react-spinners";
+import { useRouter } from "next/router";
 
 interface Props {}
 
@@ -20,12 +22,15 @@ const variants = {
 const transition = { duration: 0.3, ease: "easeIn" };
 
 const index = () => {
+  const router = useRouter();
   const {isLoading , data , isError , error} = useQuery('books',fetchBooks);
 
   const { isOpen } = useSelector((state: any) => state.toggle);
 
  
-
+const getBookIdHandler = (id : string) =>{
+    router.push(`/details/${id}`); //pushing to details page api with the selected items ID
+}
   return (
     <Container>
       
@@ -39,7 +44,12 @@ const index = () => {
         </motion.div>
 
 
-        { isLoading ? <p>loading</p> : <motion.div
+        { isLoading ? <Spiner><ClipLoader
+        color='blue'
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      /></Spiner> : <motion.div
         initial="open"
           animate={isOpen ? "open" : "closed"}
           variants={variants}
@@ -58,16 +68,13 @@ const index = () => {
               <div className="items">
               <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
               <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
-              <BookItemSecond title={"Harry Potter 2"} image={"https://3.bp.blogspot.com/-b4tggdxOD9U/Uk7SdMckW2I/AAAAAAAAACY/t8WqMOdJUgM/s1600/harry2+cover.jpg"} rating={3} />
               </div>
               <h1>Tout Livres :</h1>
               </div>
 
               <div className="allBooks">
-              {data.map((book : any)=>(
-                   <BookItemSecond title={book.titre} image={book.image} rating={3} />
+              {data.map((book : any,i :number)=>(
+                   <BookItemSecond key={i} title={book.titre} image={book.image} rating={book.rating} onClick={()=>getBookIdHandler(book._id)}/>
               ))}
               </div>
         </MainContent>
@@ -160,4 +167,10 @@ const MainContent = styled.div`
       flex-wrap: wrap;
       gap: 1.5rem ;
     }
+`
+const Spiner = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 25rem;
 `
