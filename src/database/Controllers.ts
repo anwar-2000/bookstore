@@ -20,7 +20,7 @@ export async function getBooks(req: NextApiRequest, res: NextApiResponse) {
     }
   }
 
-  // GET : https://localhost/api/bookId
+  // GET : https://localhost/api/query/bookId
 export async function getBook(req: NextApiRequest, res: NextApiResponse) {
   try {
         const {bookId} = req.query
@@ -89,10 +89,23 @@ export async function getCategories(req: NextApiRequest, res: NextApiResponse) {
     if (!categories) {
      res.status(404).json({ error: "Categories Not Found" });
     }
-     res.status(200).json(categories); // send categories data in the response
+     res.status(200).json({categories}); // send categories data in the response
   } catch (err) {
     console.log(err)
     res.status(500).json({ error: "Error while Fetching categories" });
     res.end()
   }
+}
+
+// GET : http://localhost:3000/api/categories/categorie
+export async function getBooksOfCategory(req : NextApiRequest , res : NextApiResponse) {
+    const {categorie} = req.query
+
+    try {
+       if (!categorie){res.status(404).json({error : "no parameter is passed"})}
+       const books = await Book.find({categorie : categorie})
+       res.status(200).json(books)
+      } catch (error) {
+        res.status(500).json({ error: error });
+    }
 }

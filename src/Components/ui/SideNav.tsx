@@ -26,10 +26,12 @@ const SideNav:FC<Props> = ({...rest}) => {
             <h5>Explore</h5>
             <ChevronRight color='#4F6398' />
         </div>
+        <Link href={'/all/categories'}>
         <div className='navlinks'>
             <h5>Categories</h5>
             <ChevronRight color='#4F6398' />
         </div>
+        </Link>
         <div className='navlinks'>
             <h5>Mes Favorie</h5>
             <ChevronRight color='#4F6398' />

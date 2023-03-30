@@ -7,9 +7,10 @@ export const fetchBooks = async (page = 1, limit = 10) => {
     const data = await response.json();
     return data;
   };
+
 //single book
 export const fetchBook = async (bookId : string) =>{
-    const response = await fetch(`${BASE_URL}/api/${bookId}`);
+    const response = await fetch(`${BASE_URL}/api/query/${bookId}`);
     const data = await response.json()
     if(data) return data
      return {}
@@ -51,7 +52,7 @@ export const updateBook = async (bookId : string ,formData:Object) =>{
 
 
    //deleting a new book
-export const deleteBook = async (bookId : string ,formData:Object) =>{
+export const deleteBook = async (bookId : string) =>{
     try {
         const options = {
             method : "DELETE",
@@ -72,3 +73,11 @@ export const deleteBook = async (bookId : string ,formData:Object) =>{
     const data = await response.json();
     return data;
   };
+
+// query  books based on categorie
+  export const fetchBooksOfCategory = async (categorie : string) =>{
+    const response = await fetch(`${BASE_URL}/api/${categorie}`);
+    const data = await response.json()
+    if(data) return data
+     return {}
+ }
