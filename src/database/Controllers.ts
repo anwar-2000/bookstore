@@ -1,6 +1,7 @@
 /**Controllers */
 import type { NextApiRequest, NextApiResponse } from 'next'
 import Book from '@/models/Book'
+import User from '@/models/User';
 
 // GET : https://localhost/api/books : sorted in reverse 'date'
 export async function getBooks(req: NextApiRequest, res: NextApiResponse) {
@@ -108,4 +109,44 @@ export async function getBooksOfCategory(req : NextApiRequest , res : NextApiRes
       } catch (error) {
         res.status(500).json({ error: error });
     }
+}
+// get : htttp:localhost/api/search?searchParam=?searchValue=
+export async function getSearchBooks(req: NextApiRequest, res: NextApiResponse) {
+  //getting only the id , title , auteur
+  try {
+    const searchParam = req.query.searchParam as string;
+    const searchValue = req.query.searchValue;
+    let searchBooks;
+    //console.error(searchParam , searchValue)
+    if (searchParam && searchValue) {
+      searchBooks = await Book.find(
+        { [searchParam]: { $regex: searchValue, $options: "i" } }, //case_in-sensative
+        { _id: 1, titre: 1, auteur: 1 , rating : 1 , image : 1  }
+      );
+      console.log("both params provided : " , searchBooks)
+    } else {
+      searchBooks = await Book.find({}, { _id: 1, titre: 1, auteur: 1 , rating : 1 , image : 1});
+      //console.log(" just one of the params provided : " , searchBooks)
+    }
+    if (!searchBooks) {
+      res.status(404).json({ Error: "could not fetch from Search inputs" });
+    }
+    res.status(200).json(searchBooks);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+}
+
+export async function addUser(req: NextApiRequest, res: NextApiResponse){
+  try {
+    const formData = req.body;
+    if (!formData) {
+      return res.status(404).json({ error: 'Register Form Data not provided' });
+    }
+    const user = await User.create(formData);
+    console.log(user);
+    res.status(201).json({user});
+  } catch (err) {
+    console.log(err); return res.status(500).json({error :"error"});
+  }
 }

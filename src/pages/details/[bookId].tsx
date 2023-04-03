@@ -1,7 +1,7 @@
 export async function getServerSideProps(context: { params: { bookId: any } }) {
     const bookId = context.params.bookId;
     const data = await fetchBook(bookId);
-    return { props: { data } };
+    return { props: { data  } };
   }
   
 
@@ -12,6 +12,8 @@ export async function getServerSideProps(context: { params: { bookId: any } }) {
   import { fetchBook } from "@/lib/helpers";
   import { NextPage } from "next";
 import { Star } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { AddToCart, calculateTotal} from "@/redux/reducers/Cart";
 
 interface Book {
     titre: string;
@@ -30,6 +32,7 @@ interface Book {
     data: Book;
   }
 const index: NextPage<MyPageProps> = ({ data }) => {
+    const dispatch = useDispatch();
   //const { bookId } = useSelector((state: any) => state.bookDetail);
   //const { data, isLoading, error } = useQuery(["detail", bookId], () =>
     //fetchBook(bookId)
@@ -49,14 +52,20 @@ const index: NextPage<MyPageProps> = ({ data }) => {
   const router = useRouter();
 
   const handleClickPanier = () => {
-    console.log(data)
+     let book = {
+      titre : data.titre,
+      prix : data.prix,
+      image : data.image
+     }
+     console.log( book)
+     dispatch(AddToCart(book))
+     dispatch(calculateTotal())
   };
 
   const handleClickAchat = () => router.push("/achat");
 
   return (
     <Section>
-      <NavBar />
         <Container className="content">
           <Right>{<img src={data.image} alt={data.titre} />}</Right>
           <Left>
@@ -192,7 +201,7 @@ const Left = styled.div`
       cursor: pointer;
 
       &:nth-child(1) {
-        transition: all ease-in 700ms;
+        transition: all ease-in 200ms;
 
         &:hover {
           border: solid 1px black;
@@ -287,11 +296,5 @@ const Right = styled.div`
         height: 450px;
     }
   }
-`;
-const Spiner = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 25rem;
 `;
 

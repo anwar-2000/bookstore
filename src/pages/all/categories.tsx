@@ -1,7 +1,7 @@
 import NavBar from '@/Components/NavBar';
-import { fetchCategories } from '@/lib/helpers'
+import { fetchCategories, preparedFetchforInput } from '@/lib/helpers'
 import { NextPage } from 'next';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 import {fetchBooksOfCat} from "@/lib/utils"
 import { useRouter } from 'next/router';
@@ -14,6 +14,7 @@ interface Categorie {
 
   interface MyPageProps {
     categories: Categorie[];
+    
   }
 
 const categories:NextPage<MyPageProps>= ({categories}) => {
@@ -36,7 +37,6 @@ const categories:NextPage<MyPageProps>= ({categories}) => {
  
 
       return <>
-            <NavBar />
            <Container>
             {categories.map((categoryy,i:number)=>(<h1 key={i} onClick={()=>selectCategoryHandler(categoryy)}>{categoryy}</h1>))}</Container>
     { isLoading ? <Spiner>
@@ -60,7 +60,7 @@ export async function getServerSideProps() {
     const response = await fetchCategories();
     const categories = response.categories;
     console.log(categories)
-    return { props: { categories } };}
+    return { props: { categories} };}
 
 
     const Container = styled.div`

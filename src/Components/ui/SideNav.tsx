@@ -4,6 +4,7 @@ import {ChevronRight , Menu} from "lucide-react"
 import Link from 'next/link'
 import { SET_OPEN } from '@/redux/reducers/Toggle'
 import { useDispatch} from 'react-redux'
+import SearchInput from '../SearchInput'
 
 interface Props extends React.HTMLAttributes<HTMLElement>{
 
@@ -21,7 +22,9 @@ const SideNav:FC<Props> = ({...rest}) => {
             <h1>EMMAUS CHATELLEARAULT</h1>
             <small>BOUTIQUE</small>
         </div>
-
+        <div>
+            <SearchInput />
+        </div>
         <div className='navlinks'>
             <h5>Explore</h5>
             <ChevronRight color='#4F6398' />

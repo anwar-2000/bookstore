@@ -21,7 +21,7 @@ export const addBook = async (formData:Object) =>{
     try {
         const options = {
             method : "POST",
-            headers :{ "Conetent-Type" : "application/json"},
+            headers :{ "Content-Type" : "application/json"},
             body : JSON.stringify(formData)
         }
         const response = await fetch(`${BASE_URL}/api/books`,options)
@@ -38,7 +38,7 @@ export const updateBook = async (bookId : string ,formData:Object) =>{
     try {
         const options = {
             method : "PUT",
-            headers :{ "Conetent-Type" : "application/json"},
+            headers :{ "Content-Type" : "application/json"},
             body : JSON.stringify(formData)
         }
         const response = await fetch(`${BASE_URL}/api/books/${bookId}`,options)
@@ -56,7 +56,7 @@ export const deleteBook = async (bookId : string) =>{
     try {
         const options = {
             method : "DELETE",
-            headers :{ "Conetent-Type" : "application/json"}
+            headers :{ "Content-Type" : "application/json"}
         }
         const response = await fetch(`${BASE_URL}/api/books/${bookId}`,options)
         const data = await response.json()
@@ -80,4 +80,34 @@ export const deleteBook = async (bookId : string) =>{
     const data = await response.json()
     if(data) return data
      return {}
+ }
+
+ // query of a search input
+ export const preparedFetchforInput = async (searchParam: string, searchValue: string) => {
+    const response = await fetch(
+      `${BASE_URL}/api/search?searchParam=${searchParam}&searchValue=${searchValue}`
+    );
+    //console.log("data before converting t JSON" , response)
+    const data = await response.json();
+    //console.log("fetching by search res : ",data)
+    if (data) return data;
+    //console.log("no data")
+    return {};
+  };
+
+   //posting a new user
+export const addUser = async (formData:Object) =>{
+    try {
+        const options = {
+            method : "POST",
+            headers :{ "Content-Type" : "application/json"},
+            body : JSON.stringify(formData)
+        }
+        const response = await fetch(`${BASE_URL}/api/register`,options)
+        const data = await response.json()
+
+        return data
+    } catch (error) {
+        return error
+    }
  }

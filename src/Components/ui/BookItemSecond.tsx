@@ -16,7 +16,8 @@ const BookItemSecond:FC<Props> = ({title , image , rating,...rest}) => {
         <div className='rating'> 
                <Star fill="blue" color='blue'  size={15} /><h6>{rating}</h6>
         </div>
-        <h2>{title}</h2>
+       <h2>{title}</h2>
+       
   </Container>
 }
 
@@ -28,8 +29,13 @@ const Container = styled.div`
     place-items: center;
     border-radius: 5%;
     h2{
-        font-weight: bold;
+        text-align: center;
         transform: translateY(-0.9rem);
+        width: 8rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        
     }
     
     #imgg{

@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import React from 'react'
 import styled from "styled-components"
@@ -5,7 +6,6 @@ import styled from "styled-components"
 interface Props {}
 
 const Hero = () => {
-
   return<>
    <Container>
           <Left>
@@ -33,6 +33,7 @@ const Container = styled.div`
   flex-direction: row;
   margin-top: 2.5rem;
   margin-bottom: 7.5rem;
+
   
 
 

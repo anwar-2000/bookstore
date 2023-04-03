@@ -7,6 +7,8 @@ interface IBook {
   prix: number;
   image: string;
   status: string;
+  quantite : number ;
+  etat : string
   date: Date;
   rating: number;
   pages : string,
@@ -25,6 +27,8 @@ const bookSchema: Schema<IBook> = new Schema({
     type: Date,
     default: Date.now,
   },
+  quantite : Number,
+  etat : String ,
   rating: Number ,
   pages : Number,
   date_du_livre : String,
