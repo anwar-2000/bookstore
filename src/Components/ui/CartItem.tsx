@@ -1,5 +1,5 @@
-import { calculateTotal, DeleteFromCart } from '@/redux/reducers/Cart'
-import { X } from 'lucide-react'
+import { AddToCart, calculateTotal, DeleteFromCart } from '@/redux/reducers/Cart'
+import { Minus, Plus } from 'lucide-react'
 import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
@@ -8,9 +8,10 @@ interface Props {
     titre : string ,
     prix : number,
     image : string,
+    quantite : number
 }
 
-const CartItem:FC<Props> = ({titre , prix , image}) => {
+const CartItem:FC<Props> = ({titre , prix , image,quantite}) => {
     const dispatch = useDispatch();
     const deleteItemHandler = () =>{
        let book = {
@@ -21,17 +22,28 @@ const CartItem:FC<Props> = ({titre , prix , image}) => {
        dispatch(DeleteFromCart(book))
        dispatch(calculateTotal())
     }
+    const addItemHandler = () =>{
+        let book = {
+         titre,
+         prix,
+         image
+        }
+        dispatch(AddToCart(book));
+        dispatch(calculateTotal());
+     }
   return <Container>
         <div className='img'>
             <img src={image} alt={titre} />
         </div>
         <div className='infos'>
         <h2>{titre} || </h2>
-        <h4>{prix} €</h4>
+        <h4>{prix} € || </h4>
+        <h4>Q° : {quantite}</h4>
         </div>
 
         <div className='cancel'>
-                <button onClick={deleteItemHandler}><X color='black'/></button>
+                <button onClick={deleteItemHandler}><Minus color='red'/></button>
+                <button onClick={addItemHandler}><Plus color='green'/></button>
         </div>
         
   </Container>
@@ -41,29 +53,34 @@ export default CartItem
 
 const Container = styled.div`
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
+    color : gray;
+    font-family: 'Bad Script', cursive;
     .img{
         img{
-            width : 25px;
-            height: 25px;
+            width : 40px;
+            height: 40px;
         }
         margin-right: 2rem;
     }
     .infos{
         display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
         gap: 0.5rem;
+        border-bottom: solid 1px gray;
     }
     .cancel{
         button {
-            padding: 0.1rem 1.4rem;
+           
             margin-left: 2rem;
             border-radius: 5px;
-            background-color: #df3232;
             transition: all ease 400ms;
             &:hover{
-                background-color: #e62929;
-                padding: 0.2rem 1.7rem;
+                background-color: white;
+                padding: 0.2rem 0.4rem;
             }
         }
     }

@@ -5,15 +5,11 @@ import styled from "styled-components";
 import { ArrowBigLeft, ArrowBigRight, Search } from "lucide-react";
 import { motion } from "framer-motion";
 import BookItemSecond from "@/Components/ui/BookItemSecond";
-import CartModal from "@/Components/ui/CartModal";
 import { useQuery } from "react-query";
 import { fetchBooks } from "@/lib/helpers";
-
+import Head from 'next/head';
 import { ClipLoader } from "react-spinners";
 import { useRouter } from "next/router";
-import { toggleCart } from "@/redux/reducers/Cart";
-import SearchInput from "@/Components/SearchInput";
-
 interface Props {}
 
 const variants = {
@@ -58,7 +54,16 @@ const index = () => {
   const getBookIdHandler = (id: string) => {
     router.push(`/details/${id}`); //pushing to details page api with the selected items ID
   };
-  return (
+  return <>
+        
+      <Head>
+      <title>Nos Livres : Explore</title>
+      <link rel="icon" href="emmaus.jpg" />
+        <meta name="description" content="Tous livres EMMAUS Boutique de Chatellerault" />
+        <meta property="og:title" content="Nos Livres : Explore" />
+        <meta property="og:description" content="This is my page description" />
+        <meta property="og:image" content="/my-page-image.jpg" />
+      </Head>
     <Container
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -132,6 +137,7 @@ const index = () => {
                       title={book.titre}
                       image={book.image}
                       rating={book.rating}
+                      prix = {book.prix}
                       onClick={() => getBookIdHandler(book._id)}
                     />
                   </motion.div>{" "}
@@ -149,7 +155,7 @@ const index = () => {
         transition={transition}
       ></motion.div>
     </Container>
-  );
+  </>;
 };
 
 export default index;
@@ -201,7 +207,7 @@ const MainContent = styled.div`
   }
   h1 {
     font-size: 3rem;
-    font-family: sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-weight: bold;
   }
 
@@ -226,8 +232,7 @@ const MainContent = styled.div`
 
     h1 {
       font-size: 3rem;
-      font-family: sans-serif;
-      font-weight: bold;
+      font-family: 'Playfair Display SC', serif;
     }
 
     .input__search {

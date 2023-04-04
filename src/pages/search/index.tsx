@@ -1,28 +1,32 @@
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   let searchValue = context.query.searchValue as string;
   const searchParam = context.query.searchParam as string;
+  const page = 1 ;
+  const limit = 10;
   searchValue = searchValue.replace("%20", " ");
   console.log(
     "getserversideprops params" + " " + searchParam + " " + searchValue
   );
-  const response = await preparedFetchforInput(searchParam, searchValue);
+  const [response1, response2] = await Promise.all([
+    preparedFetchforInput(searchParam, searchValue),
+    fetchBooks(page, limit)]);
   //console.log(response)
-  return { props: { response } };
+  return { props: { response1,response2 } };
 }
 
-import NavBar from "@/Components/NavBar";
 import BookItemSecond from "@/Components/ui/BookItemSecond";
-import { preparedFetchforInput } from "@/lib/helpers";
+import { fetchBooks, preparedFetchforInput } from "@/lib/helpers";
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import styled from "styled-components";
 
 interface Props {
-  response: any;
+  response1: any;
+  response2 : any;
 }
 
-const index: FC<Props> = ({ response }) => {
+const index: FC<Props> = ({ response1,response2 }) => {
   const router = useRouter();
 
   const handleClick = (bookId: string) => {
@@ -31,12 +35,13 @@ const index: FC<Props> = ({ response }) => {
   return (
     <>
       <Container>
-        {response.length === 1 && (
+        {response1.length === 1 && (
           <div className="oneItem">
             <h1 id="h1">On a trouvé Ce-çi :</h1>
-            {response.length === 1 &&
-              response.map((book: any, i: number) => (
+            {response1.length === 1 &&
+              response1.map((book: any, i: number) => (
                 <BookItemSecond
+                  prix = {book.prix}
                   image={book.image}
                   key={i}
                   title={book.titre}
@@ -47,30 +52,48 @@ const index: FC<Props> = ({ response }) => {
           </div>
         )}
 
-        {response.length > 1 && <>
+        {response1.length > 1 && <>
             <h1 id="h1">On a Trouvé Ces Livres : </h1>
           <div className="aLotOfItems">
-            {response.length > 1 &&
-              response.map((book: any, i: number) => (
+            {response1.length > 1 &&
+              response1.map((book: any, i: number) => (
                 <BookItemSecond
                   image={book.image}
                   key={i}
                   title={book.titre}
                   rating={book.rating}
+                  prix = {book.prix}
                   onClick={() => handleClick(book._id)}
                 />
               ))}
           </div>
           </>}
 
-        {response.length === 0 && (
+        {response1.length === 0 && <>
           <div className="none">
-            {response.length === 0 && (
+            {response1.length === 0 && (
               <h1 id="h1">Nous avons pas pû trouver votre recherche ... </h1>
             )}
             <img src="./notFound.png" alt="" />
           </div>
-        )}
+          <Suggestions>
+              { /*<h4>Si vous avez aimé ce livre, vous pourriez également aimer les suivants : </h4> */}
+              <h4>Cependant, voici quelques autres livres que vous pourriez aimer :</h4>
+              <div className="items">
+              {response2.length > 1 &&
+              response2.map((book: any, i: number) => (
+                <BookItemSecond
+                  image={book.image}
+                  key={i}
+                  title={book.titre}
+                  rating={book.rating}
+                  prix = {book.prix}
+                  onClick={() => handleClick(book._id)}
+                />
+              ))}
+              </div>
+          </Suggestions>
+        </>}
       </Container>
     </>
   );
@@ -81,11 +104,12 @@ export default index;
 const Container = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
+  margin-top: 3rem;
   #h1 {
-    font-size: 3rem;
-    margin-top: 5rem;
+    font-size: 1.5rem;
+    margin-top: 1rem;
   }
   .oneItem{
     margin-top: 4rem;
@@ -115,7 +139,29 @@ const Container = styled.div`
     justify-content: center;
 
     img {
-        height: 450px;
+        height: 200px;
+        border-radius: 20px;
     }
   }
 `;
+
+
+const Suggestions = styled.div`
+  width: 100%;
+  margin-top: 5rem;
+  margin-left : 2rem;
+
+  h4 {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    font-family: 'Playfair Display SC', serif;
+  }
+
+  .items{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+`

@@ -89,13 +89,13 @@ const index: NextPage<MyPageProps> = ({ data }) => {
                 {data.prix}€
               </h6>
                <div className="rating">
-               <Star id="star"/>
+               <Star id="star" fill="yellow" color="yellow"/>
                 <h6>{data.rating}</h6>
               </div>
             </div>
             <div className="buttons">
               <button onClick={handleClickPanier}>Ajouter au Panier</button>
-              <button onClick={handleClickAchat}>Acheter</button>
+              <button onClick={handleClickAchat}>Commander maintenant</button>
             </div>
           </Left>
         </Container>
@@ -171,14 +171,14 @@ const Left = styled.div`
     }
   }
   h1 {
-    font-size: 4rem;
-    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.5rem;
+    font-family: 'Shadows Into Light';
   }
 
   span {
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 1.2rem;
+    font-family: 'Shadows Into Light';
   }
 
   .infos {
@@ -214,6 +214,7 @@ const Left = styled.div`
         background-color: yellow;
         border: none;
         transition: all ease-in 700ms;
+        color : black;
 
         &:hover {
           border: solid 1px black;
@@ -276,8 +277,8 @@ const Right = styled.div`
   display: grid;
   place-items: center;
   img {
-    width: 650px;
-    height: 650px;
+    width: 450px;
+    height: 450px;
     object-fit: contain;
   }
 

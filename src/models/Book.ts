@@ -8,7 +8,7 @@ interface IBook {
   image: string;
   status: string;
   quantite : number ;
-  etat : string
+  etat : string;
   date: Date;
   rating: number;
   pages : string,

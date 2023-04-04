@@ -1,7 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
 import CartItem from './CartItem';
 import { createPortal } from 'react-dom';
 import { toggleCart } from '@/redux/reducers/Cart';
@@ -12,6 +11,7 @@ interface ItemShape {
   titre: string;
   prix: number;
   image: string;
+  quantite : number;
 }
 
 
@@ -46,10 +46,12 @@ const CartModal= () => {
     <Overlay onClick={()=>dispatch(toggleCart())} />
     <Container>
       <h1>MON PANIER</h1>
-      {cart.map((item: ItemShape, i: number) => (
-        <CartItem titre={item.titre} prix={item.prix} image={item.image} key={i} />
-      ))}
-      {cart.length === 0 && <h3> 0 Livres Dans le Panier </h3>}
+      <div className='items'>
+        {cart.map((item: ItemShape, i: number) => (
+        <CartItem titre={item.titre} prix={item.prix} image={item.image} key={i} quantite={item.quantite} />
+      ))}</div>
+      
+      {cart.length === 0 && <h4> 0 Livres Dans le Panier </h4>}
 
       <div className='total_pay'>
         <h3>Total : {total} €</h3>
@@ -80,18 +82,28 @@ const Container = styled.div`
   border: solid 1px white;
   z-index: 99;
   padding: 1.5rem;
+  background-color: #1F2937;
 
+  .items{
+    gap: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
   h1 {
     font-size: 2.5rem;
+    color: gray;
     font-family: 'Courier New', Courier, monospace;
   }
   h3 {
-    background-color: green;
     padding: 0.5rem 2rem;
     color: white;
     margin: 1.5rem;
     border-radius: 10px;
+    font-family: 'Raleway' !important;
   }
+  
 
   .total_pay{
       display: flex;
@@ -102,15 +114,12 @@ const Container = styled.div`
 
       button{
         padding: 0.5rem 1rem;
-        border: solid white 1.5px;
         border-radius: 17px;
         transition: all ease 400ms;
-        background-color: white;
-        color: black;
-        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        &:hover {
-          color: black;
-         
+        background-color: #0cc779;
+        color: white;
+        font-family: 'Oswald', sans-serif;
+            &:hover {         
           padding: 0.5rem 3rem;
         }
       }

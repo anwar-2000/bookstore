@@ -121,11 +121,11 @@ export async function getSearchBooks(req: NextApiRequest, res: NextApiResponse) 
     if (searchParam && searchValue) {
       searchBooks = await Book.find(
         { [searchParam]: { $regex: searchValue, $options: "i" } }, //case_in-sensative
-        { _id: 1, titre: 1, auteur: 1 , rating : 1 , image : 1  }
+        { _id: 1, titre: 1, auteur: 1 , rating : 1 , image : 1 , prix : 1 }
       );
       console.log("both params provided : " , searchBooks)
     } else {
-      searchBooks = await Book.find({}, { _id: 1, titre: 1, auteur: 1 , rating : 1 , image : 1});
+      searchBooks = await Book.find({}, { _id: 1, titre: 1, auteur: 1 , rating : 1 , image : 1 , prix : 1});
       //console.log(" just one of the params provided : " , searchBooks)
     }
     if (!searchBooks) {

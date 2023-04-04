@@ -59,7 +59,6 @@ const Container = styled.div`
     align-items: start;
     justify-content: start;
     gap: 4rem;
-    background-color: white;
     border-right: #4F6398 solid 1px;
    
      /* styles for screens smaller than 768px */

@@ -4,7 +4,6 @@ import React, { FC , MouseEvent, useRef, useState  } from 'react'
 import styled from 'styled-components'
 
 
-
 const SearchInput:FC = ({}) => {
     const [searchValue,setSearchValue] = useState<string>('')
     const [searchParam,setSearchParam] = useState<string>('titre')
@@ -17,14 +16,16 @@ const SearchInput:FC = ({}) => {
     const handleClick = (searchParam: string, searchValue: string) => (
         event: MouseEvent<SVGSVGElement>
       ) => {
+        //const Base_url = process.env.BASE_URL;
+       //undefined console.log(Base_url)
         const inputValue = searchInput.current?.value ?? ""; // if undefined give me this
-        router.push(`search?searchParam=${searchParam}&searchValue=${inputValue}`);
+        router.push(`http://localhost:3000/search?searchParam=${searchParam}&searchValue=${inputValue}`);
       };
   return <Container>
     <select
         value={searchParam}
         onChange={changeParamHandler}
-        className="bg-white text-black rounded-lg p-2"
+        className="bg-transparent focus:outline-none text-slate-400 rounded-lg p-2"
       >
         <option value="">Select an option</option>
         <option value="auteur">Auteur</option>
@@ -35,8 +36,8 @@ const SearchInput:FC = ({}) => {
                 ref ={searchInput}
                 type="text"
                 autoComplete="none"
-                placeholder="livres ..."
-                className="p-2 m-2 rounded border placeholder-shown:border-gray-500 block"
+                placeholder="livres / auteur ..."
+                className="p-2 m-2 rounded focus:outline-none border bg-transparent text-slate-900 placeholder-shown:border-slate-400 block"
               />
               <Search strokeWidth="4" className="cursor-pointer block" onClick={handleClick(searchParam, searchValue)} />
             </div>

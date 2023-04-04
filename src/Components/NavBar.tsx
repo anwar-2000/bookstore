@@ -1,10 +1,7 @@
 import React   from "react";
-import { Menu, Search } from "lucide-react";
 import {ShoppingCart} from "lucide-react"
 import Link from "next/link";
-import {preparedFetchforInput } from "@/lib/helpers";
 
-import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "@/redux/reducers/Cart";
 import SearchInput from "./SearchInput";
@@ -16,9 +13,9 @@ const NavBar = () => {
 
   
   return <>
-    <section className="flex items-center justify-center sticky top-0 bg-white z-40">
-      <div className="flex justify-between items-center w-screen border ">
-        <div className="container mx-auto flex items-center justify-evenly text-slate-900 p-5 font-bold ">
+    <section className="flex items-center justify-center sticky top-0 bg-gray-600  z-40 ">
+      <div className="flex justify-between items-center w-screen pr-1">
+        <div className="container mx-auto flex items-center justify-evenly text-white p-5 font-bold ">
           <div className="flex gap-5 items-center justify-center ">
             <h1 className="">EMAUS CHATELLERAULT</h1>
           </div>

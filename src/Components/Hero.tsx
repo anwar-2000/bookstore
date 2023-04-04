@@ -9,15 +9,15 @@ const Hero = () => {
   return<>
    <Container>
           <Left>
-              <h1>Quelles Livres Vous Cherchez ?</h1>
-              <small>Vous êtes pas sûre ! Okay <br /> Explorez nos categories et liste des livres .</small>
-             <Link href={'/all'} ><button>Explorer maintenant !!</button></Link> 
+              <h1>Souhaitez-vous des recommandations de livres spécifiques ?</h1>
+              <small> Si vous n'êtes pas sûr de ce que vous recherchez, nous vous suggérons d'explorer notre sélection de catégories et de listes de livres pour trouver des options qui pourraient vous intéresser.</small>
+             <Link href={'/all'} ><button>Découvrir</button></Link> 
           </Left>
           <Right>
                 <img src="/book1.jpeg" alt='book1'  id="book1" />
                 <img src="/book2.jpg" alt='book2'  id="book2"  />
 
-                <small> + 22 000 Livres vous attends </small>
+                <small>+2000 Livres</small>
           </Right>
   </Container>
 
@@ -33,6 +33,7 @@ const Container = styled.div`
   flex-direction: row;
   margin-top: 2.5rem;
   margin-bottom: 7.5rem;
+  
 
   
 
@@ -51,18 +52,21 @@ const Left = styled.div`
 width: 50%;
 display: flex;
 flex-direction: column;
+align-items: start;
+justify-content: center;
 gap: 1.25rem;
 flex: 2;
 
 h1{
-font-size: 4.5rem;
+font-size: 2.9rem;
 font-weight: 400;
-margin-left: 1.5rem;
+margin-left: 2.8rem;
 }
 
 small {
   margin-left: 3rem;
   font-size: 1.5rem;
+  font-family: 'Playfair Display SC', serif;
 } 
 
 
@@ -70,23 +74,27 @@ button {
 padding: 0.3rem 1rem;
 border: solid 1px black;
 border-radius: 5px;
+font-family: 'Raleway', sans-serif;
+z-index: 11 ;
 width: 9rem;
 margin-left: 3rem;
+background-color: black;
 transition: all ease-in-out 400ms;
 font-weight: bold;
+color : white;
+ &:hover {
+  background-color: white;
+  color : black;
 }
-button:hover {
-  background-color: black;
-  color : white;
-  
 }
-
 /* styles for screens smaller than 768px */
 @media screen and (max-width: 767px) {
 align-items: center;
 justify-content: center;
 & h1 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-left: 0.5rem;
 }
 
 & small {
@@ -118,6 +126,7 @@ justify-content: center;
 
 & button {
   margin-left: 7.8rem;
+  z-index: 11;
 }
 }
 
@@ -130,18 +139,14 @@ const Right = styled.div`
   justify-content: end;
 
   small {
-    background-color: yellow;
-    color: black;
+    color: yellow;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
     font-size: 1rem;
-    border-radius: 10px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-radius: 50%;
     padding: 0.5rem 0.5rem;
-    transform: translateX(7rem);
+    transform: rotate(10deg) translate(-10rem,3rem);
     transition: all ease-in 400ms;
-  }
-  small:hover{
-      transform: translateX(0);
   }
 
 #book1{
@@ -159,15 +164,13 @@ background-size: cover;
 transform: translateY(10rem) rotate(10deg);
 box-shadow: 0px 0px 31px 12px rgba(239,255,8,0.75);
 -webkit-box-shadow: 0px 0px 31px 12px rgba(239,255,8,0.75);
--moz-box-shadow: 0px 0px 31px 12px
+-moz-box-shadow: 0px 0px 31px 12px rgba(239,255,8,0.75);
 
-
-rgba(239,255,8,0.75);
 }
 /* styles for screens smaller than 768px */
 @media screen and (max-width: 767px) {
-  & small:hover {
-    transform: translateX(7rem);
+  & small {
+    transform: rotate(25deg) translate(2.4rem,-1.5rem);
   }
   
   & #book1 , & #book2 {
@@ -185,8 +188,8 @@ rgba(239,255,8,0.75);
 
 /* styles for screens between 768px and 1024px */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-& small:hover {
-    transform: translateX(7rem);
+ & small:hover {
+    transform: translateX(-14rem);
   }
   
   & #book1 , & #book2 {
