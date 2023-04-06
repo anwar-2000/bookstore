@@ -58,6 +58,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: start;
     justify-content: start;
+    color: #4242ce;
     gap: 4rem;
     border-right: #4F6398 solid 1px;
    
@@ -77,8 +78,9 @@ const Container = styled.div`
 
         img {
             width: 35%;
-            margin-left: 2.5rem;
+            margin-left: 2.3rem;
             margin-bottom: 0.8rem;
+            mix-blend-mode: darken;
         }
     }
     .Menu {

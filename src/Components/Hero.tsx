@@ -139,7 +139,7 @@ const Right = styled.div`
   justify-content: end;
 
   small {
-    color: yellow;
+    color: #c9c900;
     font-family: 'Oswald', sans-serif;
     font-weight: 700;
     font-size: 1rem;

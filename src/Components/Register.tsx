@@ -28,9 +28,9 @@ const Register = () => {
     }
   return <Container>
         <h1>Register</h1>
-        <label htmlFor="username">Username :</label><input type="email" id="username" name="username" onChange={setFormData}/>
-        <label htmlFor="email">Email :</label> <input type="email" id="email" onChange={setFormData} name="email" />
-        <label htmlFor="password">Password :</label> <input type="password" id="password" onChange={setFormData}  name="password"/>
+        <label htmlFor="username">Username :</label><input type="email" id="username" name="username"  className='text-slate-700' onChange={setFormData}/>
+        <label htmlFor="email">Email :</label> <input type="email" id="email" onChange={setFormData}  className='text-slate-700' name="email" />
+        <label htmlFor="password">Password :</label> <input type="password" id="password" onChange={setFormData}  className='text-slate-700'  name="password"/>
 
         <button onClick={HandleClick}>Submit</button>
   </Container>

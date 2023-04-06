@@ -143,6 +143,9 @@ export async function addUser(req: NextApiRequest, res: NextApiResponse){
     if (!formData) {
       return res.status(404).json({ error: 'Register Form Data not provided' });
     }
+    const {email} = formData ;
+    const existingUser = await User.findOne({email});
+    if(existingUser) {return res.status(422).json({message : "User Already in DB"})}
     const user = await User.create(formData);
     console.log(user);
     res.status(201).json({user});

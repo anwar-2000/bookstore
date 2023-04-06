@@ -7,10 +7,10 @@ body{
     overflow-x: hidden;
     overflow-y: scroll;
     scroll-behavior: smooth;
-    background-color:  #333333;
-    color : white;
+    background-color:  #f2f3f4;
+    color : black;
 }
 
-h1{
+h1 , h3 , select , h5 {
     font-family: 'Playfair Display SC', serif;
 }

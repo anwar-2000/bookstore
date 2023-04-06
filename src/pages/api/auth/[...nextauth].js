@@ -10,32 +10,37 @@ export default nextAuth({
     },
     providers : [
         CredentialProvider({
-                    async authorize(credentials,req){
-
-                        try {
-                            await createMongoConnection();
-                          } catch (err) {
-                            res.status(500).json({ error: "Error in the connection" });
-                            return;
-                          }
-
-                        const {email,password} = credentials;
-                          console.log(email,password)
-                        const user = await User.findOne({email})
-
-                        if(!user){
-                            throw new Error("Invalid email or password")
+                   name : "Credentials",
+                   async  authorize(credentials,req){
+                        createMongoConnection().catch(err=>{error : "Failed To Connect"})
+                        //check existing 
+                        const result = await User.findOne({email : credentials.email})
+                        if(!result){
+                            throw new Error("No user found with email , Register Please !")
+                        }
+                        //comparing pwds
+                        const checkPassword = bcrypt.compare(credentials.password,result.password);
+                        //if incorrect 
+                        if(!checkPassword || result.email !==credentials.email){
+                            throw  new Error("Username or password doesnt match")
                         }
 
-                        const IsPasswordMatch = await bcrypt.compare(password,user.password);
-                        
-                        if(!password){
-                            throw new Error("Invalid email or password")
-                        }
-
-                        return user ;
-
-                    }
+                        return result;
+                   }
         })
-    ]
+    ],
+    callbacks: {
+        async jwt(token, user, account, profile, isNewUser) {
+          // Add isAdmin property to token only on sign in
+          if (user) {
+            token.isAdmin = user.isAdmin;
+          }
+          return token;
+        },
+        async session(session, token) {
+          // Add isAdmin property to session
+          session.user.isAdmin = token.isAdmin;
+          return session;
+        },
+      },
 })

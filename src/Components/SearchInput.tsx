@@ -25,7 +25,7 @@ const SearchInput:FC = ({}) => {
     <select
         value={searchParam}
         onChange={changeParamHandler}
-        className="bg-transparent focus:outline-none text-slate-400 rounded-lg p-2"
+        className="bg-transparent focus:outline-none text-slate-700 rounded-lg p-2"
       >
         <option value="">Select an option</option>
         <option value="auteur">Auteur</option>
@@ -35,11 +35,11 @@ const SearchInput:FC = ({}) => {
               <input
                 ref ={searchInput}
                 type="text"
-                autoComplete="none"
+                autoComplete="false"
                 placeholder="livres / auteur ..."
-                className="p-2 m-2 rounded focus:outline-none border bg-transparent text-slate-900 placeholder-shown:border-slate-400 block"
+                className="p-2 m-2 rounded focus:outline-none border bg-transparent text-slate-700 placeholder-shown:border-slate-700  block"
               />
-              <Search strokeWidth="4" className="cursor-pointer block" onClick={handleClick(searchParam, searchValue)} />
+              <Search strokeWidth="4" color='black' className="cursor-pointer block" onClick={handleClick(searchParam, searchValue)} />
             </div>
   </Container>
 }

@@ -14,6 +14,8 @@ export async function getServerSideProps(context: { params: { bookId: any } }) {
 import { Star } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { AddToCart, calculateTotal} from "@/redux/reducers/Cart";
+import { getSession, useSession } from "next-auth/react";
+import getStripe from "@/lib/getStripe";
 
 interface Book {
     titre: string;
@@ -32,6 +34,16 @@ interface Book {
     data: Book;
   }
 const index: NextPage<MyPageProps> = ({ data }) => {
+/** GETTING THE SESSION USER DATA  */
+const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    getSession().then((session : any) => {
+      setSession(session);
+      console.log('session in page component:', session);
+    });
+  }, []);
+  
     const dispatch = useDispatch();
   //const { bookId } = useSelector((state: any) => state.bookDetail);
   //const { data, isLoading, error } = useQuery(["detail", bookId], () =>
@@ -49,20 +61,49 @@ const index: NextPage<MyPageProps> = ({ data }) => {
         setDate(`${day}-${month}-${year}`)
 
     })
-  const router = useRouter();
 
+
+  const router = useRouter();
+ 
+  let book = {
+    titre : data.titre,
+    prix : data.prix,
+    image : data.image,
+    quantite : 1
+   }
   const handleClickPanier = () => {
-     let book = {
-      titre : data.titre,
-      prix : data.prix,
-      image : data.image
-     }
+     
      console.log( book)
      dispatch(AddToCart(book))
      dispatch(calculateTotal())
   };
 
-  const handleClickAchat = () => router.push("/achat");
+  const handleClickAchat = async () => {
+    const stripe = await getStripe();
+    //console.log("FOR STRIPE : ",cart)
+    const response = await fetch("/api/stripe", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify([book])
+    });
+    if (!response.ok) {
+      const error = await response.text();
+      console.error(error);
+      return;
+    }
+    // if error just exit function
+    if ((response as any).statusCode === 500) {
+      console.error((response as any).message);
+      return;
+    }
+
+    const data = await response.json();
+    /** TO DO : ADD RESIRECT STATE && message  */
+
+    stripe?.redirectToCheckout({ sessionId: data.id });
+  };
 
   return (
     <Section>

@@ -6,6 +6,7 @@ import { QueryClientProvider,QueryClient } from "react-query";
 import CartModal from "@/Components/ui/CartModal"
 import styled from "styled-components";
 import NavBar from "@/Components/NavBar";
+import { SessionProvider } from "next-auth/react";
 
 
 
@@ -31,8 +32,10 @@ export default function App({ Component, pageProps, router }: AppProps) {
   return (
     <QueryClientProvider client={queryclient}>
       <Provider store={store}>
+      <SessionProvider session={pageProps.session}>
         <NavBar />
         <MyApp Component={Component} pageProps={pageProps} router={router} />
+        </SessionProvider>
       </Provider>
     </QueryClientProvider>
   );
