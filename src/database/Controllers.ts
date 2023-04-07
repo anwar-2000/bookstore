@@ -153,3 +153,19 @@ export async function addUser(req: NextApiRequest, res: NextApiResponse){
     console.log(err); return res.status(500).json({error :"error"});
   }
 }
+
+export  async function  checkUserAdmin(req : NextApiRequest , res : NextApiResponse){
+    try {
+      const email = req.body
+      if(!email){
+        return res.status(404).json({error : 'Error Sending Email to DB'});
+      }
+      const user = await User.findOne({email});
+      if(!user){return res.status(404).json({error : 'User not found'});}
+      const isAdmin = user.isAdmin;
+      res.status(200).json({isAdmin})
+    }catch(err){
+      return res.status(500).json({err});
+    }
+
+}

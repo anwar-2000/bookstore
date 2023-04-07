@@ -1,12 +1,18 @@
-export async function getServerSideProps(context: { params: { bookId: any } }) {
-    const bookId = context.params.bookId;
-    const data = await fetchBook(bookId);
-    return { props: { data  } };
-  }
+import { GetServerSidePropsContext } from 'next'
+import { getSession } from 'next-auth/react'
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const bookId = context.params?.bookId as string
+  const data = await fetchBook(bookId)
+    //console.log("the author of the  book : " , data.auteur)
+  const session = await getSession(context)
+  //console.log("the session is " ,session)
+
+  return { props: { data , session} }
+}
   
 
-  import NavBar from "@/Components/NavBar";
-  import { useRouter } from "next/router";
+ import { useRouter } from "next/router";
   import React, { useEffect, useState } from "react";
   import styled from "styled-components";
   import { fetchBook } from "@/lib/helpers";
@@ -14,7 +20,6 @@ export async function getServerSideProps(context: { params: { bookId: any } }) {
 import { Star } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { AddToCart, calculateTotal} from "@/redux/reducers/Cart";
-import { getSession, useSession } from "next-auth/react";
 import getStripe from "@/lib/getStripe";
 
 interface Book {
@@ -32,18 +37,10 @@ interface Book {
 
   interface MyPageProps {
     data: Book;
+    session : any
   }
-const index: NextPage<MyPageProps> = ({ data }) => {
-/** GETTING THE SESSION USER DATA  */
-const [session, setSession] = useState(null);
-
-  useEffect(() => {
-    getSession().then((session : any) => {
-      setSession(session);
-      console.log('session in page component:', session);
-    });
-  }, []);
-  
+const index: NextPage<MyPageProps> = ({ data , session }) => {
+ 
     const dispatch = useDispatch();
   //const { bookId } = useSelector((state: any) => state.bookDetail);
   //const { data, isLoading, error } = useQuery(["detail", bookId], () =>
@@ -60,10 +57,7 @@ const [session, setSession] = useState(null);
 
         setDate(`${day}-${month}-${year}`)
 
-    })
-
-
-  const router = useRouter();
+    });
  
   let book = {
     titre : data.titre,
@@ -105,11 +99,19 @@ const [session, setSession] = useState(null);
     stripe?.redirectToCheckout({ sessionId: data.id });
   };
 
+ 
+
+
   return (
     <Section>
         <Container className="content">
           <Right>{<img src={data.image} alt={data.titre} />}</Right>
           <Left>
+          {session  ? (
+          <p>Hello, {session.user.email}</p>
+        ) : (
+          <p>You are not logged in.</p>
+        )}
             <div className="infos">
               <h1>{data.titre}</h1>
               <small>

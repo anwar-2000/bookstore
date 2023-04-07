@@ -41,7 +41,7 @@ export const updateBook = async (bookId : string ,formData:Object) =>{
             headers :{ "Content-Type" : "application/json"},
             body : JSON.stringify(formData)
         }
-        const response = await fetch(`${BASE_URL}/api/books/${bookId}`,options)
+        const response = await fetch(`${BASE_URL}/api/books?bookId=${bookId}`,options)
         const data = await response.json()
 
         return data
@@ -58,7 +58,7 @@ export const deleteBook = async (bookId : string) =>{
             method : "DELETE",
             headers :{ "Content-Type" : "application/json"}
         }
-        const response = await fetch(`${BASE_URL}/api/books/${bookId}`,options)
+        const response = await fetch(`${BASE_URL}/api/books?bookId=${bookId}`,options)
         const data = await response.json()
 
         return data
@@ -111,3 +111,29 @@ export const addUser = async (formData:Object) =>{
         return error
     }
  }
+
+//checking if user is admin
+export const checkAdminStatus = async (email: string) => {
+    try {
+      const options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      };
+      const response = await fetch(`${BASE_URL}/api/checkUserAdmin`, options);
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}`);
+      }
+      const data = await response.json();
+      return data.isAdmin;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  };
+ 
+  
+  
+  
+  
+  
