@@ -9,8 +9,8 @@ const Hero = () => {
   return<>
    <Container>
           <Left>
-              <h1>Souhaitez-vous des recommandations de livres spécifiques ?</h1>
-              <small> Si vous n'êtes pas sûr de ce que vous recherchez, nous vous suggérons d'explorer notre sélection de catégories et de listes de livres pour trouver des options qui pourraient vous intéresser.</small>
+              <h1>Vous cherchez votre prochaine lecture passionnante?</h1>
+              <small>Si vous ne savez pas exactement ce que vous cherchez, nous vous invitons à parcourir nos différentes catégories et listes de livres pour trouver des titres qui pourraient vous plaire</small>
              <Link href={'/all'} ><button>Découvrir</button></Link> 
           </Left>
           <Right>

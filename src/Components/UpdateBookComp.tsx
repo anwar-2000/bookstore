@@ -56,7 +56,7 @@ const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
         </FormGroup>
         <FormGroup>
           <label htmlFor='auteur'>Auteur:</label>
-          <input type='text'   id='auteur' name='auteur' value={formData.auteur} />
+          <input type='text'   id='auteur' name='auteur' value={formData.auteur} onChange={handleInputChange}  />
         </FormGroup>
         <FormGroup>
           <label htmlFor='categorie'>Categorie:</label>
@@ -79,8 +79,8 @@ const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
           <input type='number' onChange={handleInputChange} id='quantite' name='quantite'  min={1} step={1} value={formData.quantite}/>
         </FormGroup>
         <FormGroup>
-          <label htmlFor='etat'>Etat :</label>
-          <input type='text' onChange={handleInputChange} id='etat' name='etat' />
+          <label htmlFor='date_du_livre'>Date De Livre :</label>
+          <input type='date'  onChange={handleInputChange} id='date_du_livre' name='date_du_livre'/>
         </FormGroup>
         <FormGroup>
           <label htmlFor='prix'>Prix :</label>

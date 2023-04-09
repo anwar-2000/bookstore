@@ -67,7 +67,7 @@ const index: NextPage<MyPageProps> = ({ data , session }) => {
    }
   const handleClickPanier = () => {
      
-     console.log( book)
+     //console.log( book)
      dispatch(AddToCart(book))
      dispatch(calculateTotal())
   };
@@ -107,11 +107,6 @@ const index: NextPage<MyPageProps> = ({ data , session }) => {
         <Container className="content">
           <Right>{<img src={data.image} alt={data.titre} />}</Right>
           <Left>
-          {session  ? (
-          <p>Hello, {session.user.email}</p>
-        ) : (
-          <p>You are not logged in.</p>
-        )}
             <div className="infos">
               <h1>{data.titre}</h1>
               <small>

@@ -17,6 +17,7 @@ const NavBar = () => {
       <div className="flex justify-between items-center w-screen pr-1">
         <div className="container mx-auto flex items-center justify-evenly text-slate-700 p-5 font-bold ">
           <div className="flex gap-5 items-center justify-center ">
+            <img src="./logo.jpg" alt="" className="w-28 mix-blend-multiply" />
             <h1 className="">EMMAUS CHATELLERAULT</h1>
           </div>
           <div className= 'flex items-center justify-center gap-10 md:justify-end'>

@@ -41,7 +41,7 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
         </FormGroup>
         <FormGroup>
           <label htmlFor='auteur'>Auteur:</label>
-          <input type='text'   id='auteur' name='auteur' />
+          <input type='text'   id='auteur' name='auteur' onChange={setFormData} />
         </FormGroup>
         <FormGroup>
           <label htmlFor='categorie'>Categorie:</label>
@@ -64,8 +64,8 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
           <input type='number' onChange={setFormData} id='quantite' name='quantite'  min={1} step={1}/>
         </FormGroup>
         <FormGroup>
-          <label htmlFor='etat'>Etat :</label>
-          <input type='text' onChange={setFormData} id='etat' name='etat'/>
+          <label htmlFor='date_du_livre'>Date De Livre :</label>
+          <input type='date' onChange={setFormData} id='date_du_livre' name='date_du_livre'/>
         </FormGroup>
         <FormGroup>
           <label htmlFor='prix'>Prix :</label>
@@ -129,12 +129,31 @@ const FormGroup = styled.div`
   input[type='text'], input[type='number'], input[type='radio'] {
     margin-right: 10px;
     border: 1px solid black;
+    color: #555;
+    background-color: #fff;
     border-radius: 5px;
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
   }
+  input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    color: #555;
+    background-color: #fff;
+    width: 100%;
+  }
 
+  /* Styles for the date picker calendar popup */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    color: #555;
+    font-size: 16px;
+    padding: 4px;
+  }
   input[type='text'] {
     padding-right: 2rem;
   }
@@ -143,17 +162,10 @@ const FormGroup = styled.div`
     resize: vertical;
     border : solid 1px black;
     border-radius : 5px;
+    color: #555;
+    background-color: #fff;
   }
 `
-const RadioGroup = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-
-  label {
-    margin: 0;
-  }
-`;
 const Button = styled.button`
 margin-top: 10px;
 padding: 10px 60px;

@@ -47,6 +47,8 @@ const categories: NextPage<MyPageProps> = ({ categories }) => {
         <meta property="og:description" content="This is my page description" />
         <meta property="og:image" content="/my-page-image.jpg" />
       </Head>
+
+      
       <Container>
         <h1>Categories : </h1>
         <div className="categories">
