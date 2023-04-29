@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import styled from 'styled-components';
 
-const index = () => {
+const Index = () => {
     const router = useRouter()
     useEffect(() => {
         // Show toast message
@@ -29,7 +29,7 @@ const index = () => {
   </Container>
 }
 
-export default index
+export default Index
 
 const Container = styled.div`
     display : grid ;

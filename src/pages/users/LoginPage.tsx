@@ -4,11 +4,11 @@ import styled from 'styled-components'
 
 interface Props {}
 
-const login = () => {
+const LoginPage = () => {
   return <Container><Login /></Container>
 }
 
-export default login
+export default LoginPage
 
 const Container = styled.div`
     display: flex;

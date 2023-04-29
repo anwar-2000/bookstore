@@ -1,9 +1,8 @@
-import NavBar from "@/Components/NavBar";
-import { fetchCategories, preparedFetchforInput } from "@/lib/helpers";
+import { fetchCategories } from "@/lib/helpers";
 import { NextPage } from "next";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { fetchBooksOfCat } from "@/lib/utils";
+import { fetchBooksOfCat, useBooksOfCategory } from "@/lib/utils";
 import { useRouter } from "next/router";
 import BookItemSecond from "@/Components/ui/BookItemSecond";
 import { ClipLoader } from "react-spinners";
@@ -17,7 +16,7 @@ interface MyPageProps {
   categories: Categorie[];
 }
 
-const categories: NextPage<MyPageProps> = ({ categories }) => {
+const Categories: NextPage<MyPageProps> = ({ categories }) => {
   const router = useRouter();
   const [selectedCategorie, setSelectedCategorie] = useState(categories[0]);
 
@@ -25,7 +24,7 @@ const categories: NextPage<MyPageProps> = ({ categories }) => {
     setSelectedCategorie(categorie);
     //console.log(categorie)
   };
-  const { data: books, isLoading } = fetchBooksOfCat(selectedCategorie);
+  const { data: books, isLoading } = useBooksOfCategory(selectedCategorie);
 
   /** testing */ //it worked
   //useEffect(()=>{setSelectedCategorie('Fiction')},[selectedCategorie])
@@ -97,7 +96,7 @@ const categories: NextPage<MyPageProps> = ({ categories }) => {
   );
 };
 
-export default categories;
+export default Categories;
 
 export async function getServerSideProps() {
   const response = await fetchCategories();

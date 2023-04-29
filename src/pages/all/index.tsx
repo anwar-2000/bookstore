@@ -24,7 +24,7 @@ const Cartvariants = {
 
 const transition = { duration: 0.3, ease: "easeIn" };
 
-const index = () => {
+const Index = () => {
   /** STATES */
   const router = useRouter();
   const [page, setPage] = useState(1);
@@ -41,7 +41,6 @@ const index = () => {
   const { show } = useSelector((state: any) => state.cart);
   console.log("Show cart state : " + show);
 
-  const dispatch = useDispatch();
 
   /** LOGIC FOR CONTROLLING THE LIMIT AND PAGE */
 
@@ -158,7 +157,7 @@ const index = () => {
   </>;
 };
 
-export default index;
+export default Index;
 
 const Container = styled(motion.div)`
   display: flex;

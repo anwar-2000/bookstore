@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 interface Props {}
 
-const favories = () => {
+const Favories = () => {
   const router = useRouter()
   const [favories, setFavorie] = useState<[]>([]);
   // const router = useRouter();
@@ -66,7 +66,7 @@ const favories = () => {
   );
 };
 
-export default favories;
+export default Favories;
 
 const Container = styled.div`
   margin: 5rem 3rem;

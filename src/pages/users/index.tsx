@@ -4,11 +4,11 @@ import styled from 'styled-components'
 
 interface Props {}
 
-const index = () => {
+const Index = () => {
   return <Container> <Register /> </Container>
 }
 
-export default index
+export default Index
 
 const Container = styled.div`
     display: flex;

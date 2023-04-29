@@ -26,7 +26,7 @@ interface Props {
   response2 : any;
 }
 
-const index: FC<Props> = ({ response1,response2 }) => {
+const Index: FC<Props> = ({ response1,response2 }) => {
   const router = useRouter();
 
   const handleClick = (bookId: string) => {
@@ -99,7 +99,7 @@ const index: FC<Props> = ({ response1,response2 }) => {
   );
 };
 
-export default index;
+export default Index;
 
 const Container = styled.div`
   display: flex;

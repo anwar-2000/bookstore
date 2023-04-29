@@ -42,7 +42,7 @@ interface MyPageProps {
   };
 }
 
-const index: NextPage<MyPageProps> = ({ session, existdata }) => {
+const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
   const [isAdmin, setIsAdmin] = useState<boolean>();
   /** CHECK IF USER IN SESSION IS ADMIN */
   const router = useRouter();
@@ -217,7 +217,7 @@ const index: NextPage<MyPageProps> = ({ session, existdata }) => {
   );
 };
 
-export default index;
+export default Index;
 
 const Container = styled.div`
   display: flex;

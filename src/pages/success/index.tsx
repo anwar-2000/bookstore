@@ -9,7 +9,7 @@ import { ArrowBigLeft } from 'lucide-react';
 
 interface Props {}
 
-const index = () => {
+const Index = () => {
     const router = useRouter()
     const containerRef = useRef<HTMLDivElement>(null)
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
@@ -49,7 +49,7 @@ const index = () => {
   
 };
 
-export default index;
+export default Index;
 
 const Container = styled.div`
   height: 80vh;
