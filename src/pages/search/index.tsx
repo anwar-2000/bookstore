@@ -10,7 +10,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const [response1, response2] = await Promise.all([
     preparedFetchforInput(searchParam, searchValue),
     fetchBooks(page, limit)]);
-  //console.log(response)
+ // console.log(response1)
   return { props: { response1,response2 } };
 }
 
