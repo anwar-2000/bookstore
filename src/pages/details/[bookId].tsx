@@ -41,7 +41,7 @@ interface Book {
     data: Book;
     session : any
   }
-const index: NextPage<MyPageProps> = ({ data , session }) => {
+const Index: NextPage<MyPageProps> = ({ data , session }) => {
  
     const dispatch = useDispatch();
   //const { bookId } = useSelector((state: any) => state.bookDetail);
@@ -59,7 +59,7 @@ const index: NextPage<MyPageProps> = ({ data , session }) => {
 
         setDate(`${day}-${month}-${year}`)
 
-    });
+    },[data.date]);
  
   let book = {
     titre : data.titre,
@@ -148,7 +148,7 @@ const index: NextPage<MyPageProps> = ({ data , session }) => {
   );
 };
 
-export default index;
+export default Index;
 
 const Section = styled.section`
   display: flex;
