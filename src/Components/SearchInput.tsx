@@ -14,13 +14,11 @@ const SearchInput:FC = ({}) => {
         if (searchParam === 'titre') {setSearchParam('auteur')} else {setSearchParam('titre')}
     }
     const handleClick = (searchParam: string, searchValue: string) => (
-        event: MouseEvent<SVGSVGElement>
-      ) => {
-        //const Base_url = process.env.BASE_URL;
-       //undefined console.log(Base_url)
-        const inputValue = searchInput.current?.value ?? ""; // if undefined give me this
-        router.push(`http://localhost:3000/search?searchParam=${searchParam}&searchValue=${inputValue}`);
-      };
+      event: MouseEvent<SVGSVGElement>
+    ) => {
+      const inputValue = searchInput.current?.value ?? "";
+      router.push(`/search?searchParam=${searchParam}&searchValue=${inputValue}`);
+    };
   return <Container>
     <select
         value={searchParam}
