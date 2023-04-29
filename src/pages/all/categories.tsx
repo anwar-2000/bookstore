@@ -2,7 +2,7 @@ import { fetchCategories } from "@/lib/helpers";
 import { NextPage } from "next";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { fetchBooksOfCat, useBooksOfCategory } from "@/lib/utils";
+import {useBooksOfCategory } from "@/lib/useBooksOfCategory";
 import { useRouter } from "next/router";
 import BookItemSecond from "@/Components/ui/BookItemSecond";
 import { ClipLoader } from "react-spinners";
