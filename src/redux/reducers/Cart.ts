@@ -31,7 +31,7 @@ export const CartSlice = createSlice({
     reducers : {
         toggleCart (state) {
             state.show = !state.show
-            console.log( "Show cart state : " + state.show)
+            //console.log( "Show cart state : " + state.show)
         },
         AddToFavorite(state,action){
             const index = state.favoriteList.findIndex(book => book.titre === action.payload.titre);

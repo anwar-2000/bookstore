@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
 }
 
 export default function App({ Component, pageProps, router }: AppProps) {
-  console.log("APP TSX : ",pageProps.session)
+  //console.log("APP TSX : ",pageProps.session)
   return (
     <QueryClientProvider client={queryclient}>
       <Provider store={store}>
