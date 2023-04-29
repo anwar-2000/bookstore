@@ -1,5 +1,5 @@
 import { Star , Heart } from 'lucide-react'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {AddToFavorite} from "@/redux/reducers/Cart";
@@ -11,20 +11,46 @@ interface Props extends React.HTMLAttributes<HTMLElement>{
 }
 
 const BookItemSecond:FC<Props> = ({title , image , rating, prix , ...rest}) => {
-    const dispatch = useDispatch();
-    const {favoriteList} = useSelector((state:any)=>state.cart);
-    const isFavorite = favoriteList.map((item: any) => item.title).includes(title);
-    const [favorite, setFavorite] = useState<boolean>(isFavorite);
+    const [favorite, setFavorite] = useState<boolean>(false);
+
+    useEffect(() => {
+        // Get the current favoriteList from localStorage
+        const favoriteListString = localStorage.getItem('favoriteBooksList');
+        const favoriteList = JSON.parse(favoriteListString as string) || [];
     
-   const favoriteclickHandler = () => {
-    let book = {
-        title , 
-        prix ,
-        image , 
-    }
-    dispatch(AddToFavorite(book));
-     setFavorite(true)
-    }
+        // Check if the book is in the favoriteList
+        const isFavorite = favoriteList.map((item: any) => item.title).includes(title);
+    
+        // Update the favorite state
+        setFavorite(isFavorite);
+    }, []);
+    const favoriteclickHandler = () => {
+        let book = {
+            title,
+            prix,
+            image,
+        };    
+        const favoriteListString = localStorage.getItem('favoriteBooksList');
+
+        const favoriteList = JSON.parse(favoriteListString as string) || [];
+        // Checking if the book is already in the favoriteList
+        const index = favoriteList.findIndex((item: any) => item.title === book.title);
+    
+        if (index !== -1) {
+            // If the book is in the favoriteList, remove it
+            favoriteList.splice(index, 1);
+        } else {
+            // If the book is not in the favoriteList, add it
+            favoriteList.push(book);
+        }
+    
+        // Updating localStorage with the new favoriteList
+        const newFavoriteListString = JSON.stringify(favoriteList);
+        localStorage.setItem('favoriteBooksList', newFavoriteListString);
+    
+        // Updating the favorite state to reflect whether the book is in the favoriteList or not
+        setFavorite(index === -1);
+    };
   return <Container {...rest}>
         <div className='image__rating'>
                 <img src={image} alt={title} id="imgg" />
@@ -32,7 +58,7 @@ const BookItemSecond:FC<Props> = ({title , image , rating, prix , ...rest}) => {
         <div className='rating'> 
                <Star fill="yellow" color='black'  size={15} /><h6>{rating}</h6>
         </div>
-       <div className='heart' onClick={favoriteclickHandler}><Heart fill={favorite ? 'red' : 'none'} color='red' size={15} /></div> 
+       <div className='heart' onClick={favoriteclickHandler}><Heart fill={favorite ? 'red' : 'none'} color='red' size={18} /></div> 
        <h2>{title}</h2>
        <h6 id='prix'> Prix : {prix} €</h6>
        
@@ -42,7 +68,7 @@ const BookItemSecond:FC<Props> = ({title , image , rating, prix , ...rest}) => {
 export default BookItemSecond;
 
 const Container = styled.div`
-    width: 10rem;
+    width: 8rem;
     display: grid;
     place-items: center;
     border-radius: 5%;

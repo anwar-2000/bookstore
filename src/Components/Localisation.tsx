@@ -12,9 +12,19 @@ margin-left: 2.8rem;
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 4rem;
   justify-content: center;
   font-weight: 400;
+
+   /* styles for screens smaller than 768px */
+   @media screen and (max-width: 767px) {
+    flex-direction: column;
+    margin-top : 9rem;
+  }
+
+  /* styles for screens between 768px and 1024px */
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;
 
 const LeftContainer = styled.div`
@@ -23,10 +33,14 @@ const LeftContainer = styled.div`
   gap : 2.1rem;
   flex: 1;
   align-items: center;
+  justify-content : center;   
 `;
 
 const RightContainer = styled.div`
   flex: 1;
+  display : flex;
+  align-items : center;
+  justify-content : center;
 `;
 
 const Title = styled.h2`
@@ -74,7 +88,7 @@ const Localisation: React.FC = ({}) => {
         <RightContainer>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d43687.210512596976!2d0.5027277515512434!3d46.81512610030111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47fda9dc6433bd53%3A0x8e2c902e5136d38d!2zQnJpYyDDoCBCcmFjIEVtbWHDvHM!5e0!3m2!1sen!2sfr!4v1681061101272!5m2!1sen!2sfr"
-            width="600"
+            width="auto"
             height="450"
             style={{ border: 0 }}
             allowFullScreen={true}

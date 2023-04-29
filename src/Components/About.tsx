@@ -11,7 +11,7 @@ font-weight: 400;
 }
 `;
 
-const Header = styled.h2`
+const Header = styled.h1`
   text-align: center;
   margin-bottom: 20px;
 `;
@@ -47,7 +47,7 @@ const AboutSection: React.FC = ({}) => {
     const  imageUrl = "./logo.jpg"
     return (
       <SectionContainer>
-        <Header> <h1>À propos de nous</h1></Header>
+        <Header>À propos de nous</Header>
         <ColumnsContainer>
           <TextColumn>{text}</TextColumn>
           <ImageColumn>

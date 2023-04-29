@@ -35,15 +35,16 @@ export const CartSlice = createSlice({
         },
         AddToFavorite(state,action){
             const index = state.favoriteList.findIndex(book => book.titre === action.payload.titre);
-            if (index !== -1) {
+             /* if (index !== -1) {
                 // If the item is in the favoriteList , remove it ....
                 state.favoriteList.splice(index, 1);
-            } else {
+            } else { */
             state.favoriteList = [...state.favoriteList , action.payload];
+            console.log(state.favoriteList)
               // Store the favoriteList in localStorage
                      const favoriteListString = JSON.stringify(state.favoriteList);
                      localStorage.setItem('favoriteBooksList', favoriteListString);
-        }
+        //}
         },
         AddToCart(state, action) {
             const index = state.cart.findIndex(book => book.titre === action.payload.titre);

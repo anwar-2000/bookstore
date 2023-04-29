@@ -12,8 +12,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
   
 
- import { useRouter } from "next/router";
-  import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState } from "react";
   import styled from "styled-components";
   import { fetchBook } from "@/lib/helpers";
   import { NextPage } from "next";
@@ -21,6 +20,9 @@ import { Star } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { AddToCart, calculateTotal} from "@/redux/reducers/Cart";
 import getStripe from "@/lib/getStripe";
+import { toast } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
+
 
 interface Book {
     titre: string;
@@ -66,10 +68,15 @@ const index: NextPage<MyPageProps> = ({ data , session }) => {
     quantite : 1
    }
   const handleClickPanier = () => {
-     
+   
      //console.log( book)
      dispatch(AddToCart(book))
      dispatch(calculateTotal())
+
+     toast.success(`Le Livre ${book.titre} est dans votre Panier`,{
+      position: toast.POSITION.TOP_RIGHT,
+      theme: "colored"
+    });
   };
 
   const handleClickAchat = async () => {
@@ -94,7 +101,7 @@ const index: NextPage<MyPageProps> = ({ data , session }) => {
     }
 
     const data = await response.json();
-    /** TO DO : ADD RESIRECT STATE && message  */
+    /** TO DO : ADD REDIRECT STATE && message  */
 
     stripe?.redirectToCheckout({ sessionId: data.id });
   };
@@ -118,7 +125,7 @@ const index: NextPage<MyPageProps> = ({ data , session }) => {
               </p>
               <h6>
                 <>
-                <span>Date du Livre :</span>
+                <span>Edité Le :</span>
                 {date}
                 </>
               </h6>
@@ -181,10 +188,12 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: center;
   gap: 4rem;
+  margin-bottom : 4rem;
 
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
     flex-direction: column;
+    margin-top : 9rem;
   }
 
   /* styles for screens between 768px and 1024px */

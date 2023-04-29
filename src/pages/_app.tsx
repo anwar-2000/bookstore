@@ -9,6 +9,7 @@ import NavBar from "@/Components/NavBar";
 import { SessionProvider } from "next-auth/react";
 
 import { ToastContainer } from 'react-toastify';
+import Footer from "@/Components/Footer";
 
 
 
@@ -37,7 +38,8 @@ export default function App({ Component, pageProps, router }: AppProps) {
       <SessionProvider session={pageProps.session}>
         <NavBar />
         <MyApp Component={Component} pageProps={pageProps} router={router} />
-        <ToastContainer autoClose={6000} />
+        <Footer />
+        <ToastContainer autoClose={6000}  key="unique_key" />
         </SessionProvider>
       </Provider>
     </QueryClientProvider>

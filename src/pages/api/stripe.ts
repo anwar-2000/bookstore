@@ -35,8 +35,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             {shipping_rate : 'shr_1MteODHz6XdTAx5roOigV92M'} //fast shupping 20 €
         ],
         line_items: lineItems,
-        success_url: `${req.headers.origin}/?success=true`,
-        cancel_url: `${req.headers.origin}/?canceled=true`,
+        success_url: `${req.headers.origin}/success`,
+        cancel_url: `${req.headers.origin}/canceled`,
       }
       const session : Stripe.Checkout.Session = await stripe.checkout.sessions.create(params);
       res.status(200).json(session);
