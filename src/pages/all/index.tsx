@@ -1,6 +1,6 @@
 import SideNav from "@/Components/ui/SideNav";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { ArrowBigLeft, ArrowBigRight, Search } from "lucide-react";
 import { motion } from "framer-motion";
