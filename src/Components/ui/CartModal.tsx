@@ -84,7 +84,7 @@ const CartModal = () => {
           ))}
         </div>
 
-        {cart.length === 0 && <h4> 0 Livres Dans le Panier </h4>}
+        {cart.length === 0 && <h4> 0 Livres Dans Votre Panier </h4>}
 
         <div className="total_pay">
           <h3>Total : {total} €</h3>
@@ -106,7 +106,7 @@ const Container = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #eedddd;
+  color: #292424;
   font-weight: lighter;
   justify-content: center;
   width: 40rem;
@@ -115,7 +115,7 @@ const Container = styled.div`
   border: solid 1px white;
   z-index: 99;
   padding: 1.5rem;
-  background-color: #1f2937;
+  background-color: #f3f3f3;
 
   .items {
     gap: 0.5rem;
@@ -131,7 +131,7 @@ const Container = styled.div`
   }
   h3 {
     padding: 0.5rem 2rem;
-    color: white;
+    color: #413d3d;
     margin: 1.5rem;
     border-radius: 10px;
     font-family: "Raleway" !important;
@@ -154,6 +154,27 @@ const Container = styled.div`
       &:hover {
         padding: 0.5rem 3rem;
       }
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    width: 80%;
+    height: 40%;
+    padding: 1rem;
+    font-size: 0.8rem;
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    h3 {
+      padding: 0.5rem 1rem;
+      margin: 1rem;
+    }
+
+    .total_pay button {
+      padding: 0.5rem;
+      font-size: 0.8rem;
     }
   }
 `;

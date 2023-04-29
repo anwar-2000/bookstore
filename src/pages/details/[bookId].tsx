@@ -157,6 +157,7 @@ const Section = styled.section`
   justify-content: center;
   width: 100%;
   gap: 2rem;
+  overflow-x: hidden;
 
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
@@ -179,7 +180,6 @@ const Section = styled.section`
     }
   }
 `;
-
 const Container = styled.div`
   margin-top: 4rem;
   height: 80vh;
@@ -286,6 +286,10 @@ const Left = styled.div`
         margin-right: 0.2rem;
     }
   }
+  & .buttons {
+      margin : 0 5rem !important;
+    }
+    
     & .infos {
       justify-content: center;
       align-items: center;
@@ -335,6 +339,7 @@ const Right = styled.div`
         width: 350px;
          height: 350px;
     }
+
   }
 
   /* styles for screens between 768px and 1024px */

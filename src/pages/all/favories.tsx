@@ -12,12 +12,16 @@ const Favories = () => {
   const router = useRouter()
   const [favories, setFavorie] = useState<[]>([]);
   // const router = useRouter();
-    useEffect(() => {
+  useEffect(() => {
     // This code will only run on the client-side
-    const favoriteListString = localStorage.getItem('favoriteBooksList');
-    const favoriteList = JSON.parse(favoriteListString as string);
-    setFavorie(favoriteList);
-}, []);
+    let favoriteList = localStorage.getItem('favoriteBooksList');
+    if (!favoriteList) {
+      localStorage.setItem('favoriteBooksList', JSON.stringify([]));
+      favoriteList = '[]';
+    }
+    setFavorie(JSON.parse(favoriteList));
+  }, []);
+
 
   //  console.log(favories);
   

@@ -54,7 +54,7 @@ const SideNav:FC<Props> = ({...rest}) => {
 export default SideNav
 
 const Container = styled.div`
-    width: 28rem;
+    width: 28.5rem;
     height: 100vh;
     display: flex;
     flex-direction: column;

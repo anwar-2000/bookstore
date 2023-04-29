@@ -5,9 +5,11 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "@/redux/reducers/Cart";
 import SearchInput from "./SearchInput";
+import { useRouter } from "next/router";
 
 
 const NavBar = () => {
+  const router = useRouter()
   const {items} = useSelector((state:any)=>state.cart)
   const dispatch = useDispatch()
 
@@ -15,12 +17,12 @@ const NavBar = () => {
   return <>
     <section className="flex items-center justify-center sticky top-0 bg-yellow-400  z-40 ">
       <div className="flex justify-between items-center w-screen pr-1">
-        <div className="container mx-auto flex items-center justify-evenly text-slate-700 p-5 font-bold ">
-          <div className="flex gap-5 items-center justify-center ">
-            <img src="./logo.jpg" alt="" className="w-28 mix-blend-multiply" />
-            <h1 className="">EMMAUS CHATELLERAULT</h1>
+        <div className="container mx-auto flex items-center justify-evenly text-slate-700 p-5 font-bold gap-5 md:gap-0 ">
+          <div className="flex gap-0 items-center justify-center ">
+            <img src="./logo.jpg" alt="" className="w-28 mix-blend-multiply cursor-pointer" onClick={()=>router.push('/')} />
+            <h1 className="text-xs md:text-xl whitespace-nowrap">EMMAUS CHATELLERAULT</h1>
           </div>
-          <div className= 'flex items-center justify-center gap-10 md:justify-end'>
+          <div className= 'flex items-center justify-center gap-5 md:justify-end'>
             <div className="flex items-center justify-center">
               <div className=" hidden md:block">
               <SearchInput />
@@ -29,7 +31,7 @@ const NavBar = () => {
           </div>
           <Link href='/'>
           <div>
-            <h3>Acceuil</h3>
+            <h3>Accueil</h3>
           </div>
           </Link>
           <div className="flex items-center justify-end">

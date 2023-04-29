@@ -154,7 +154,7 @@ const Index = () => {
         transition={transition}
       ></motion.div>
     </Container>
-  </>;
+  </>
 };
 
 export default Index;
