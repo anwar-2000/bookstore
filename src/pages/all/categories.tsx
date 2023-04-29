@@ -18,12 +18,14 @@ interface MyPageProps {
 
 const Categories: NextPage<MyPageProps> = ({ categories }) => {
   const router = useRouter();
-  const [selectedCategorie, setSelectedCategorie] = useState(categories[0]);
+  // @ts-ignore
+  const [selectedCategorie, setSelectedCategorie] = useState<String>(categories[0]);
 
   const selectCategoryHandler = (categorie: any) => {
     setSelectedCategorie(categorie);
     //console.log(categorie)
   };
+// @ts-ignore
   const { data: books, isLoading } = useBooksOfCategory(selectedCategorie);
 
   /** testing */ //it worked
@@ -53,7 +55,8 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
         <div className="categories">
           {categories.map((categoryy, i: number) => (
             <h1 key={i} onClick={() => selectCategoryHandler(categoryy)}>
-              {categoryy}
+              {/* @ts-ignore */}
+                {categoryy}
             </h1>
           ))}
         </div>
