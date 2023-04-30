@@ -51,7 +51,6 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
 
       
       <Container>
-        <h1>Categories : </h1>
         <div className="categories">
           {categories.map((categoryy, i: number) => (
             <h1 key={i} onClick={() => selectCategoryHandler(categoryy)}>
@@ -113,32 +112,35 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 2.5rem;
 
   h1 {
-    font-size: 1.5rem;
-    margin: 0 2rem;
+    
   }
 
   .categories{
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    overflow-x: scroll;
+    white-space: nowrap;
+    margin-top : 0.5rem;
 
     h1{
-      width: auto;
+       font-size: 1rem;
+       width: auto;
       cursor: pointer;
-      padding: 0.3rem 0.5rem;
+      padding: 0.3rem 0.7rem;
       border-radius: 10px;
       color: black;
       transition: all ease 400ms;
       &:hover{
-        background-color: #534e4e;
+        background-color: #161616;
+        color : white;
       }
 
       &:focus{
-        background-color: #534e4e;
+        background-color: #161616;
+        color : white;
       }
     }
   }

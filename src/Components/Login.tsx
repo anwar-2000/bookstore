@@ -54,26 +54,64 @@ const Login = () => {
 
     }
   return <Container>
-        <h1>Login</h1>
-        <label htmlFor="email">Email :</label> <input type="email" id="email"  className='text-slate-700' onChange={handleEmailChange} />
-        <label htmlFor="password">Password :</label><input type="password" className='text-slate-700' id="password" onChange={handlePasswordChange} />
+        <Title>Connectez Vous (Admin)</Title>
+        <Label htmlFor="email">Email :</Label> <Input type="email" id="email"  className='text-slate-700' onChange={handleEmailChange} />
+        <Label htmlFor="password">Password :</Label><Input type="password" className='text-slate-700' id="password" onChange={handlePasswordChange} />
 
-        <button onClick={HandleClick}>Submit</button>
+        <Button onClick={HandleClick}>Connecter</Button>
   </Container>
 }
 
 export default Login
 
 const Container = styled.div`
-    width: 20rem;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
-    h1{
-        font-size: 2rem;
-    }
-`
+const Title = styled.h1`
+  font-size: 2rem;
+`;
+
+const FormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+`;
+
+const Label = styled.label`
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+`;
+
+const Input = styled.input`
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+`;
+
+const Button = styled.button`
+  background-color: #3182ce;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  margin-top : 2rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #2b6cb0;
+  }
+`;

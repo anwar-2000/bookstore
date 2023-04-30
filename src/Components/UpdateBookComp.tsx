@@ -25,7 +25,7 @@ interface Props {
 
 const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
   const [formData, setFormData] = useState<BookData>(existingData);
-  const [message, setMessage] = useState<string>('');
+
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -79,6 +79,10 @@ const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
           <input type='number' onChange={handleInputChange} id='quantite' name='quantite'  min={1} step={1} value={formData.quantite}/>
         </FormGroup>
         <FormGroup>
+          <label htmlFor='etat'>Etat :</label>
+          <input type='text' onChange={handleInputChange} id='etat' name='etat'  value={formData.etat}/>
+        </FormGroup>
+        <FormGroup>
           <label htmlFor='date_du_livre'>Date De Livre :</label>
           <input type='date'  onChange={handleInputChange} id='date_du_livre' name='date_du_livre'/>
         </FormGroup>
@@ -111,7 +115,7 @@ export default UpdateBookComp
 
 const Container = styled.div`
   width: 100%;
-  height: 70vh;
+  height: 50vh;
   display: flex;
   margin-top : 1.8rem;
   gap: 5rem;
@@ -123,10 +127,9 @@ const Container = styled.div`
 
 const Form = styled.form`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  grid-template-columns: repeat(5, 2fr);
+  gap: 1rem;
   justify-items: center;
-
 `
 
 const FormGroup = styled.div`
@@ -137,31 +140,36 @@ const FormGroup = styled.div`
   width: 100%;
 
   label {
-    margin-right: 10px;
-    margin-bottom: 5px;
-  }
+  margin-right: 10px;
+  margin-bottom: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: light;
+  font-size: 0.8rem;
+}
   input , textarea  {
-    background : none;
+    background : white;
+ 
   }
 
-  input[type='text'], input[type='number'], input[type='radio'] {
-    margin-right: 10px;
-    border: 1px solid black;
-    border-radius: 5px;
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-  }
+  input[type='text'], input[type='number'], input[type='radio'],input[type='date'] , textarea{
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #555;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
 
-  input[type='text'] {
-    padding-right: 2rem;
-  }
-  textarea {
-    height: 100px;
-    resize: vertical;
-    border : solid 1px black;
-    border-radius : 5px;
-  }
+input[type='text']:focus, input[type='number']:focus, input[type='radio']:focus , textarea:focus , input[type='date']:focus {
+  border-color: #4c7cff;
+}
+
+ 
+
 `
 
 const Button = styled.button`
@@ -172,6 +180,7 @@ color: #ffffff;
 border: none;
 border-radius: 5px;
 cursor: pointer;
+transform : translateX(15rem);
 
 &:hover {
 background-color: #0066b2;

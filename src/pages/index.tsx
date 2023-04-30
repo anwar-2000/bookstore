@@ -1,8 +1,7 @@
 import AboutSection from "@/Components/About";
-import Footer from "@/Components/Footer";
+import "react-toastify/dist/ReactToastify.css";
 import Hero from "@/Components/Hero";
 import Localisation from "@/Components/Localisation";
-import RecentBooks from "@/Components/RecentBooks";
 import Head from "next/head";
 
 

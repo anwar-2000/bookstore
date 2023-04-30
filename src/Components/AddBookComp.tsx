@@ -126,45 +126,37 @@ const FormGroup = styled.div`
     margin-bottom: 5px;
   }
 
-  input[type='text'], input[type='number'], input[type='radio'] {
-    margin-right: 10px;
-    border: 1px solid black;
-    color: #555;
-    background-color: #fff;
-    border-radius: 5px;
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-  }
-  input[type="date"] {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 16px;
-    font-family: Arial, sans-serif;
-    color: #555;
-    background-color: #fff;
-    width: 100%;
+  input , textarea  {
+    background : white;
+ 
   }
 
+  input[type='text'], input[type='number'], input[type='radio'],input[type='date'] , textarea{
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #555;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+input[type='text']:focus, input[type='number']:focus, input[type='radio']:focus , textarea:focus , input[type='date']:focus {
+  border-color: #4c7cff;
+}
   /* Styles for the date picker calendar popup */
   input[type="date"]::-webkit-calendar-picker-indicator {
-    color: #555;
+    color: #fffb09 !important;
     font-size: 16px;
     padding: 4px;
   }
   input[type='text'] {
     padding-right: 2rem;
   }
-  textarea {
-    height: 100px;
-    resize: vertical;
-    border : solid 1px black;
-    border-radius : 5px;
-    color: #555;
-    background-color: #fff;
-  }
+ 
 `
 const Button = styled.button`
 margin-top: 10px;

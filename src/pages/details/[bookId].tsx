@@ -28,6 +28,7 @@ interface Book {
     titre: string;
     auteur: string;
     description: string;
+    etat : string;
     prix: number;
     image: string;
     status: string;
@@ -119,10 +120,14 @@ const Index: NextPage<MyPageProps> = ({ data , session }) => {
               <small>
                 <span>Auteur :</span> {data.auteur}
               </small>
-              <p>
-                <span>Description :</span>
-                {data.description}
-              </p>
+              <details>
+                <summary>Description :</summary>
+               <p>{data.description}</p>
+              </details>
+              <details>
+                <summary>Etat :</summary>
+               <p>{data.etat}</p>
+              </details>
               <h6>
                 <>
                 <span>Edité Le :</span>
@@ -174,7 +179,6 @@ const Section = styled.section`
 
   @media screen and (min-width: 912px) and (max-width: 1024px) {
     gap: 0rem;
-    overflow-y: scroll;
     .content {
       transform: translateY(-11rem);
     }
@@ -206,7 +210,40 @@ const Left = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
+  /* Hide the details element content by default */
+  details {
+    overflow: hidden;
+  }
+  
+  /* Add a transition for the height property */
+  details[open] {
+    height: auto;
+    transition: height 1.3s ease-in-out;
+  }
+  
+  /* Style the summary element */
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Change the icon when the details element is open */
+  details[open] summary::before {
+    content: "-";
+  }
+  
+  /* Change the icon when the details element is closed */
+  details:not([open]) summary::before {
+    content: "+";
+  }
+  
+  /* Style the details element content */
+  details p {
+    margin: 0;
+    padding: 0.5rem 0;
+    
+  }
   .rating{
     display: flex;
     align-items: center;

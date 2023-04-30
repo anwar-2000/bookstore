@@ -13,9 +13,18 @@ function showToast(sessionUserEmail: string) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
   //console.log("the session is " ,session)
-
+   if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
   return { props: { session } };
 }
+
+
 
 import AddBookComp from "@/Components/AddBookComp";
 import React, { useEffect, useState } from "react";
@@ -158,7 +167,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                 id="showFormTrigger"
                 onClick={() => setShowEditform(!showForm)}
               >
-                ADD BOOK FORM
+                Formulaire de rajouter les Livres
               </button>
             )}
             <Table>
@@ -258,6 +267,11 @@ const FormDiv = styled.div`
   dislpay: flex;
   align-items: center;
   justify-content: start;
+  h1 {
+    text-align : center;
+    font-weight : bold;
+    font-size : 20px;
+  }
 `;
 
 const Table = styled.table`

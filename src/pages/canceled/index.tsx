@@ -9,14 +9,14 @@ const Index = () => {
     useEffect(() => {
         // Show toast message
         toast.error('Payment Annullé!', {
-          autoClose: 5000, // 5 seconds
+          autoClose: 2000, // 2 seconds
           position: toast.POSITION.TOP_CENTER
         });
     
-        // Redirect after 5 seconds
+        // Redirect after 3 seconds
         const timer = setTimeout(() => {
           router.push('/all'); // Redirect to home page
-        }, 5000);
+        }, 3000);
     
         // Clean up timer
         return () => clearTimeout(timer);
@@ -36,4 +36,8 @@ const Container = styled.div`
     margin-top : 3rem;
     place-items : center;
     height : 80vh;
+    img {
+      mix-blend-mode : multiply ;
+    }
+
 `

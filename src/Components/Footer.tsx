@@ -6,8 +6,12 @@ const FooterContainer = styled.footer`
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  margin-top : 4rem;
   background-color : #FACC15;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height : 5rem;
+  
 `;
 
 const ListContainer = styled.div`
@@ -23,15 +27,16 @@ const List = styled.ol`
 `;
 
 const Image = styled.img`
-  max-width: 200px;
+  max-width: 130px;
 
   mix-blend-mode : multiply;
 `;
 
 const Footer: React.FC = () => {
+  const BASE_URL:string ="https://bookstore-delta-two.vercel.app"
   const list1 = ['Item 1', 'Item 2', 'Item 3'];
   const list2 = ['Item A', 'Item B', 'Item C'];
-  const imageUrl = './logo.jpg';
+  const imageUrl = `${BASE_URL}/logo.jpg`;
 
   return (
     <FooterContainer>

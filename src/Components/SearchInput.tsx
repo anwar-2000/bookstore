@@ -45,16 +45,28 @@ const SearchInput:FC = ({}) => {
 export default SearchInput
 
 const Container = styled.div`
-transform: translateX(0.4rem);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
+  transform: translateX(0.4rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-left : 2rem;
 
-      #inputs {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-  
-`
+  #inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Add media queries here */
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+
+    #inputs {
+      flex-direction: row;
+      margin-left : 2rem;
+      gap: 0.5rem;
+    }
+  }
+`;

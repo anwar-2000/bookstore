@@ -10,10 +10,10 @@ import { fetchBooks } from "@/lib/helpers";
 import Head from 'next/head';
 import { ClipLoader } from "react-spinners";
 import { useRouter } from "next/router";
-interface Props {}
+
 
 const variants = {
-  open: { x: 0, opacity: 1 },
+  open: { x: -30, opacity: 1 },
   closed: { x: -400, opacity: 1 },
 };
 

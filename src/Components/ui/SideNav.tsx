@@ -4,18 +4,29 @@ import {ChevronRight , Menu} from "lucide-react"
 import Link from 'next/link'
 import { SET_OPEN } from '@/redux/reducers/Toggle'
 import { useDispatch} from 'react-redux'
+import { useSelector } from "react-redux";
+
 import SearchInput from '../SearchInput'
 
 interface Props extends React.HTMLAttributes<HTMLElement>{
 
 }
 
+type StyledComponentProps = {
+    isOpen: boolean;
+  };
+
 const SideNav:FC<Props> = ({...rest}) => {
+
     const dispatch = useDispatch()
     const toggle = () => {
         dispatch(SET_OPEN());
+    
     }
-  return <Container>
+    const { isOpen } = useSelector((state: any) => state.toggle);
+
+    
+  return <Container isOpen={isOpen}>
         <div className='header'>
             <Menu className='Menu' color='#4F6398' onClick={toggle} />
             <img src='./emmaus.jpg' alt='Emmaus Image' />
@@ -53,7 +64,7 @@ const SideNav:FC<Props> = ({...rest}) => {
 
 export default SideNav
 
-const Container = styled.div`
+const Container = styled.div<StyledComponentProps>`
     width: 28.5rem;
     height: 100vh;
     display: flex;
@@ -88,8 +99,11 @@ const Container = styled.div`
     .Menu {
         position: absolute;
         top: 0;
-        right: 1rem;
+        right: ${(props) => (props.isOpen === false && '1rem')};
+        right: ${(props) => (props.isOpen === true && 'auto')};
+        left: ${(props) => (props.isOpen === true && '2rem')};
         cursor: pointer;
+        z-index : 11;
     }
 
     .navlinks {
