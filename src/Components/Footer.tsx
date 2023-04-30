@@ -1,3 +1,4 @@
+import { Contact, Facebook, Instagram, PhoneCall, Twitter } from 'lucide-react';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -16,14 +17,15 @@ const FooterContainer = styled.footer`
 
 const ListContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  @media (min-width: 768px) {
-    flex-direction: row;
-  }
+  align-items : center;
+  justify-content : center;
+  
 `;
 
 const List = styled.ol`
   margin: 0 20px;
+  display : flex;
+  gap : 1.2rem;
 `;
 
 const Image = styled.img`
@@ -34,22 +36,15 @@ const Image = styled.img`
 
 const Footer: React.FC = () => {
   const BASE_URL:string ="https://bookstore-delta-two.vercel.app"
-  const list1 = ['Item 1', 'Item 2', 'Item 3'];
-  const list2 = ['Item A', 'Item B', 'Item C'];
   const imageUrl = `${BASE_URL}/logo.jpg`;
 
   return (
     <FooterContainer>
       <ListContainer>
         <List>
-          {list1.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </List>
-        <List>
-          {list2.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
+          <Facebook />
+          <Twitter />
+          <PhoneCall />
         </List>
       </ListContainer>
       <Image src={imageUrl} alt="" />

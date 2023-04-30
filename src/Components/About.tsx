@@ -14,6 +14,11 @@ font-weight: 400;
 const Header = styled.h1`
   text-align: center;
   margin-bottom: 20px;
+  transform : translateX(-2rem);
+
+  @media (min-width: 768px) {
+    font-size : 10px;
+  }
 `;
 
 const ColumnsContainer = styled.div`

@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 const Header = styled.h1`
   text-align: center;
-  margin-bottom: 2rem;
   font-size: 2.9rem;
-font-weight: 400;
-margin-left: 2.8rem;
+  font-weight: 400;
+  margin-bottom : 1.5rem;
+
 `;
 
 const Container = styled.div`
@@ -14,11 +14,12 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: center;
   font-weight: 400;
+  padding-bottom : 7rem;
 
    /* styles for screens smaller than 768px */
    @media screen and (max-width: 767px) {
     flex-direction: column;
-    margin-top : 9rem;
+    transform : translateY(-1rem);
   }
 
   /* styles for screens between 768px and 1024px */
@@ -67,17 +68,15 @@ const Localisation: React.FC = ({}) => {
     <>
       <Header>Notre localisation</Header>
       <Container>
-        <LeftContainer>
-          <Title>{("Horaires d'ouverture")}</Title>
+      <LeftContainer> 
           <ListContainer>
-            <List>
+          <Title>{("Horaires d'ouverture")}</Title>
+          <List>
               <li>{('Lundi - Vendredi : 9h - 18h')}</li>
               <li>{('Samedi : 10h - 17h')}</li>
               <li>{('Dimanche : fermé')}</li>
             </List>
-          </ListContainer>
-          <Title>{('Adresse')}</Title>
-          <ListContainer>
+            <Title>{('Adresse')}</Title>  
             <List>
               <li>{('77 Gd Rue de Châteauneuf, ')}</li>
               <li>{('86100 Châtellerault')}</li>
@@ -88,7 +87,7 @@ const Localisation: React.FC = ({}) => {
         <RightContainer>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d43687.210512596976!2d0.5027277515512434!3d46.81512610030111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47fda9dc6433bd53%3A0x8e2c902e5136d38d!2zQnJpYyDDoCBCcmFjIEVtbWHDvHM!5e0!3m2!1sen!2sfr!4v1681061101272!5m2!1sen!2sfr"
-            width="auto"
+            width="600"
             height="450"
             style={{ border: 0 }}
             allowFullScreen={true}

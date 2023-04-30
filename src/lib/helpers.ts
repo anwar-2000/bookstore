@@ -1,7 +1,7 @@
 
 
-const BASE_URL:String ="https://bookstore-delta-two.vercel.app"
-//const BASE_URL:String ="http://localhost:3000"
+//const BASE_URL:String ="https://bookstore-delta-two.vercel.app"
+const BASE_URL:String ="http://localhost:3000"
 
 
 export const fetchBooks = async (page = 1, limit = 10) => {
