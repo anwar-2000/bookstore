@@ -287,4 +287,8 @@ const Spiner = styled.div`
   align-items: center;
   justify-content: center;
   margin-left: 25rem;
+  /* styles for screens smaller than 768px */
+  @media screen and (max-width: 767px) {
+      margin-left : 6rem;
+    }
 `;

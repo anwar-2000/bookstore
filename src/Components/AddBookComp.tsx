@@ -56,6 +56,10 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
           <textarea  onChange={setFormData} id='Description' name='Description' />
         </FormGroup>
         <FormGroup>
+          <label htmlFor='etat'>Description:</label>
+          <input type='text' onChange={setFormData} id='etat' name='etat' />
+        </FormGroup>
+        <FormGroup>
           <label htmlFor='rating'>Rating:</label>
           <input type='number' onChange={setFormData} id='rating' name='rating' max={5} min={0} step={0.5}/>
         </FormGroup>
