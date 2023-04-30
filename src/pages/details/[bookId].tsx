@@ -163,6 +163,9 @@ const Section = styled.section`
   width: 100%;
   gap: 2rem;
   overflow-x: hidden;
+  overflow-y : scroll;
+  height : 100vh;
+ 
 
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
@@ -185,19 +188,20 @@ const Section = styled.section`
   }
 `;
 const Container = styled.div`
-  margin-top: 4rem;
-  height: 80vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: row;
   justify-content: center;
+  margin-top : 2rem;
+  margin-bottom : 3rem;
   gap: 4rem;
-  margin-bottom : 4rem;
-
+  overflow-y : scroll;
+  
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
     flex-direction: column;
-    margin-top : 9rem;
+    //margin-top : 9rem;
   }
 
   /* styles for screens between 768px and 1024px */
@@ -209,17 +213,16 @@ const Left = styled.div`
   width: 30rem;
   display: flex;
   flex-direction: column;
+  align-items : center;
+  justify-content : center;
   gap: 2rem;
+  padding-bottom : 3rem;
+
   /* Hide the details element content by default */
   details {
     overflow: hidden;
   }
   
-  /* Add a transition for the height property */
-  details[open] {
-    height: auto;
-    transition: height 1.3s ease-in-out;
-  }
   
   /* Style the summary element */
   summary {
@@ -239,10 +242,14 @@ const Left = styled.div`
   }
   
   /* Style the details element content */
-  details p {
+  details[open]  p {
     margin: 0;
     padding: 0.5rem 0;
-    
+    /* styles for screens smaller than 768px */
+   @media screen and (max-width: 767px) {
+      width : 250px;
+      text-align : center;
+  }
   }
   .rating{
     display: flex;
@@ -373,8 +380,9 @@ const Right = styled.div`
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
     & img {
-        width: 350px;
-         height: 350px;
+         width: 250px;
+         height: 250px;
+         margin-top : 2rem;
     }
 
   }
