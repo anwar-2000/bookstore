@@ -1,7 +1,8 @@
 import { addUser } from '@/lib/helpers';
 import React, { useReducer } from 'react'
+import { toast } from 'react-toastify';
 import styled from 'styled-components'
-
+import "react-toastify/dist/ReactToastify.css";
 interface Props {}
 
 const formReducer = (state : Object, e : any) =>{
@@ -17,11 +18,27 @@ const Register = () => {
     const HandleClick = async (e : any ) => {
         e.preventDefault();
         const user  =  await addUser(formData)
-        console.log(user)
+        if(user.message) {
+          toast.error(`${user.message}`,{
+            position: toast.POSITION.TOP_RIGHT,
+            theme: "colored"
+          });
+          
+        }
+        else {
+          toast.success(`Compte de ${user.user.username} est crée`,{
+            position: toast.POSITION.TOP_RIGHT,
+            theme: "colored"
+          });
+        }
+        //console.log(user)
         try {
             
         } catch (error) {
-            console.log(error)
+          toast.error(`${error}`,{
+            position: toast.POSITION.TOP_RIGHT,
+            theme: "colored"
+          });
         }
 
 

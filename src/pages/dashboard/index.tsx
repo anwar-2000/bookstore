@@ -170,6 +170,9 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                 Formulaire de rajouter les Livres
               </button>
             )}
+            <div className="ajouterAdmin">
+              <button> Gérer les Modérateurs </button>
+            </div>
             <Table>
               <thead>
                 <TR>
@@ -233,7 +236,21 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-bottom : 3rem;
   gap: 2rem;
+
+  .ajouterAdmin{
+    align-self : start;
+    margin-left : 9rem;
+
+    button {
+      padding : 1rem 2rem;
+      background-color : black;
+      color : white;
+      border-radius : 20px;
+    }
+  }
+
   .disaproved{
     display : flex;
     align-items : center;
@@ -283,6 +300,7 @@ const Table = styled.table`
   thead {
     border-bottom: 2px solid black;
   }
+  overflow-y : scroll;
 `;
 
 const TR = styled.tr`

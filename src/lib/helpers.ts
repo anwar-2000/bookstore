@@ -19,7 +19,7 @@ export const fetchBook = async (bookId : string) =>{
  }
 
  //posting a new book
-export const addBook = async (formData:Object) =>{
+export const addBook = async (formData:Object) => {
     try {
         const options = {
             method : "POST",
