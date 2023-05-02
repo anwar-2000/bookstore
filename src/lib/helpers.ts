@@ -133,6 +133,27 @@ export const checkAdminStatus = async (email: string) => {
       return false;
     }
   };
+//fetch users
+  export const fetchUsers = async (page = 1, limit = 10) => {
+    const response = await fetch(`${BASE_URL}/api/users?page=${page}&limit=${limit}`);
+    const data = await response.json();
+    return data;
+  };
+
+  export const deleteUser = async (userEmail : string) =>{
+    try {
+        const options = {
+            method : "DELETE",
+            headers :{ "Content-Type" : "application/json"}
+        }
+        const response = await fetch(`${BASE_URL}/api/users?userEmail=${userEmail}`,options)
+        const data = await response.json()
+
+        return data
+    } catch (error) {
+        return error
+    }
+ }
  
   
   

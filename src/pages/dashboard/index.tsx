@@ -171,7 +171,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
               </button>
             )}
             <div className="ajouterAdmin">
-              <button> Gérer les Modérateurs </button>
+              <button onClick={()=> router.push('/dashboard/users')}> Gérer les Modérateurs </button>
             </div>
             <Table>
               <thead>

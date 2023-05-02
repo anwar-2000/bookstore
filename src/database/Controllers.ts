@@ -138,6 +138,9 @@ export async function getSearchBooks(req: NextApiRequest, res: NextApiResponse) 
   }
 }
 
+
+
+/**  *************************************************** USERS   **************************************************************************/
 export async function addUser(req: NextApiRequest, res: NextApiResponse){
   try {
     const formData = req.body;
@@ -169,4 +172,40 @@ export  async function  checkUserAdmin(req : NextApiRequest , res : NextApiRespo
       return res.status(500).json({err});
     }
 
+}
+
+export async function getUsers(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 15;
+    const skip = (page - 1) * limit;
+    const users = await User.find({}).sort({ date: -1 }).skip(skip).limit(limit);
+    if (!users) {
+     res.status(404).json({ error: "Data Not Found" });
+    }
+     res.status(200).json(users); // send books data in the response
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: "Error while Fetching data" });
+    res.end()
+  }
+}
+
+export async function deleteUser(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const { userEmail } = req.query;
+
+    if (userEmail) {
+      const user = await User.findOneAndDelete({ email: userEmail });
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      return res.status(200).json(user);
+    }
+
+    return res.status(400).json({ error: 'Missing email parameter' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Error while deleting the user' });
+  }
 }

@@ -1,30 +1,57 @@
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import React from 'react'
-import styled from "styled-components"
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import React from 'react';
+import styled from "styled-components";
 
 interface Props {}
 
 const Hero = () => {
-  return<>
-   <Container>
-          <Left>
-              <h1>Vous cherchez votre prochaine lecture passionnante?</h1>
-              <small>Si vous ne savez pas exactement ce que vous cherchez, nous vous invitons à parcourir nos différentes catégories et listes de livres pour trouver des titres qui pourraient vous plaire</small>
-             <Link href={'/all'} ><button>Découvrir</button></Link> 
-          </Left>
-          <Right>
-                <img src="/book1.jpeg" alt='book1'  id="book1" />
-                <img src="/book2.jpg" alt='book2'  id="book2"  />
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.5 } }
+  };
 
-                <small>+2000 Livres</small>
-          </Right>
-  </Container>
+  const titleVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.5, delay: 0.5 } }
+  };
 
-  </>
-}
+  const titleLetters = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (index:number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        delay: 0.5 + index * 0.1
+      }
+    })
+  };
 
-export default Hero
+  return (
+    <motion.div variants={containerVariants} initial="hidden" animate="visible">
+      <Container>
+        <Left>
+          <motion.h1 variants={titleVariants} initial="hidden" animate="visible">
+            Vous cherchez votre prochaine lecture passionnante?
+          </motion.h1>
+          <motion.small variants={titleVariants} initial="hidden" animate="visible">
+            Si vous ne savez pas exactement ce que vous cherchez, nous vous invitons à parcourir nos différentes catégories et listes de livres pour trouver des titres qui pourraient vous plaire
+          </motion.small>
+          <Link href={'/all'} ><button>Découvrir</button></Link> 
+        </Left>
+        <Right>
+          <img src="/book1.jpeg" alt='book1'  id="book1" />
+          <img src="/book2.jpg" alt='book2'  id="book2"  />
+
+          <small>+2000 Livres</small>
+        </Right>
+      </Container>
+    </motion.div>
+  );
+};
+
+export default Hero;
 
 const Container = styled.div`
   display: flex;
@@ -45,7 +72,7 @@ flex-direction: column;
 
 /* styles for screens between 768px and 1024px */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-flex-direction: column;
+  flex-direction: column;
 }
 `
 const Left = styled.div`
@@ -77,7 +104,7 @@ border-radius: 5px;
 font-family: 'Raleway', sans-serif;
 z-index: 11 ;
 width: 9rem;
-margin-left: 3rem;
+margin-left: 4rem;
 background-color: black;
 transition: all ease-in-out 400ms;
 font-weight: bold;
@@ -92,6 +119,7 @@ color : white;
 align-items: center;
 justify-content: center;
 & h1 {
+  text-align : center;
   font-size: 1.5rem;
   text-align: center;
   margin-left: 0.5rem;
@@ -113,7 +141,7 @@ justify-content: center;
 @media screen and (min-width: 768px) and (max-width: 1024px) {
 & h1 {
   font-size: 3rem;
-  text-align: center;
+  text-align :center;
 }
 
 & small {
@@ -121,11 +149,11 @@ justify-content: center;
   font-weight: 400;
   width: 100%;
   text-align: center;
-  margin-left: 0;
+  margin-left: 1rem;
 }
 
 & button {
-  margin-left: 7.8rem;
+  margin-left: 12rem;
   z-index: 11;
 }
 }
@@ -188,9 +216,8 @@ box-shadow: 0px 0px 31px 12px rgba(239,255,8,0.75);
 
 /* styles for screens between 768px and 1024px */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
- & small:hover {
-    transform: translateX(-14rem);
-  }
+ & small {
+  transform: rotate(26deg) translate(0rem,-6rem);  }
   
   & #book1 , & #book2 {
     width: 50% !important;

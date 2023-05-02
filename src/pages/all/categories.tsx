@@ -61,6 +61,7 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
         </div>
       </Container>
       {isLoading ? (
+        <div className="spinner">
         <Spiner>
           <ClipLoader
             color="blue"
@@ -69,6 +70,7 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
             data-testid="loader"
           />
         </Spiner>
+        </div>
       ) : (
         <Items>
           {books.map(
@@ -121,7 +123,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-x: scroll;
+    flex-wrap : wrap;
     white-space: nowrap;
     margin-top : 0.5rem;
 
@@ -157,5 +159,5 @@ const Spiner = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 25rem;
+  
 `;

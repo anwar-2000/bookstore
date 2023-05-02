@@ -7,7 +7,7 @@ import CartModal from "@/Components/ui/CartModal"
 import styled from "styled-components";
 import NavBar from "@/Components/NavBar";
 import { SessionProvider } from "next-auth/react";
-
+import  NextNProgress from "nextjs-progressbar";
 import { ToastContainer } from 'react-toastify';
 import Footer from "@/Components/Footer";
 
@@ -24,6 +24,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     <Container>
       {showModal && <CartModal />}
       </Container>
+      <NextNProgress color="blue" />
       <Component {...pageProps} router={router} />
       
     </>
