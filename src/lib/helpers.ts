@@ -159,4 +159,10 @@ export const checkAdminStatus = async (email: string) => {
   
   
   
-  
+  /** CLIENTS AND PAYMENTS FOR STRIPE */
+
+  export const fetchStripe = async () => {
+    const response = await fetch(`${BASE_URL}/api/stripeclients/clients`);
+    const data = await response.json();
+    return data;
+  };
