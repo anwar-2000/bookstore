@@ -8,7 +8,8 @@ import BookItemSecond from "@/Components/ui/BookItemSecond";
 import { useQuery } from "react-query";
 import { fetchBooks } from "@/lib/helpers";
 import Head from 'next/head';
-import { ClipLoader } from "react-spinners";
+import { PuffLoader
+} from "react-spinners";
 import { useRouter } from "next/router";
 
 
@@ -76,14 +77,17 @@ const Index = () => {
       >
         <SideNav id="sideNAv" />
       </motion.div>
-
       {isLoading ? (
+        
         <Spiner>
-          <ClipLoader
-            color="blue"
+          
+          <PuffLoader
+
+            color="yellow"
             size={150}
             aria-label="Loading Spinner"
             data-testid="loader"
+            speedMultiplier={1.5}
           />
         </Spiner>
       ) : (
@@ -94,7 +98,7 @@ const Index = () => {
           transition={transition}
         >
           <MainContent>
-            <div className="explore">
+          <div className="explore">
               <h1>Explore</h1>
             </div>
             <div className="controls">
@@ -159,9 +163,11 @@ const Index = () => {
 
 export default Index;
 
+
 const Container = styled(motion.div)`
   display: flex;
   overflow: hidden;
+  position : relative;
 
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
@@ -192,29 +198,6 @@ const MainContent = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-
-  .allBooks {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-
-    /* styles for screens smaller than 768px */
-    @media screen and (max-width: 767px) {
-      align-items: center;
-      justify-content: center;
-    }
-  }
-  h1 {
-    font-size: 3rem;
-    font-family: 'Raleway', sans-serif;
-    font-weight: bold;
-  }
-
-  /* Hide scrollbar for IE, Edge and Firefox */
-
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-
   .explore {
     width: 100%;
     display: flex;
@@ -261,6 +244,30 @@ const MainContent = styled.div`
     }
   }
 
+  .allBooks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+
+    /* styles for screens smaller than 768px */
+    @media screen and (max-width: 767px) {
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  h1 {
+    font-size: 3rem;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+ 
+
   .controls {
     display: flex;
     align-items: center;
@@ -286,9 +293,11 @@ const Spiner = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 25rem;
+  margin-left: 10rem;
+  margin-bottom : 9rem;
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
-      margin-left : 6rem;
+      position : absolute;
+      top : 5rem;
     }
 `;

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import {useBooksOfCategory } from "@/lib/useBooksOfCategory";
 import { useRouter } from "next/router";
 import BookItemSecond from "@/Components/ui/BookItemSecond";
-import { ClipLoader } from "react-spinners";
+import { PuffLoader } from "react-spinners";
 import Head from "next/head";
 
 interface Categorie {
@@ -63,8 +63,8 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
       {isLoading ? (
         <div className="spinner">
         <Spiner>
-          <ClipLoader
-            color="blue"
+          <PuffLoader
+            color="yellow"
             size={150}
             aria-label="Loading Spinner"
             data-testid="loader"

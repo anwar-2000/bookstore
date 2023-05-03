@@ -95,9 +95,6 @@ interface MyPageProps {
     }
   };
    return <> {!isAdmin && <Container>
-    <div className="welcomeAdmin">
-      <h1>Bonjour {session.user.email}</h1>
-    </div>
     {isLoading ? (
       <Spiner>
         <ClipLoader
@@ -154,6 +151,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding-bottom : 3rem;
+  margin-top:2rem;
   gap: 2rem;
 
   .pagelivres{

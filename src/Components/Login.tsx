@@ -38,7 +38,7 @@ const Login = () => {
                 password,
                 callbackUrl : '/'
             });
-            if(data && data.ok){router.push('/')}
+            if(data && data.ok){router.push('/dashboard')}
             console.log(data);
             
         } catch (error) {

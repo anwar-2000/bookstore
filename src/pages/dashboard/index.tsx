@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext, NextPage } from "next";
-import { getSession } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -34,6 +34,7 @@ import { checkAdminStatus, deleteBook, fetchBooks } from "@/lib/helpers";
 import { ClipLoader } from "react-spinners";
 import UpdateBookComp from "@/Components/UpdateBookComp";
 import { useRouter } from "next/router";
+import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 
 interface MyPageProps {
   session: any;
@@ -122,13 +123,25 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
   const updateBookFromIdClickHanlder = async (theBookId: string) => {
     setBookId(theBookId);
   };
+
+
+    /** LOGIC FOR CONTROLLING THE LIMIT AND PAGE */
+
+    const addPageHandler = () => setPage(page + 1);
+    const addLimitHandler = () => setLimit(limit + 1);
+  
+    const minusPageHandler = () => setPage(page > 1 ? page - 1 : 1);
+    const minusLimitHandler = () => setLimit(limit > 15 ? limit - 1 : 15);
+
   return (
     <>
-     {!isAdmin && <Container>
-        <div className="welcomeAdmin">
-          <h1>Bonjour {session.user.email}</h1>
-        </div>
+     {/** if Error when  Fetching notify it */}
+     {error &&  toast.error(`Error : ${error}`,{
+      position: toast.POSITION.TOP_RIGHT,
+      theme: "colored"
+              })}
 
+     {!isAdmin && <Container>
         {showForm && (
           <FormDiv>
             {showEditForm ? (
@@ -147,16 +160,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
             )}
           </FormDiv>
         )}
-        {isLoading ? (
-          <Spiner>
-            <ClipLoader
-              color="blue"
-              size={150}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
-          </Spiner>
-        ) : (
+        
           <>
             <button id="showFormTrigger" onClick={() => setShowForm(!showForm)}>
               {showForm ? "FERMER LE FORMULAIRE" : "AFFICHER LE FORMULAIRE"}{" "}
@@ -172,7 +176,28 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
             )}
             <div className="ajouterAdmin">
               <button onClick={()=> router.push('/dashboard/users')}> Gérer les Modérateurs </button>
+              <button id="Deconnecter" onClick={() => signOut({ callbackUrl: '/users/login' })} >Déconnecter</button>
             </div>
+            <div className="controls">
+              <div className="controls__page">
+                <ArrowBigLeft onClick={minusPageHandler} /> Pages : {page}{" "}
+                <ArrowBigRight onClick={addPageHandler} />
+              </div>
+              <div className="controls__limit">
+                <ArrowBigLeft onClick={minusLimitHandler} /> Limite : {limit}{" "}
+                <ArrowBigRight onClick={addLimitHandler} />
+              </div>
+            </div>
+            {isLoading ? (
+          <Spiner>
+            <ClipLoader
+              color="yellow"
+              size={150}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </Spiner>
+        ) : (
             <Table>
               <thead>
                 <TR>
@@ -184,6 +209,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                   <th>Supprimer</th>
                 </TR>
               </thead>
+              
               <tbody>
                 {data.map((book: any) => (
                   <TR key={book._id}>
@@ -214,10 +240,13 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                     </td>
                   </TR>
                 ))}
+                
               </tbody>
+           
             </Table>
+               )}
           </>
-        )}
+        
       </Container>}
       {isAdmin && <Container>
           <div className="disaproved">
@@ -237,11 +266,26 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding-bottom : 3rem;
+  margin-top : 2rem;
   gap: 2rem;
 
   .ajouterAdmin{
     align-self : start;
     margin-left : 9rem;
+
+    #Deconnecter {
+      margin-left : 1rem;
+      padding : 1rem 2rem;
+      background-color : #f0ecec;
+      color : black;
+      border : solid 1px black;
+      border-radius : 20px;
+      transition : all ease-in 100ms;
+    }
+    #Deconnecter:hover {
+      background-color : black;
+      color : white; 
+    }
 
     button {
       padding : 1rem 2rem;
@@ -250,7 +294,26 @@ const Container = styled.div`
       border-radius : 20px;
     }
   }
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
 
+    .controls__page {
+      display: flex;
+      gap: 2rem;
+    }
+    .controls__limit {
+      display: flex;
+      gap: 2rem;
+    }
+    /* styles for screens smaller than 768px */
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+      margin-left: 4.3rem;
+    }
+  }
   .disaproved{
     display : flex;
     align-items : center;
@@ -267,10 +330,7 @@ const Container = styled.div`
       mix-blend-mode : darken;
     }
   }
-  .welcomeAdmin {
-    margin-top: 3rem;
-    font-size: 35px;
-  }
+ 
 
   #showFormTrigger {
     padding: 1rem 3rem;
@@ -284,6 +344,7 @@ const FormDiv = styled.div`
   dislpay: flex;
   align-items: center;
   justify-content: start;
+  
   h1 {
     text-align : center;
     font-weight : bold;
@@ -344,5 +405,5 @@ const Spiner = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 25rem;
+  margin-top: 3rem;
 `;

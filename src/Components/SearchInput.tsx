@@ -23,7 +23,7 @@ const SearchInput:FC = ({}) => {
     <select
         value={searchParam}
         onChange={changeParamHandler}
-        className="bg-transparent focus:outline-none text-slate-700 rounded-lg p-2"
+        className="bg-transparent  text-slate-700 rounded-lg p-2"
       >
         <option value="">Select an option</option>
         <option value="auteur">Auteur</option>
