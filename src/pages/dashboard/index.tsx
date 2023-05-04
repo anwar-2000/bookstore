@@ -13,18 +13,16 @@ function showToast(sessionUserEmail: string) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
   //console.log("the session is " ,session)
-   if (!session) {
+  if (!session) {
     return {
       redirect: {
-        destination: '/',
+        destination: "/",
         permanent: false,
       },
-    }
+    };
   }
   return { props: { session } };
 }
-
-
 
 import AddBookComp from "@/Components/AddBookComp";
 import React, { useEffect, useState } from "react";
@@ -53,27 +51,33 @@ interface MyPageProps {
 }
 
 const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+
   const [isAdmin, setIsAdmin] = useState<boolean>();
+
+
   /** CHECK IF USER IN SESSION IS ADMIN */
   const router = useRouter();
   useEffect(() => {
-  const checkAdmin = async () => {
-  const email = session.user.email;
-  const response = await checkAdminStatus(email);
-  if (!response) {
-    toast.error('Vous êtes pas un Admin',{
-      position: toast.POSITION.TOP_RIGHT,
-      theme: "colored"
-    });
-    router.push("/");
-  }
-  else{
-    toast.success(`Bonjour Mr ${email}`,{
-      position: toast.POSITION.TOP_RIGHT,
-      theme: "colored"
-    });
-  }
-    checkAdmin();}
+    const checkAdmin = async () => {
+      const email = session.user.email;
+      const response = await checkAdminStatus(email);
+      if (!response) {
+        toast.error("Vous êtes pas un Admin", {
+          position: toast.POSITION.TOP_RIGHT,
+          theme: "colored",
+        });
+        router.push("/");
+      } else {
+        toast.success(`Bonjour Mr ${email}`, {
+          position: toast.POSITION.TOP_RIGHT,
+          theme: "colored",
+        });
+      }
+      checkAdmin();
+    };
   }, [session.user.email]);
   const [bookId, setBookId] = useState<string>("");
 
@@ -86,7 +90,6 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(20);
 
-  
   /** REACT-QUERY */
   const { isLoading, data, isError, error, refetch } = useQuery(
     ["books", page, limit],
@@ -98,25 +101,23 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
   }, [data, addSignal]);
 
   useEffect(() => {
-    
-      showToast(session.user.email);
-    
-   
+    showToast(session.user.email);
   }, [session.user.email]);
 
   /** CLICK HANDLERS */
   const deleteBookFromIdClickHanlder = async (bookId: string) => {
     //console.log(bookId);
     try {
-     const response =  await deleteBook(bookId);
-     !response && toast.error('Book Not Deleted',{
-      position: toast.POSITION.TOP_RIGHT,
-      theme: "colored"
-    });
-    toast.success('Book Deleted',{
-      position: toast.POSITION.TOP_RIGHT,
-      theme: "colored"
-    });
+      const response = await deleteBook(bookId);
+      !response &&
+        toast.error("Book Not Deleted", {
+          position: toast.POSITION.TOP_RIGHT,
+          theme: "colored",
+        });
+      toast.success("Book Deleted", {
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "colored",
+      });
       refetch();
     } catch (error) {
       //console.log(error);
@@ -126,43 +127,50 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
     setBookId(theBookId);
   };
 
+  /** LOGIC FOR CONTROLLING THE LIMIT AND PAGE */
 
-    /** LOGIC FOR CONTROLLING THE LIMIT AND PAGE */
+  const addPageHandler = () => setPage(page + 1);
+  const addLimitHandler = () => setLimit(limit + 1);
 
-    const addPageHandler = () => setPage(page + 1);
-    const addLimitHandler = () => setLimit(limit + 1);
-  
-    const minusPageHandler = () => setPage(page > 1 ? page - 1 : 1);
-    const minusLimitHandler = () => setLimit(limit > 15 ? limit - 1 : 15);
+  const minusPageHandler = () => setPage(page > 1 ? page - 1 : 1);
+  const minusLimitHandler = () => setLimit(limit > 15 ? limit - 1 : 15);
+
+
+  /** FILTERING LOGIC */
+  const filteredCustomers = data?.filter((book: any) =>
+    book.titre.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
-     {/** if Error when  Fetching notify it */}
-     {error &&  toast.error(`Error : ${error}`,{
-      position: toast.POSITION.TOP_RIGHT,
-      theme: "colored"
-              })}
+      {/** if Error when  Fetching notify it */}
+      {error &&
+        toast.error(`Error : ${error}`, {
+          position: toast.POSITION.TOP_RIGHT,
+          theme: "colored",
+        })}
 
-     {!isAdmin && <Container>
-        {showForm && (
-          <FormDiv>
-            {showEditForm ? (
-              <h1>Modifier Le Livre</h1>
-            ) : (
-              <h1>Ajouter Un Livre</h1>
-            )}
-            {showEditForm ? (
-              <UpdateBookComp
-                onUpdate={() => setaddSignal(addSignal - 1)}
-                existingData={existingData}
-                bookId={bookId}
-              />
-            ) : (
-              <AddBookComp onAdd={() => setaddSignal(addSignal + 1)} />
-            )}
-          </FormDiv>
-        )}
-        
+      {!isAdmin && (
+        <Container>
+          {showForm && (
+            <FormDiv>
+              {showEditForm ? (
+                <h1>Modifier Le Livre</h1>
+              ) : (
+                <h1>Ajouter Un Livre</h1>
+              )}
+              {showEditForm ? (
+                <UpdateBookComp
+                  onUpdate={() => setaddSignal(addSignal - 1)}
+                  existingData={existingData}
+                  bookId={bookId}
+                />
+              ) : (
+                <AddBookComp onAdd={() => setaddSignal(addSignal + 1)} />
+              )}
+            </FormDiv>
+          )}
+
           <>
             <button id="showFormTrigger" onClick={() => setShowForm(!showForm)}>
               {showForm ? "FERMER LE FORMULAIRE" : "AFFICHER LE FORMULAIRE"}{" "}
@@ -176,9 +184,24 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                 Formulaire de rajouter les Livres
               </button>
             )}
-            <div className="ajouterAdmin">
-              <button onClick={()=> router.push('/dashboard/users')}> Gérer les Modérateurs </button>
-              <button id="Deconnecter" onClick={() => signOut({ callbackUrl: '/users/login' })} >Déconnecter</button>
+            <div className="actions">
+              <button onClick={() => router.push("/dashboard/users")}>
+                {" "}
+                Gérer les Modérateurs{" "}
+              </button>
+              <button
+                id="clients"
+                onClick={() => router.push("/dashboard/clients")}
+              >
+                {" "}
+                Les Payments{" "}
+              </button>
+              <button
+                id="Deconnecter"
+                onClick={() => signOut({ callbackUrl: "/users/login" })}
+              >
+                Déconnecter
+              </button>
             </div>
             <div className="controls">
               <div className="controls__page">
@@ -189,73 +212,79 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                 <ArrowBigLeft onClick={minusLimitHandler} /> Limite : {limit}{" "}
                 <ArrowBigRight onClick={addLimitHandler} />
               </div>
+              <div className="controls__input">
+                <input type="text"
+                 placeholder="Rechercher Un Livre..."
+                 value={searchTerm}
+                 onChange={(e) => setSearchTerm(e.target.value)} />
+              </div>
             </div>
             {isLoading ? (
-          <Spiner>
-            <ClipLoader
-              color="yellow"
-              size={150}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
-          </Spiner>
-        ) : (
-            <Table>
-              <thead>
-                <TR>
-                  <th>Image</th>
-                  <th>Titre</th>
-                  <th>Prix</th>
-                  <th>Quantité</th>
-                  <th>Modifier</th>
-                  <th>Supprimer</th>
-                </TR>
-              </thead>
-              
-              <tbody>
-                {data.map((book: any) => (
-                  <TR key={book._id}>
-                    <td>
-                      <img src={book.image} alt={book.title} />
-                    </td>
-                    <td>{book.titre}</td>
-                    <td>{book.prix}€</td>
-                    <td>{book.quantite}</td>
-                    <td>
-                      <button
-                        id="edit"
-                        onClick={() => {
-                          updateBookFromIdClickHanlder(book._id);
-                          setShowEditform(true);
-                          setExistingData(book);
-                        }}
-                      >
-                        Modifier
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        onClick={() => deleteBookFromIdClickHanlder(book._id)}
-                      >
-                        Supprimer
-                      </button>
-                    </td>
+              <Spiner>
+                <ClipLoader
+                  color="yellow"
+                  size={150}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+              </Spiner>
+            ) : (
+              <Table>
+                <thead>
+                  <TR>
+                    <th>Image</th>
+                    <th>Titre</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
                   </TR>
-                ))}
-                
-              </tbody>
-           
-            </Table>
-               )}
+                </thead>
+
+                <tbody>
+                  {filteredCustomers.map((book: any) => (
+                    <TR key={book._id}>
+                      <td>
+                        <img src={book.image} alt={book.title} />
+                      </td>
+                      <td>{book.titre}</td>
+                      <td>{book.prix}€</td>
+                      <td>{book.quantite}</td>
+                      <td>
+                        <button
+                          id="edit"
+                          onClick={() => {
+                            updateBookFromIdClickHanlder(book._id);
+                            setShowEditform(true);
+                            setExistingData(book);
+                          }}
+                        >
+                          Modifier
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          onClick={() => deleteBookFromIdClickHanlder(book._id)}
+                        >
+                          Supprimer
+                        </button>
+                      </td>
+                    </TR>
+                  ))}
+                </tbody>
+              </Table>
+            )}
           </>
-        
-      </Container>}
-      {isAdmin && <Container>
+        </Container>
+      )}
+      {isAdmin && (
+        <Container>
           <div className="disaproved">
-                  <h1>VOUS ETES PAS ADMIN DE CE SITE !</h1>
-                  <img src="./notAdmin.png" alt="" />
+            <h1>VOUS ETES PAS ADMIN DE CE SITE !</h1>
+            <img src="./notAdmin.png" alt="" />
           </div>
-        </Container>}
+        </Container>
+      )}
     </>
   );
 };
@@ -267,33 +296,37 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom : 3rem;
-  margin-top : 2rem;
+  padding-bottom: 3rem;
+  margin-top: 2rem;
   gap: 2rem;
+  position : relative;
 
-  .ajouterAdmin{
-    align-self : start;
-    margin-left : 9rem;
-
+  .actions {
+    position : absolute;
+    top : -1.4rem;
+    left : 0.3rem;
+    #clients {
+      margin-left: 1rem;
+    }
     #Deconnecter {
-      margin-left : 1rem;
-      padding : 1rem 2rem;
-      background-color : #f0ecec;
-      color : black;
-      border : solid 1px black;
-      border-radius : 20px;
-      transition : all ease-in 100ms;
+      margin-left: 1rem;
+      padding: 0.3rem 0.7rem;
+      background-color: #f0ecec;
+      color: black;
+      border: solid 1px black;
+      border-radius: 20px;
+      transition: all ease-in 100ms;
     }
     #Deconnecter:hover {
-      background-color : black;
-      color : white; 
+      background-color: black;
+      color: white;
     }
 
     button {
-      padding : 1rem 2rem;
-      background-color : black;
-      color : white;
-      border-radius : 20px;
+      padding: 0.3rem 0.7rem;
+      background-color: black;
+      color: white;
+      border-radius: 20px;
     }
   }
   .controls {
@@ -301,6 +334,15 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     gap: 4rem;
+
+    .controls__input{
+      input {
+        padding : 1rem 3rem;
+        border-radius : 10px;
+        background : none;
+        outline : 1px solid black;
+      }
+    }
 
     .controls__page {
       display: flex;
@@ -316,23 +358,22 @@ const Container = styled.div`
       margin-left: 4.3rem;
     }
   }
-  .disaproved{
-    display : flex;
-    align-items : center;
-    justify-content : center;
-    flex-direction : column;
-    gap : 2rem;
+  .disaproved {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
     h1 {
-      font-size : 4rem;
+      font-size: 4rem;
     }
 
-    img{
-      width : 500px;
-      height : 500px;
-      mix-blend-mode : darken;
+    img {
+      width: 500px;
+      height: 500px;
+      mix-blend-mode: darken;
     }
   }
- 
 
   #showFormTrigger {
     padding: 1rem 3rem;
@@ -346,11 +387,11 @@ const FormDiv = styled.div`
   dislpay: flex;
   align-items: center;
   justify-content: start;
-  
+
   h1 {
-    text-align : center;
-    font-weight : bold;
-    font-size : 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
   }
 `;
 
@@ -363,7 +404,7 @@ const Table = styled.table`
   thead {
     border-bottom: 2px solid black;
   }
-  overflow-y : scroll;
+  overflow-y: scroll;
 `;
 
 const TR = styled.tr`

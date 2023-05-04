@@ -7,8 +7,10 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
       const customers = await stripe.customers.list();
-      const payments = await stripe.charges.list();
+      const payments = await stripe.charges.list( {limit: 100} );
+      const totalRevenue = payments.data.reduce((total :any, payout : any) => total + payout.amount, 0);
       const data = {
+        totalRevenue ,
         customers: customers.data,
         payments: payments.data,
       };

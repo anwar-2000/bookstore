@@ -34,24 +34,21 @@ interface MyPageProps {
   const Users: NextPage<MyPageProps> = ({ session }) => {
     const [isAdmin, setIsAdmin] = useState<boolean>();
     /** CHECK IF USER IN SESSION IS ADMIN */
-    const router = useRouter();
-    useEffect(() => {
-    const checkAdmin = async () => {
-    const email = session.user.email;
-    const response = await checkAdminStatus(email);
-  if (!response) {
-    toast.error('Vous êtes pas un Admin',{
-      position: toast.POSITION.TOP_RIGHT,
-      theme: "colored"
-    });
-    router.push("/");
-  }
-    checkAdmin();}
-  }, [session.user.email]);
-  const [userIdId, setuserId] = useState<string>("");
+        const router = useRouter();
+        useEffect(() => {
+        const checkAdmin = async () => {
+        const email = session.user.email;
+        const response = await checkAdminStatus(email);
+      if (!response) {
+        toast.error('Vous êtes pas un Admin',{
+          position: toast.POSITION.TOP_RIGHT,
+          theme: "colored"
+        });
+        router.push("/");
+      }
+        checkAdmin();}
+      }, [session.user.email]);
 
-  const [showEditForm, setShowEditform] = useState<boolean>(false);
-  const [showForm, setShowForm] = useState<boolean>(false);
 
   const [addSignal, setaddSignal] = useState<number>(1);
   const [page, setPage] = useState(1);

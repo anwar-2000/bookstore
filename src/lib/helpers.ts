@@ -11,7 +11,7 @@ export const fetchBooks = async (page = 1, limit = 10) => {
   };
 
 //single book
-export const fetchBook = async (bookId : string) =>{
+export const fetchBook = async (bookId : string) => {
     const response = await fetch(`${BASE_URL}/api/query/${bookId}`);
     const data = await response.json()
     if(data) return data

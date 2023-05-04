@@ -1,22 +1,83 @@
-import { fetchStripe } from "@/lib/helpers";
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+  //console.log("the session is " ,session)
+   if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+  return { props: { session } };
+}
+
+
+import { checkAdminStatus, fetchStripe } from "@/lib/helpers";
 import { Check, CircleSlashed } from "lucide-react";
+import { GetServerSidePropsContext, NextPage } from "next";
+import { getSession } from "next-auth/react";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
-interface Props {}
 
-const Clients = () => {
+interface MyPageProps {
+  session: any;
+  
+}
+
+
+
+const Clients : NextPage<MyPageProps> = ({ session })=> {
+
+
+  const [searchTermCustomer, setSearchTermCustomer] = useState("");
+  const [searchTermPayments, setSearchTermPayments] = useState("");
+
+
+
+  const router = useRouter();
+  useEffect(() => {
+  const checkAdmin = async () => {
+  const email = session.user.email;
+  const response = await checkAdminStatus(email);
+if (!response) {
+  toast.error('Vous êtes pas un Admin',{
+    position: toast.POSITION.TOP_RIGHT,
+    theme: "colored"
+  });
+  router.push("/");
+}
+  checkAdmin();}
+}, [session.user.email]);
+
+
   const { isLoading, data, isError, error, refetch } = useQuery(
     ["stripeclients"],
     () => fetchStripe()
   );
 
   const [showCustomers, setShowCustomers] = useState<boolean>(true);
+  const totalRevenue = data?.totalRevenue || 0;
 
   const customers = data?.customers || [];
   const payments = data?.payments || [];
+
+  const filtersCustomers = customers?.filter((customer: any) => {
+    const email = customer.email.toLowerCase();
+    const searchTerm = searchTermCustomer?.toLowerCase();
+    return searchTerm && email.includes(searchTerm);
+  });
+  
+
+  const filteredPayments = payments?.filter((payment: any) => { 
+    const email = payment.billing_details.email;
+    return email && email.toLowerCase().includes(searchTermPayments.toLowerCase());
+  });
 
   const handleCustomersClick = () => {
     setShowCustomers(true);
@@ -32,7 +93,15 @@ const Clients = () => {
         <Button onClick={handleCustomersClick}>Customers</Button>
         <Button onClick={handlePaymentsClick}>Payments</Button>
       </Header>
-      {showCustomers ? (
+       
+      {showCustomers ? <>
+        <div className="controls__input">
+                <input type="text"
+                 placeholder="Rechercher Un Livre..."
+                 value={searchTermCustomer}
+                 onChange={(e) => setSearchTermCustomer(e.target.value)} />
+              </div>
+
         <Table>
           <thead>
             <tr>
@@ -42,7 +111,7 @@ const Clients = () => {
             </tr>
           </thead>
           <tbody>
-            {customers.map((customer: any) => (
+            {filtersCustomers.map((customer: any) => (
               <tr key={customer.id}>
                 <td>{customer.name}</td>
                 <td>{customer.email}</td>
@@ -51,7 +120,15 @@ const Clients = () => {
             ))}
           </tbody>
         </Table>
-      ) : (
+        </> : <>
+
+        <Total> Total :  {totalRevenue / 100 } €</Total>
+        <div className="controls__input">
+                <input type="text"
+                 placeholder="Rechercher Un Livre..."
+                 value={searchTermPayments}
+                 onChange={(e) => setSearchTermPayments(e.target.value)} />
+              </div>
         <Table>
           <thead>
             <tr>
@@ -69,7 +146,7 @@ const Clients = () => {
             </tr>
           </thead>
           <tbody>
-            {payments.map((payment: any) => (
+            {filteredPayments.map((payment: any) => (
               <tr key={payment.id}>
                 <td>{payment.amount / 100}€</td>
                 <td>{payment.billing_details.email}</td>
@@ -86,7 +163,7 @@ const Clients = () => {
             ))}
           </tbody>
         </Table>
-      )}
+      </>}
     </Container>
   );
 };
@@ -100,6 +177,17 @@ const Container = styled.div`
   justify-content : center;
   margin:  auto;
   overflow : scroll;
+
+
+  .controls__input{
+    margin-bottom : 2rem;
+      input {
+        padding : 1rem 3rem;
+        border-radius : 10px;
+        background : none;
+        outline : 1px solid black;
+      }
+    }
   
 `;
 
@@ -134,8 +222,10 @@ const Table = styled.table`
   overflow : scroll;
   margin-bottom : 10rem;
 
-  th,
-  td {
+  thead{
+    border-bottom: 2px solid black;
+  }
+  td ,th {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: center;
@@ -145,3 +235,8 @@ const Table = styled.table`
     background-color: #eee;
   }
 `;
+const Total = styled.h1`
+  font-size : 60px;
+  color : green;
+  font-weight : bold;
+`
