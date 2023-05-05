@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         payment_method_types : ['card'],
         billing_address_collection : 'required',
         shipping_options : [
-            {shipping_rate : 'shr_1MteMYHz6XdTAx5rztRIxoPl'} , //free shipping - 0 €
+            {shipping_rate : 'shr_1N4PcvHz6XdTAx5rqKiTltEv'} , //free shipping - 0 €
             {shipping_rate : 'shr_1MteODHz6XdTAx5roOigV92M'} //fast shupping 20 €
         ],
         line_items: lineItems,

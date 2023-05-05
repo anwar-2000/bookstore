@@ -1,4 +1,4 @@
-import { Contact, Facebook, Instagram, PhoneCall, Twitter } from 'lucide-react';
+import { Facebook, PhoneCall, Twitter , Mail} from 'lucide-react';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -7,9 +7,8 @@ const FooterContainer = styled.footer`
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color : #FACC15;
-  position: fixed;
-  bottom: 0;
+  border-top : solid 2px black;
+  background-color : #009FE3;
   width: 100%;
   height : 5rem;
   
@@ -30,8 +29,10 @@ const List = styled.ol`
 
 const Image = styled.img`
   max-width: 130px;
-
-  mix-blend-mode : multiply;
+  object-fit : cover;
+  margin-left : 4rem;
+  border-radius : 10px;
+  height : 70px;
 `;
 
 const Footer: React.FC = () => {
@@ -42,9 +43,10 @@ const Footer: React.FC = () => {
     <FooterContainer>
       <ListContainer>
         <List>
-          <Facebook />
-          <Twitter />
-          <PhoneCall />
+          <Facebook color='white'/>
+          <Twitter color='white' />
+          <PhoneCall color='white'/>
+          <Mail color='white'/>
         </List>
       </ListContainer>
       <Image src={imageUrl} alt="" />

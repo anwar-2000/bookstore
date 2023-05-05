@@ -293,6 +293,7 @@ export default Index;
 
 const Container = styled.div`
   display: flex;
+  min-height : 100vh;
   flex-direction: column;
   align-items: center;
   justify-content: center;

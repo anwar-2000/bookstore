@@ -177,6 +177,7 @@ const Container = styled.div`
   justify-content : center;
   margin:  auto;
   overflow : scroll;
+  min-height : 100vh;
 
 
   .controls__input{

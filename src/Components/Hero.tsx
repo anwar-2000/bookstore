@@ -167,32 +167,32 @@ const Right = styled.div`
   justify-content: end;
 
   small {
-    color: #c9c900;
+    color: #0c0c0a;
     font-family: 'Oswald', sans-serif;
     font-weight: 700;
     font-size: 1rem;
     border-radius: 50%;
     padding: 0.5rem 0.5rem;
+    margin-bottom : 1.2rem;
     transform: rotate(10deg) translate(-10rem,3rem);
     transition: all ease-in 400ms;
   }
 
 #book1{
-width: 25% !important;
+width: 30% !important;
 transform: translateY(3rem) rotate(10deg);
 background-color: #615d5d;
-box-shadow: 0px 0px 31px 12px rgba(102,87,87,0.75);
--webkit-box-shadow: 0px 0px 31px 12px rgba(102,87,87,0.75);
--moz-box-shadow: 0px 0px 31px 12px rgba(102,87,87,0.75);
+box-shadow: 0px 0px 31px 12px rgba(10, 128, 175, 0.75);
+-webkit-box-shadow: 0px 0px 31px 12px rgba(7, 85, 148, 0.75);
+-moz-box-shadow: 0px 0px 31px 12px rgba(4, 100, 138, 0.75);
 }
 #book2{
 width: 25% !important;
-background: yellow;
 background-size: cover;
 transform: translateY(10rem) rotate(10deg);
-box-shadow: 0px 0px 31px 12px rgba(239,255,8,0.75);
--webkit-box-shadow: 0px 0px 31px 12px rgba(239,255,8,0.75);
--moz-box-shadow: 0px 0px 31px 12px rgba(239,255,8,0.75);
+box-shadow: 0px 0px 31px 12px rgba(64, 65, 57, 0.75);
+-webkit-box-shadow: 0px 0px 31px 12px rgba(64, 65, 57, 0.75);
+-moz-box-shadow: 0px 0px 31px 12px rgba(64, 65, 57, 0.75);
 
 }
 /* styles for screens smaller than 768px */

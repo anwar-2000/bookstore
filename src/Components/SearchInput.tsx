@@ -35,8 +35,8 @@ const SearchInput:FC = ({}) => {
                 type="text"
                 autoComplete="false"
                 placeholder="livres / auteur ..."
-                className="p-2 m-2 rounded focus:outline-none border bg-transparent text-slate-900 placeholder:text-slate-900 placeholder-shown:border-slate-700  block"
-              />
+                className="p-2 m-2 rounded outline-none border-l-stone-900  bg-transparent text-slate-700 placeholder:text-slate-700 placeholder-shown:border-none focus:border-none block"
+                />
               <Search strokeWidth="4" color='black' className="cursor-pointer block" onClick={handleClick(searchParam, searchValue)} />
             </div>
   </Container>
@@ -52,10 +52,21 @@ const Container = styled.div`
   gap: 0.5rem;
   margin-left : 2rem;
 
+  select  {
+      border : solid 1.5px black;
+      padding : 1.1rem;
+      border-radius : 10px;
+    }
+
   #inputs {
     display: flex;
     align-items: center;
     justify-content: center;
+    border : solid 1.5px black;
+    padding-right : 0.5rem;
+    border-radius : 10px;
+
+    
   }
 
   /* Add media queries here */
