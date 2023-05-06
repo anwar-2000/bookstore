@@ -40,5 +40,5 @@ const bookSchema: Schema<IBook> = new Schema({
 });
 // Overwrite the existing Book model with the new schema
 
-const Book = models.Book || model("Book", bookSchema);
-export default Book
+const Livre = models.Livre || model("Livre", bookSchema);
+export default Livre

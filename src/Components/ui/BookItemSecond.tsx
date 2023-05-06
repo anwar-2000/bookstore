@@ -1,8 +1,6 @@
 import { Star , Heart } from 'lucide-react'
 import React, { FC, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import {AddToFavorite} from "@/redux/reducers/Cart";
 interface Props extends React.HTMLAttributes<HTMLElement>{
     title : string 
     image : string
@@ -30,6 +28,7 @@ const BookItemSecond:FC<Props> = ({title , image , rating, prix , ...rest}) => {
             prix,
             image,
         };    
+
         const favoriteListString = localStorage.getItem('favoriteBooksList');
 
         const favoriteList = JSON.parse(favoriteListString as string) || [];

@@ -4,9 +4,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const page = 1 ;
   const limit = 10;
   searchValue = searchValue.replace("%20", " ");
-  console.log(
-    "getserversideprops params" + " " + searchParam + " " + searchValue
-  );
+  
   const [response1, response2] = await Promise.all([
     preparedFetchforInput(searchParam, searchValue),
     fetchBooks(page, limit)]);
@@ -42,7 +40,7 @@ const Index: FC<Props> = ({ response1,response2 }) => {
               response1.map((book: any, i: number) => (
                 <BookItemSecond
                   prix = {book.prix}
-                  image={book.image}
+                  image={book.imageUrl1}
                   key={i}
                   title={book.titre}
                   rating={book.rating}
@@ -58,7 +56,7 @@ const Index: FC<Props> = ({ response1,response2 }) => {
             {response1.length > 1 &&
               response1.map((book: any, i: number) => (
                 <BookItemSecond
-                  image={book.image}
+                  image={book.imageUrl1}
                   key={i}
                   title={book.titre}
                   rating={book.rating}
@@ -77,13 +75,13 @@ const Index: FC<Props> = ({ response1,response2 }) => {
             <img src="./notFound.png" alt="" />
           </div>
           <Suggestions>
-              { /*<h4>Si vous avez aimé ce livre, vous pourriez également aimer les suivants : </h4> */}
+              
               <h4>Cependant, voici quelques autres livres que vous pourriez aimer :</h4>
               <div className="items">
               {response2.length > 1 &&
               response2.map((book: any, i: number) => (
                 <BookItemSecond
-                  image={book.image}
+                  image={book.imageUrl1}
                   key={i}
                   title={book.titre}
                   rating={book.rating}
@@ -107,6 +105,7 @@ const Container = styled.div`
   justify-content: start;
   flex-direction: column;
   margin-top: 3rem;
+  margin-bottom : 3rem;
   #h1 {
     font-size: 1.5rem;
     margin-top: 1rem;

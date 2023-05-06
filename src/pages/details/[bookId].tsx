@@ -22,6 +22,7 @@ import { AddToCart, calculateTotal} from "@/redux/reducers/Cart";
 import getStripe from "@/lib/getStripe";
 import { toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
+import SwiperComponent from '@/Components/ui/Swiper'
 
 
 interface Book {
@@ -30,7 +31,9 @@ interface Book {
     description: string;
     etat : string;
     prix: number;
-    image: string;
+    imageUrl1: string;
+    imageUrl2 : string;
+    imageUrl3 : string;
     status: string;
     date: Date;
     rating: number;
@@ -61,11 +64,12 @@ const Index: NextPage<MyPageProps> = ({ data , session }) => {
         setDate(`${day}-${month}-${year}`)
 
     },[data.date]);
+    //console.log(data.imageUrl1 , data.imageUrl2 , data.imageUrl3)
  
   let book = {
     titre : data.titre,
     prix : data.prix,
-    image : data.image,
+    image : data.imageUrl1,
     quantite : 1
    }
   const handleClickPanier = () => {
@@ -113,7 +117,10 @@ const Index: NextPage<MyPageProps> = ({ data , session }) => {
   return (
     <Section>
         <Container className="content">
-          <Right>{<img src={data.image} alt={data.titre} />}</Right>
+          <Right>
+            <SwiperComponent imageUrl1={data.imageUrl1} imageUrl2={data.imageUrl2} imageUrl3={data.imageUrl3}/>
+            {//<img src={data.imageUrl1} alt={data.titre}/>
+            }</Right>
           <Left>
             <div className="infos">
               <h1>{data.titre}</h1>
@@ -163,13 +170,14 @@ const Section = styled.section`
   width: 100%;
   gap: 2rem;
   overflow-x: hidden;
-  overflow-y : scroll;
+  
   height : 100vh;
  
 
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
     gap: 4rem;
+    margin-top : 3rem;
   }
 
   /* styles for screens between 768px and 1024px */
@@ -196,7 +204,7 @@ const Container = styled.div`
   margin-top : 2rem;
   margin-bottom : 3rem;
   gap: 4rem;
-  overflow-y : scroll;
+
   
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
@@ -264,6 +272,7 @@ const Left = styled.div`
   h1 {
     font-size: 2.5rem;
     font-family: 'Shadows Into Light';
+    
   }
 
   span {
@@ -340,7 +349,8 @@ const Left = styled.div`
 
       h1 {
         font-size: 30px;
-        margin: 0.6rem 0;
+        margin: 0.6rem 2rem;
+        text-align : center;
       }
 
       small {
@@ -371,6 +381,7 @@ const Right = styled.div`
   width: 30rem;
   display: grid;
   place-items: center;
+  
   img {
     width: 450px;
     height: 450px;
@@ -379,9 +390,10 @@ const Right = styled.div`
 
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
+    padding-top : 12rem;
     & img {
          width: 250px;
-         height: 250px;
+         height: 450px;
          margin-top : 2rem;
     }
 
@@ -389,6 +401,7 @@ const Right = styled.div`
 
   /* styles for screens between 768px and 1024px */
   @media screen and (min-width: 768px) and (max-width: 1024px) {
+    padding-top : 50rem;
     & img {
         width: 450px;
         height: 450px;

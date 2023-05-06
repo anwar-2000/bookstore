@@ -15,5 +15,5 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     margin-top: 5rem;
-    min-height : 100vh;
+    min-height : 80vh;
 `

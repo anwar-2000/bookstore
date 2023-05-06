@@ -23,12 +23,12 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
     if(Object.keys(formData).length == 0) {
         return <h1>form empty</h1>
     }
-        console.log(formData);
-       await addBook(formData);
-       toast.success('book Modified Successfully',{
+      //console.log(formData);
+      const response =  await addBook(formData);
+      if(response.ok) {toast.success('book Modified Successfully',{
         position: toast.POSITION.BOTTOM_RIGHT,
         theme: "colored"
-      });
+      });}
       onAdd()
 
       };
@@ -49,7 +49,15 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
         </FormGroup>
         <FormGroup>
           <label htmlFor='imageUrl'>Image URL:</label>
-          <input type='text' onChange={setFormData} id='image' name='image' />
+          <input type='text' onChange={setFormData} id='image' name='imageUrl1' />
+        </FormGroup>
+        <FormGroup>
+          <label htmlFor='imageUrl'>Image URL 2 :</label>
+          <input type='text' onChange={setFormData} id='image' name='imageUrl2' />
+        </FormGroup>
+        <FormGroup>
+          <label htmlFor='imageUrl'>Image URL 3 :</label>
+          <input type='text' onChange={setFormData} id='image' name='imageUrl3' />
         </FormGroup>
         <FormGroup>
           <label htmlFor='Description'>Description:</label>
@@ -77,17 +85,7 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
           <input type='number' onChange={setFormData} id='prix' name='prix'  min={1} step={1} placeholder='15€'/>
         </FormGroup>
         <FormGroup>
-        { /* <label htmlFor='active' >Statut:</label>
-          <RadioGroup>
-            <label>
-              <input type='radio' onChange={setFormData} id='inactive' name='status' value='inactive' />
-              Inactif
-            </label>
-            <label>
-              <input type='radio' id='active'  value='active' name='status' />
-              Actif
-            </label>
-  </RadioGroup> */}
+       
         </FormGroup>
        <div className='button'>
        <Button type='submit'>Ajouter</Button>
@@ -104,6 +102,7 @@ const Container = styled.div`
   height: 70vh;
   display: flex;
   margin-top : 1.8rem;
+  margin-bottom : 5rem;
   gap: 5rem;
   flex-direction: column;
   align-items: center;

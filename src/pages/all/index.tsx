@@ -42,6 +42,9 @@ const Index = () => {
   const { show } = useSelector((state: any) => state.cart);
   console.log("Show cart state : " + show);
 
+  console.log("image : " + data?.imageUrl1);
+
+
 
   /** LOGIC FOR CONTROLLING THE LIMIT AND PAGE */
 
@@ -138,7 +141,7 @@ const Index = () => {
                     <BookItemSecond
                       key={i}
                       title={book.titre}
-                      image={book.image}
+                      image={book.imageUrl1}
                       rating={book.rating}
                       prix = {book.prix}
                       onClick={() => getBookIdHandler(book._id)}

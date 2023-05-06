@@ -65,7 +65,7 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
         <Spiner>
           <PuffLoader
             color="yellow"
-            size={150}
+            size={250}
             aria-label="Loading Spinner"
             data-testid="loader"
           />
@@ -77,7 +77,7 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
             (
               book: {
                 titre: string;
-                image: string;
+                imageUrl1: string;
                 rating: number;
                 _id: string;
                 prix: number;
@@ -87,7 +87,7 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
               <BookItemSecond
                 key={i}
                 title={book.titre}
-                image={book.image}
+                image={book.imageUrl1}
                 rating={book.rating}
                 onClick={() => getBookIdHandler(book._id)}
                 prix={book.prix}
@@ -114,7 +114,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  padding-bottom : 5rem;
   h1 {
     
   }
@@ -125,7 +125,6 @@ const Container = styled.div`
     justify-content: center;
     flex-wrap : wrap;
     white-space: nowrap;
-    margin-top : 0.5rem;
 
     h1{
        font-size: 1rem;
@@ -153,7 +152,8 @@ const Items = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   gap: 1.5rem;
-  margin-top: 2.5rem;
+  padding-bottom : 3rem;
+ 
 `;
 const Spiner = styled.div`
   display: flex;

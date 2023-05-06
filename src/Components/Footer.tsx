@@ -30,7 +30,7 @@ const List = styled.ol`
 const Image = styled.img`
   max-width: 130px;
   object-fit : cover;
-  margin-left : 4rem;
+  margin-left : 2rem;
   border-radius : 10px;
   height : 70px;
 `;

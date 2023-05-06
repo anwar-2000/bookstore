@@ -65,11 +65,9 @@ const Container = styled.div`
     border : solid 1.5px black;
     padding-right : 0.5rem;
     border-radius : 10px;
-
-    
   }
 
-  /* Add media queries here */
+  /* Adding media queries here */
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 1rem;

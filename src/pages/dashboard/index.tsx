@@ -245,7 +245,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                   {filteredCustomers.map((book: any) => (
                     <TR key={book._id}>
                       <td>
-                        <img src={book.image} alt={book.title} />
+                        <img src={book.imageUrl1} alt={book.title} />
                       </td>
                       <td>{book.titre}</td>
                       <td>{book.prix}€</td>

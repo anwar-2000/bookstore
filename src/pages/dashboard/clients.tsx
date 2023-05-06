@@ -97,7 +97,7 @@ if (!response) {
       {showCustomers ? <>
         <div className="controls__input">
                 <input type="text"
-                 placeholder="Rechercher Un Livre..."
+                 placeholder="Rechercher Un Client..."
                  value={searchTermCustomer}
                  onChange={(e) => setSearchTermCustomer(e.target.value)} />
               </div>
@@ -125,7 +125,7 @@ if (!response) {
         <Total> Total :  {totalRevenue / 100 } €</Total>
         <div className="controls__input">
                 <input type="text"
-                 placeholder="Rechercher Un Livre..."
+                 placeholder="Rechercher Par Email..."
                  value={searchTermPayments}
                  onChange={(e) => setSearchTermPayments(e.target.value)} />
               </div>
