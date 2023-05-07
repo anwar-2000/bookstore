@@ -6,7 +6,7 @@ import styled from 'styled-components'
 const IWillGiveFunds = () => {
     const router = useRouter()
   return <Container>
-            <Link href={'/dons'}><a>J'ai Des Livres A Donnés</a></Link>
+            <Link href={'/dons'}><a>Je Veux Donner Des Livres</a></Link>
   </Container>
 }
 
