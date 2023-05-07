@@ -1,7 +1,7 @@
 
 
-const BASE_URL:String ="https://bookstore-delta-two.vercel.app"
-//const BASE_URL:String ="http://localhost:3000"
+//const BASE_URL:String ="https://bookstore-delta-two.vercel.app"
+const BASE_URL:String ="http://localhost:3000"
 
 
 export const fetchBooks = async (page = 1, limit = 10) => {
@@ -166,3 +166,25 @@ export const checkAdminStatus = async (email: string) => {
     const data = await response.json();
     return data;
   };
+
+  /** LOGIC FOR FUNDS */
+
+  export const getAllFunds = async (formData:Object) => {
+    
+      const response =  await fetch(`${BASE_URL}/api/dons`);
+      const data = await response.json()
+
+      return data;
+ }
+
+   export const addFund = async (formData:Object) => {
+      const options = {
+      method : "POST",
+      headers :{ "Content-Type" : "application/json"},
+      body : JSON.stringify(formData)
+       }
+        const response =  await fetch(`${BASE_URL}/api/dons`,options);
+        const data = await response.json()
+
+        return data;
+   }

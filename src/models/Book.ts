@@ -38,7 +38,12 @@ const bookSchema: Schema<IBook> = new Schema({
   date_du_livre: String,
   categorie: String,
 });
+
+
 // Overwrite the existing Book model with the new schema
 
 const Book = models.Book || model("Book", bookSchema);
 export default Book
+
+
+

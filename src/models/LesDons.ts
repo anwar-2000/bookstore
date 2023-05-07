@@ -1,4 +1,4 @@
-import { Schema, models, model } from "mongoose";
+import  mongoose, { Schema, models, model } from "mongoose";
 
 
 interface Don {
@@ -28,5 +28,11 @@ const LesDonsSchema:Schema<Don>= new Schema ({
 
 })
 
-const LesDons = models.Livre || model("Dons", LesDonsSchema);
-export default LesDons
+console.log('ALL THE MODELS : ',mongoose.modelNames());
+
+
+ const LesDonsBoutique =
+  models.LesDonsBoutique 
+
+export default LesDonsBoutique;
+  

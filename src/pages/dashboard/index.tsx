@@ -137,10 +137,12 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
 
 
   /** FILTERING LOGIC */
-  const filteredCustomers = data?.filter((book: any) =>
-    book.titre.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
+  const filteredBooks = data?.filter((book: any) => { 
+    const titre = book.titre;
+    return titre && titre.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+ 
   return (
     <>
       {/** if Error when  Fetching notify it */}
@@ -242,7 +244,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                 </thead>
 
                 <tbody>
-                  {filteredCustomers.map((book: any) => (
+                  {filteredBooks.map((book: any) => (
                     <TR key={book._id}>
                       <td>
                         <img src={book.imageUrl1} alt={book.title} />

@@ -48,7 +48,8 @@ const MainImage = styled.img`
     width : 100%;
 
     #bigImage {
-      padding-top : 10rem;
+      object-fit : contain;
+      padding-top : 20rem;
     }
 `
 

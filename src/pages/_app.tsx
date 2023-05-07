@@ -10,7 +10,10 @@ import { SessionProvider } from "next-auth/react";
 import  NextNProgress from "nextjs-progressbar";
 import { ToastContainer } from 'react-toastify';
 import Footer from "@/Components/Footer";
-
+import { useEffect } from "react";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+import IWillGiveFunds from "@/Components/ui/IWillGiveFunds";
 
 
 //creating client
@@ -18,6 +21,12 @@ const queryclient =  new QueryClient()
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const showModal = useSelector((state: any) => state.cart.show);
+
+  useEffect(()=>{
+    AOS.init({
+      disable: 'phone' ,
+    });
+  },[])
 
   return (
     <>
@@ -37,6 +46,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
     <QueryClientProvider client={queryclient}>
       <Provider store={store}>
       <SessionProvider session={pageProps.session}>
+        <IWillGiveFunds />
         <NavBar />
         <MyApp Component={Component} pageProps={pageProps} router={router} />
         <Footer />

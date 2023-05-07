@@ -153,6 +153,7 @@ const Index: NextPage<MyPageProps> = ({ data , session }) => {
             <div className="buttons">
               <button onClick={handleClickPanier}>Ajouter au Panier</button>
               <button onClick={handleClickAchat}>Commander maintenant</button>
+              <button style={{cursor : 'not-allowed'}}>Négocier Le Prix</button>
             </div>
           </Left>
         </Container>
@@ -166,7 +167,7 @@ const Section = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   width: 100%;
   gap: 2rem;
   overflow-x: hidden;
@@ -291,6 +292,9 @@ const Left = styled.div`
 
   .buttons {
     display: flex;
+    
+    align-items : center;
+    justify-content : center;
     gap: 1rem;
     button {
       padding: 0.5rem 1rem;
@@ -302,12 +306,8 @@ const Left = styled.div`
 
       &:nth-child(1) {
         transition: all ease-in 200ms;
-
-        &:hover {
-          border: solid 1px black;
-          background: black;
-          color: white;
-        }
+        background: black;
+        color: white;
       }
 
       &:nth-child(2) {
@@ -315,14 +315,14 @@ const Left = styled.div`
         border: none;
         transition: all ease-in 700ms;
         color : black;
-
-        &:hover {
-          border: solid 1px black;
-          background: black;
-          color: white;
-        }
       }
     }
+    /* styles for screens smaller than 768px */
+  @media screen and (max-width: 767px) {
+      & {
+        flex-wrap : wrap;
+      }
+  }
   }
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
@@ -390,7 +390,7 @@ const Right = styled.div`
 
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
-    padding-top : 12rem;
+    padding-top : 16rem;
     & img {
          width: 250px;
          height: 450px;

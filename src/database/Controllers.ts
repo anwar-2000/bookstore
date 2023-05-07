@@ -1,8 +1,8 @@
 /**Controllers */
 import type { NextApiRequest, NextApiResponse } from 'next'
-import Book from '@/models/Book'
 import User from '@/models/User';
 import Livre from '@/models/Livres';
+import LesDonsBoutique from '@/models/LesDons';
 
 // GET : https://localhost/api/books : sorted in reverse 'date'
 export async function getBooks(req: NextApiRequest, res: NextApiResponse) {
@@ -209,4 +209,35 @@ export async function deleteUser(req: NextApiRequest, res: NextApiResponse) {
     console.error(err);
     return res.status(500).json({ error: 'Error while deleting the user' });
   }
+}
+
+/** *************************************  LES DONS ********************************************* */
+
+
+export async function addDon(req: NextApiRequest, res: NextApiResponse){
+  try {
+    const formData = req.body;
+    if (!formData) {
+      return res.status(404).json({ error: 'Form Data not provided' });
+    }
+    const Don = await LesDonsBoutique.create(formData);
+    //console.log('Don : ',Don);
+    res.status(201).json({Don});
+  } catch (err) {
+    //console.log(err);
+     return res.status(500).json({error :"error"});
+  }
+}
+
+
+export async function getDons (req: NextApiRequest, res: NextApiResponse) {
+    try {
+      const dons = await LesDonsBoutique.find({}).sort({ date: -1 })
+      if (!dons) {
+        res.status(404).json({ error: "Funds Not Found" });
+       }
+        res.status(200).json(dons); // send funds data in the response
+    }catch(err){
+      return res.status(500).json({error :"error"});
+    }
 }

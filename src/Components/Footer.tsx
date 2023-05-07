@@ -1,4 +1,5 @@
-import { Facebook, PhoneCall, Twitter , Mail} from 'lucide-react';
+import { Facebook, PhoneCall, Instagram , Mail} from 'lucide-react';
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -43,10 +44,10 @@ const Footer: React.FC = () => {
     <FooterContainer>
       <ListContainer>
         <List>
-          <Facebook color='white'/>
-          <Twitter color='white' />
-          <PhoneCall color='white'/>
-          <Mail color='white'/>
+          <Link href="https://www.facebook.com/emmauschatelleraudais"><Facebook color='white'/></Link>
+          <Link href="https://www.instagram.com/emmaus.chatelleraultnaintre"><Instagram color='white' /></Link>
+          <Link href="tel:+33988048607"><PhoneCall color='white'/></Link>
+          <Link href="mailto:contact@emmaus-chatelleraudais.org"><Mail color='white'/></Link>
         </List>
       </ListContainer>
       <Image src={imageUrl} alt="" />

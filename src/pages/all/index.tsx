@@ -10,6 +10,7 @@ import { fetchBooks } from "@/lib/helpers";
 import Head from 'next/head';
 import { PuffLoader
 } from "react-spinners";
+import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 
 
