@@ -3,14 +3,10 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
 
-
-
 const IWillGiveFunds = () => {
     const router = useRouter()
-
-
   return <Container>
-            <Link href={'/dons'}><p>J'ai Des Livres A Donnés</p></Link>
+            <Link href={'/dons'}><a>J'ai Des Livres A Donnés</a></Link>
   </Container>
 }
 
@@ -21,8 +17,6 @@ const Container = styled.div`
     height : 30px;
     z-index : 99;
     background: rgb(231,76,60);
- 
-    
     display  : flex;
     align-items : center;
     justify-content : center;
