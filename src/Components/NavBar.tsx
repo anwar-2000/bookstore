@@ -29,7 +29,7 @@ const NavBar = () => {
           className="h-28 md:h-48 w-auto max-h-100 object-contain mr-4 rounded cursor-pointer "
           onClick={() => router.push('/')}
         />
-            <Link href={`${BASE_URL2}/all`}>
+            <Link href={`${BASE_URL}/all`}>
             <div>
               <h3 className="whitespace-nowrap ml-3">Tous Livres</h3>
             </div>
