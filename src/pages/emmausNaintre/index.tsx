@@ -11,8 +11,8 @@ const index = () => {
           <p>27500 personnes (salariés, compagnons, bénévoles)</p>
           <p>122 communautés</p>
           <p>
-            291 groupes Emmaüs "Comités d'amis, Sos familles, communautés,
-            structures d'Insertion…"
+            291 groupes Emmaüs &quot;Comités d&apos;amis, Sos familles, communautés,
+            structures d&apos;Insertion…&quot;
           </p>
         </div>
 
@@ -20,7 +20,7 @@ const index = () => {
           <h1>EMMAUS INTERNATIONAL</h1>
           <p>
             350 associations dans 37 pays tous basés sur les mêmes principes et
-            valeurs d'origine
+            valeurs d&apos;origine
           </p>
         </div>
       </Emmaus>
@@ -36,50 +36,50 @@ const index = () => {
           <p>
             <mark>1991-2001 :</mark> Enracinement et stabilité, 40 compagnons:
             premières braderies Parc Expo, accueil des premiers demandeurs
-            d'asiles
+            d&apos;asiles
           </p>
         </div>
         <div>
           <p>
             <mark>2001-2011 :</mark> accueil de familles migrantes en plus de
-            l'accueil "traditionnel"
+            l&apos;accueil &quot;traditionnel&quot;
           </p>
         </div>
         <div>
           <p>
             <mark>Depuis 2011 :</mark> ouverture du Coin Livres et de La
-            Boutique, partenariat avec Le Ressort et d'autres association,
-            poursuite des actions de solidarité et d'accueil Actuellement 130
+            Boutique, partenariat avec Le Ressort et d&apos;autres association,
+            poursuite des actions de solidarité et d&apos;accueil Actuellement 130
             adultes et 90 enfants sont accueillis et hébergés
           </p>
         </div>
       </Histoire>
       <Accueil>
-        <h1>L'ACCUEIL :</h1>
+        <h1>L&apos;ACCUEIL :</h1>
         <p>
-          -<mark>L'accueil des plus démunis</mark> sans distinction d'origine,
-          parce qu'ils ont besoin d'un toit, de liens d'amitié, d'une raison de
+          -<mark>L&apos;accueil des plus démunis</mark> sans distinction d&apos;origine,
+          parce qu&apos;ils ont besoin d&apos;un toit, de liens d&apos;amitié, d&apos;une raison de
           vivre
         </p>
         <p>
-          -<mark>L'accueil des passagers</mark> pour une ou plusieurs nuits
+          -<mark>L&apos;accueil des passagers</mark> pour une ou plusieurs nuits
         </p>
         <p>
-          -<mark>L'accueil des familles et de leurs enfants</mark>
+          -<mark>L&apos;accueil des familles et de leurs enfants</mark>
         </p>
       </Accueil>
 
       <Vie>
       <h1>LA VIE COMMUNAUTAIRE :</h1>
-      <p><mark>C'est le partage du quotidien</mark>quotidien des repas, du travail, des loisirs</p>
-      <p>-Chacun peut s'investir dans le fonctionnement et l'évolution de la communauté, toujours dans un
+      <p><mark>C&apos;est le partage du quotidien</mark>quotidien des repas, du travail, des loisirs</p>
+      <p>-Chacun peut s&apos;investir dans le fonctionnement et l&apos;évolution de la communauté, toujours dans un
 respect mutuel</p>
 <p>-Dans la communauté, les compagnons peuvent retrouver une appartenance à un groupe social,
-des relations d'amitié et de solidarité, voire un lieu d'épanouissement.</p>
+des relations d&apos;amitié et de solidarité, voire un lieu d&apos;épanouissement.</p>
 
-<p>- pour certains c'est une courte étape, un dépannage dans une situation d'urgence leur permettant
+<p>- pour certains c&apos;est une courte étape, un dépannage dans une situation d&apos;urgence leur permettant
 de se stabiliser</p>
-<p>-Pour d'autres cela peut devenir une manière de vivre, un combat.</p>
+<p>-Pour d&apos;autres cela peut devenir une manière de vivre, un combat.</p>
 
       </Vie>
     </Container>
