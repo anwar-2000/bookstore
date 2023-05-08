@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import styled from "styled-components";
 
-interface Props {}
+
 
 const Hero = () => {
   const containerVariants = {
@@ -16,17 +16,6 @@ const Hero = () => {
     visible: { opacity: 1, transition: { duration: 0.5, delay: 0.5 } }
   };
 
-  const titleLetters = {
-    hidden: { opacity: 0, y: 50 },
-    visible: (index:number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        delay: 0.5 + index * 0.1
-      }
-    })
-  };
 
   return (
     <motion.div variants={containerVariants} initial="hidden" animate="visible">
@@ -38,7 +27,7 @@ const Hero = () => {
           <motion.small variants={titleVariants} initial="hidden" animate="visible">
             Si vous ne savez pas exactement ce que vous cherchez, nous vous invitons à parcourir nos différentes catégories et listes de livres pour trouver des titres qui pourraient vous plaire
           </motion.small>
-          <Link href={'/all'} ><button>Découvrir</button></Link> 
+          <Link href={'/all'} ><button>Découvrir</button></Link>
         </Left>
         <Right>
           <img src="/book1.jpeg" alt='book1'  id="book1" />
@@ -113,6 +102,8 @@ color : white;
   background-color: white;
   color : black;
 }
+
+
 }
 /* styles for screens smaller than 768px */
 @media screen and (max-width: 767px) {

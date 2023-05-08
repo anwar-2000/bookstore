@@ -119,8 +119,7 @@ const Index: NextPage<MyPageProps> = ({ data , session }) => {
         <Container className="content">
           <Right>
             <SwiperComponent imageUrl1={data.imageUrl1} imageUrl2={data.imageUrl2} imageUrl3={data.imageUrl3}/>
-            {//<img src={data.imageUrl1} alt={data.titre}/>
-            }</Right>
+            </Right>
           <Left>
             <div className="infos">
               <h1>{data.titre}</h1>
@@ -164,32 +163,35 @@ const Index: NextPage<MyPageProps> = ({ data , session }) => {
 export default Index;
 
 const Section = styled.section`
+ 
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: start;
-  width: 100%;
-  gap: 2rem;
-  overflow-x: hidden;
   
-  height : 100vh;
+  gap: 2rem;
+ 
+
  
 
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
     gap: 4rem;
     margin-top : 3rem;
+    padding-bottom : 28rem;
   }
 
   /* styles for screens between 768px and 1024px */
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     gap: 4rem;
+    padding-bottom : 28rem;
     .content {
       transform: translateY(-8rem);
     }
   }
 
   @media screen and (min-width: 912px) and (max-width: 1024px) {
+    padding-bottom : 28rem;
     gap: 0rem;
     .content {
       transform: translateY(-11rem);
@@ -206,7 +208,6 @@ const Container = styled.div`
   margin-bottom : 3rem;
   gap: 4rem;
 
-  
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
     flex-direction: column;
@@ -220,6 +221,7 @@ const Container = styled.div`
 `;
 const Left = styled.div`
   width: 30rem;
+  height : 100%;
   display: flex;
   flex-direction: column;
   align-items : center;
@@ -328,6 +330,7 @@ const Left = styled.div`
   @media screen and (max-width: 767px) {
     align-items: center;
     justify-content: center;
+    
 
     & .rating{
     display: flex;
@@ -390,7 +393,7 @@ const Right = styled.div`
 
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
-    padding-top : 16rem;
+    padding-top : 25rem;
     & img {
          width: 250px;
          height: 450px;

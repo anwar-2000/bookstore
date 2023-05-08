@@ -47,6 +47,11 @@ const NavBar = () => {
               <h3>Accueil</h3>
             </div>
           </Link>
+          <Link href="/dons">
+            <div className="hidden md:block">
+              <h3>Donner</h3>
+            </div>
+          </Link>
           <div className="flex items-center justify-end">
             <button
               onClick={() => dispatch(toggleCart())}
