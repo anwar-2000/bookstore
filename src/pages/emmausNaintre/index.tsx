@@ -71,7 +71,7 @@ const index = () => {
 
       <Vie>
       <h1>LA VIE COMMUNAUTAIRE :</h1>
-      <p><mark>C&apos;est le partage du quotidien</mark>quotidien des repas, du travail, des loisirs</p>
+      <p><mark>C&apos;est le partage du quotidien</mark> ... quotidien des repas, du travail, des loisirs</p>
       <p>-Chacun peut s&apos;investir dans le fonctionnement et l&apos;évolution de la communauté, toujours dans un
 respect mutuel</p>
 <p>-Dans la communauté, les compagnons peuvent retrouver une appartenance à un groupe social,
@@ -89,6 +89,9 @@ de se stabiliser</p>
 export default index;
 
 const Container = styled.div`
+img {
+  margin-left : 1.5rem;
+}
   display: flex;
   align-items: center;
   justify-content: center;

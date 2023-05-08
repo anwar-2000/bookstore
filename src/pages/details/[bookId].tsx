@@ -168,7 +168,7 @@ const Section = styled.section`
   align-items: center;
   flex-direction: column;
   justify-content: start;
-  
+  overflow-x:hidden;
   gap: 2rem;
  
 
