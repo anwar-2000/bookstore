@@ -169,7 +169,7 @@ export const checkAdminStatus = async (email: string) => {
 
   /** LOGIC FOR FUNDS */
 
-  export const getAllFunds = async (formData:Object) => {
+  export const getAllFunds = async () => {
     
       const response =  await fetch(`${BASE_URL}/api/dons`);
       const data = await response.json()

@@ -44,7 +44,7 @@ interface MyPageProps {
           position: toast.POSITION.TOP_RIGHT,
           theme: "colored"
         });
-        router.push("/");
+        router.push("/users/login");
       }
         checkAdmin();}
       }, [session.user.email]);
@@ -198,16 +198,6 @@ const Container = styled.div`
     color: black;
     font-weight: 700;
     border-radius: 10px;
-  }
-`;
-const FormDiv = styled.div`
-  dislpay: flex;
-  align-items: center;
-  justify-content: start;
-  h1 {
-    text-align : center;
-    font-weight : bold;
-    font-size : 20px;
   }
 `;
 

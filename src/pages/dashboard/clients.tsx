@@ -50,7 +50,7 @@ if (!response) {
     position: toast.POSITION.TOP_RIGHT,
     theme: "colored"
   });
-  router.push("/");
+  router.push("/users/login");
 }
   checkAdmin();}
 }, [session.user.email]);

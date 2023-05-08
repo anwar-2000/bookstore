@@ -32,7 +32,7 @@ console.log('ALL THE MODELS : ',mongoose.modelNames());
 
 
  const LesDonsBoutique =
-  models.LesDonsBoutique 
+  models.LesDonsBoutique || model("LesDonsBoutique", LesDonsSchema);
 
 export default LesDonsBoutique;
   

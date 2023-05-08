@@ -69,7 +69,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
           position: toast.POSITION.TOP_RIGHT,
           theme: "colored",
         });
-        router.push("/");
+        router.push("/users/login");
       } else {
         toast.success(`Bonjour Mr ${email}`, {
           position: toast.POSITION.TOP_RIGHT,
