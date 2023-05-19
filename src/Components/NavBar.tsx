@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 
 
 const NavBar = () => {
-  const BASE_URL:string ="https://bookstore-delta-two.vercel.app"
+  const BASE_URL:string ="https://emmaus-chatelleraudais.vercel.app"
   const BASE_URL2:string ="http://localhost:3000"
 
   const imageUrl = `${BASE_URL}/emmaus2.png`;
