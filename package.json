@@ -40,6 +40,7 @@
     "react-slick": "^0.29.0",
     "react-spinners": "^0.13.8",
     "react-toastify": "^9.1.2",
+    "simplebar-react": "^3.2.4",
     "stripe": "^11.17.0",
     "styled-components": "^5.3.9",
     "typescript": "5.0.2"

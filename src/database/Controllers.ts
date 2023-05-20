@@ -28,7 +28,7 @@ export async function getBook(req: NextApiRequest, res: NextApiResponse) {
         const {bookId} = req.query
         if(bookId){
           const book = await Livre.findOne({_id: bookId})
-          console.log(bookId)
+          //console.log(bookId)
           res.status(200).json(book)
           return ;
         }
@@ -125,7 +125,7 @@ export async function getSearchBooks(req: NextApiRequest, res: NextApiResponse) 
         { [searchParam]: { $regex: searchValue, $options: "i" } }, //case_in-sensative
         { _id: 1, titre: 1, auteur: 1 , rating : 1 , imageUrl1 : 1 , prix : 1 }
       );
-      console.log("both params provided : " , searchBooks)
+      //console.log("both params provided : " , searchBooks)
     } else {
       searchBooks = await Livre.find({}, { _id: 1, titre: 1, auteur: 1 , rating : 1 , imageUrl1 : 1 , prix : 1});
       //console.log(" just one of the params provided : " , searchBooks)
@@ -152,7 +152,7 @@ export async function addUser(req: NextApiRequest, res: NextApiResponse){
     const existingUser = await User.findOne({email});
     if(existingUser) {return res.status(422).json({message : "User Already in DB"})}
     const user = await User.create(formData);
-    console.log(user);
+    //console.log(user);
     res.status(201).json({user});
   } catch (err) {
     console.log(err); return res.status(500).json({error :"error"});
