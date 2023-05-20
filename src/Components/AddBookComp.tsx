@@ -25,8 +25,8 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
     }
       //console.log(formData);
       const response =  await addBook(formData);
-      if(response.ok) {toast.success('book Modified Successfully',{
-        position: toast.POSITION.BOTTOM_RIGHT,
+      if(response){toast.success('book Added Successfully',{
+        position: toast.POSITION.TOP_RIGHT,
         theme: "colored"
       });}
       onAdd()

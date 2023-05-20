@@ -41,7 +41,9 @@ interface MyPageProps {
     titre: "";
     auteur: "";
     categorie: "";
-    image: "";
+    imageUrl1: "";
+    imageUrl2: "";
+    imageUrl3: "";
     description: "";
     rating: 0;
     quantite: 0;
