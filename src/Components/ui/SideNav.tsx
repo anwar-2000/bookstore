@@ -29,11 +29,11 @@ const SideNav:FC<Props> = ({...rest}) => {
   return <Container isOpen={isOpen}>
         <div className='header'>
             <Menu className='Menu' color='#4F6398' onClick={toggle} />
-            <img src='./emmaus.jpg' alt='Emmaus Image' />
+            <img src='./logo.jpg' alt='Emmaus Image'  />
             <h1>EMMAUS CHATELLEARAULT</h1>
             <small>BOUTIQUE</small>
         </div>
-        <div>
+        <div className='block lg:hidden'>
             <SearchInput />
         </div>
         <div className='navlinks'>
@@ -79,6 +79,15 @@ const Container = styled.div<StyledComponentProps>`
      @media screen and (max-width: 767px) {
       width: 27rem;
 }
+    .onlyOnSmallerDevices{
+        display : block !important;
+
+       & @media screen and (min-width: 1024px) {
+              &{
+                display : none;
+            } 
+            }   
+    }
     
     .header{
         margin-top: 0.5rem;
@@ -91,9 +100,7 @@ const Container = styled.div<StyledComponentProps>`
 
         img {
             width: 35%;
-            margin-left: 2.3rem;
             margin-bottom: 0.8rem;
-            mix-blend-mode: darken;
         }
     }
     .Menu {

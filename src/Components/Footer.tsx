@@ -37,7 +37,7 @@ const Image = styled.img`
 `;
 
 const Footer: React.FC = () => {
-  const BASE_URL:string ="https://bookstore-delta-two.vercel.app"
+  const BASE_URL:string ="https://emmaus-chatelleraudais.vercel.app"
   const imageUrl = `${BASE_URL}/logo.jpg`;
 
   return (

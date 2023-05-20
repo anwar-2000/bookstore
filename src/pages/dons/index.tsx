@@ -3,6 +3,7 @@ import React, { FC, useReducer} from 'react'
 import styled from 'styled-components'
 import {  toast ,} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Head from 'next/head';
 
 
 
@@ -32,7 +33,16 @@ export default function  Index () {
             position: toast.POSITION.TOP_RIGHT,
             theme: "colored"});
       }}}
-    return (
+    return <>
+    <Head>
+      <title>EMMAUS NAINTRE</title>
+      <link rel="icon" href="./logo.jpg" />
+      <meta name="description" content="Donner Des Livres a La boutique des livres Emmaus Chatellerault , on vend ses livres rares, ses BD, ses livres de poche à un prix symbolique."  />
+      <meta name="keywords" content="Livres Rares,livres Anciens,Les BD,Livres Francais,Lives,Rares,Ancien,BD" />
+      <meta name="author" content="Emmaus Naintré - Chatellerault" />
+      <meta property="og:title" content="Emmaus Naintré - Boutique chatellerault" />
+      <meta property="og:description" content="La boutique des livres Emmaus Chatellerault vend ses livres rares, ses BD, ses livres de poche à un prix compétitif." />
+    </Head>
         <Container>
           <h1 >EMMAUS VOUS REMERCI !</h1>
       <Form onSubmit={handleSubmit}>
@@ -72,7 +82,7 @@ export default function  Index () {
        </div>
       </Form>
     </Container>
-    )
+    </>
 };
 
 

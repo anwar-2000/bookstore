@@ -8,7 +8,9 @@ interface BookData {
     titre: string;
     auteur: string;
     categorie: string;
-    image: string;
+    imageUrl1: string;
+    imageUrl2: string;
+    imageUrl3: string
     description: string;
     rating: number;
     quantite: number;
@@ -64,7 +66,15 @@ const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
         </FormGroup>
         <FormGroup>
           <label htmlFor='imageUrl'>Image URL:</label>
-          <input type='text' onChange={handleInputChange} id='image' name='image' value={formData.image} />
+          <input type='text' onChange={handleInputChange} id='image' name='imageUrl1' value={formData.imageUrl1}/>
+        </FormGroup>
+        <FormGroup>
+          <label htmlFor='imageUrl'>Image URL 2 :</label>
+          <input type='text' onChange={handleInputChange} id='image' name='imageUrl2' value={formData.imageUrl2} />
+        </FormGroup>
+        <FormGroup>
+          <label htmlFor='imageUrl'>Image URL 3 :</label>
+          <input type='text' onChange={handleInputChange} id='image' name='imageUrl3' value={formData.imageUrl3}/>
         </FormGroup>
         <FormGroup>
           <label htmlFor='Description'>Description:</label>
@@ -91,17 +101,6 @@ const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
           <input type='number' onChange={handleInputChange} id='prix' name='prix'  min={1} step={1} placeholder='15€' value={formData.prix}/>
         </FormGroup>
         <FormGroup>
-        { /* <label htmlFor='active' >Statut:</label>
-          <RadioGroup>
-            <label>
-              <input type='radio' onChange={setFormData} id='inactive' name='status' value='inactive' />
-              Inactif
-            </label>
-            <label>
-              <input type='radio' id='active'  value='active' name='status' />
-              Actif
-            </label>
-  </RadioGroup> */}
         </FormGroup>
        <div className='button'>
        <Button type='submit'>Modifier</Button>
@@ -123,13 +122,18 @@ const Container = styled.div`
   align-items: center;
   justify-content: start;
   font-family: 'Playfair Display SC', serif;
+  margin-bottom : 6rem;
 `
 
 const Form = styled.form`
   display: grid;
-  grid-template-columns: repeat(5, 2fr);
-  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
   justify-items: center;
+
+  .button{
+    transform : translateX(-7rem);
+  }
 `
 
 const FormGroup = styled.div`
@@ -174,6 +178,7 @@ input[type='text']:focus, input[type='number']:focus, input[type='radio']:focus 
 
 const Button = styled.button`
 margin-top: 10px;
+
 padding: 10px 60px;
 background-color: #0077cc;
 color: #ffffff;

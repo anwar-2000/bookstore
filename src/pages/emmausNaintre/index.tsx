@@ -1,8 +1,20 @@
 import React from "react";
 import styled from "styled-components";
+import { toast } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
+import Head from "next/head";
 
-const index = () => {
-  return (
+const Index = () => {
+  return <>
+  <Head>
+      <title>EMMAUS NAINTRE - France</title>
+      <link rel="icon" href="./logo.jpg" />
+      <meta name="description" content="Petit historique de la Communauté Châtellerault-Naintré"  />
+      <meta name="keywords" content="Emmaus france,emmaus Poitiers,emmaus Chatellerault,Livres Rares,livres Anciens,Les BD,Livres Francais,Lives,Rares,Ancien,BD" />
+      <meta name="author" content="Emmaus Naintré - Chatellerault" />
+      <meta property="og:title" content="Emmaus Naintré - France" />
+      <meta property="og:description" content="Petit historique de la Communauté Châtellerault-Naintré" />
+    </Head>
     <Container>
             <img src="/logo.jpg" alt="" width={'400'} style={{borderRadius : '15px' , mixBlendMode : 'multiply'}} />
       <Emmaus>
@@ -83,10 +95,10 @@ de se stabiliser</p>
 
       </Vie>
     </Container>
-  );
+    </>;
 };
 
-export default index;
+export default Index;
 
 const Container = styled.div`
 img {

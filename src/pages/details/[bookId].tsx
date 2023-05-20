@@ -23,6 +23,7 @@ import getStripe from "@/lib/getStripe";
 import { toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
 import SwiperComponent from '@/Components/ui/Swiper'
+import Head from 'next/head'
 
 
 interface Book {
@@ -66,6 +67,12 @@ const Index: NextPage<MyPageProps> = ({ data , session }) => {
     },[data.date]);
     //console.log(data.imageUrl1 , data.imageUrl2 , data.imageUrl3)
  
+    /**
+     * 
+     * 
+     * i'll fix the bug when can order a book even if its sold out
+     */
+    
   let book = {
     titre : data.titre,
     prix : data.prix,
@@ -114,7 +121,21 @@ const Index: NextPage<MyPageProps> = ({ data , session }) => {
  
 
 
-  return (
+  return <>
+    <Head>
+      <title>{data.titre} - Emmaus </title>
+      <link rel="icon" href={data.imageUrl1} />
+      <meta name="description" content="La boutique des livres Emmaus Chatellerault vend ses livres rares, ses BD, ses livres de poche à un prix compétitif."  />
+      <meta name="keywords" content="Livres Rares,livres Anciens,Les BD,Livres Francais,Lives,Rares,Ancien,BD" />
+      <meta name="author" content={data.auteur} />
+      <meta property="og:title" content="Emmaus- Boutique chatellerault" />
+      <meta property="og:description" content={data.description} />
+    </Head>
+
+
+
+
+
     <Section>
         <Container className="content">
           <Right>
@@ -152,12 +173,12 @@ const Index: NextPage<MyPageProps> = ({ data , session }) => {
             <div className="buttons">
               <button onClick={handleClickPanier}>Ajouter au Panier</button>
               <button onClick={handleClickAchat}>Commander maintenant</button>
-              <button style={{cursor : 'not-allowed'}}>Négocier Le Prix</button>
+              <button style={{cursor : 'not-allowed'}}>Offrez un Prix</button>
             </div>
           </Left>
         </Container>
     </Section>
-  );
+    </>;
 };
 
 export default Index;

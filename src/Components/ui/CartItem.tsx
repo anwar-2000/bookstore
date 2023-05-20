@@ -11,7 +11,7 @@ interface Props {
     quantite : number
 }
 
-const CartItem:FC<Props> = ({titre , prix , image,quantite}) => {
+const CartItem:FC<Props> = ({titre , prix , image, quantite}) => {
     const dispatch = useDispatch();
     const deleteItemHandler = () =>{
        let book = {

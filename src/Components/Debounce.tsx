@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
 
+import { PuffLoader } from 'react-spinners';
+
 
 interface Props {
     searchValue : string;
@@ -42,19 +44,24 @@ const Debounce:React.FC<Props> = ({ searchParam, searchValue , resetValue}) => {
     const router = useRouter()
     const [books,setBooks] = useState<[]>([])
     const debouncedValue = useDebounce(searchValue,500);
+    const [isLoading,setIsLoading] = useState<boolean>(false);
     /**
      * 
      * 
      */
-    useEffect(()=>{
-        if(debouncedValue){
-            preparedFetchforInput(searchParam,searchValue).then((data:any)=>{
-                    setBooks(data)
-            })  
-        }else {
-            setBooks([])
+    useEffect(() => {
+      const fetchData = async () => {
+        if (debouncedValue) {
+          setIsLoading(true)
+          const data = await preparedFetchforInput(searchParam, searchValue);
+          setIsLoading(false)
+          setBooks(data);
+        } else {
+          setBooks([]);
         }
-    },[debouncedValue])
+      };
+      fetchData();
+    }, [debouncedValue]);
 
     const handleClick = (bookId : string) => (event: React.MouseEvent<HTMLDivElement>) =>{
         resetValue()
@@ -62,7 +69,7 @@ const Debounce:React.FC<Props> = ({ searchParam, searchValue , resetValue}) => {
     }
   return (<Container>
     <SimpleBar style={{ maxHeight: 300 }}>
-    {books.map((book : Book) => (
+    {!isLoading && books.map((book : Book) => (
       <Item key={book.id} onClick={handleClick(book._id)}>
         <img src={book.imageUrl1} alt={book.titre} />
         {book.titre}
@@ -79,26 +86,31 @@ const Container = styled.div`
     display : flex;
     flex-direction:column;
     gap : 1rem;
-  
-    align-items:center;
-    justify-content : center;
+    align-items:start;
+    justify-content : start;
     background : white;
     height : 20rem;
     border-radius : 20px;
+    width : 15rem;
+    height : auto;
+    position : relative;
+    padding-bottom : 0.8rem;
+    padding : 0.8rem;
 
 
 `
 const Item = styled.div`
     display : flex;
     align-items:center;
-    justify-content : space-between;
-    width : 15rem;
-    padding : 0.5rem 1.5rem;
+    justify-content : center;
+    width : 13rem;
+    padding : 0.5rem 0.5rem;
     cursor : pointer;
 
     &:hover {
         background : black;
         color : white;
+        border-radius : 20px;
     }
 
     img {

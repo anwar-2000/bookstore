@@ -15,6 +15,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 import BookItemSecond from "@/Components/ui/BookItemSecond";
 import { fetchBooks, preparedFetchforInput } from "@/lib/helpers";
 import { GetServerSidePropsContext } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import styled from "styled-components";
@@ -32,6 +33,15 @@ const Index: FC<Props> = ({ response1,response2 }) => {
   };
   return (
     <>
+    <Head>
+      <title>EMMAUS NAINTRE</title>
+      <link rel="icon" href="./logo.jpg" />
+      <meta name="description" content="Rechercher Des livres Rares , Des BD , Livers Anciens --> La boutique des livres Emmaus Chatellerault vend ses livres rares, ses BD, ses livres de poche à un prix compétitif."  />
+      <meta name="keywords" content="Livres Rares,livres Anciens,Les BD,Livres Francais,Lives,Rares,Ancien,BD" />
+      <meta name="author" content="Emmaus Naintré - Chatellerault" />
+      <meta property="og:title" content="Emmaus Naintré - Boutique chatellerault" />
+      <meta property="og:description" content="La boutique des livres Emmaus Chatellerault vend ses livres rares, ses BD, ses livres de poche à un prix compétitif." />
+    </Head>
       <Container>
         {response1.length === 1 && (
           <div className="oneItem">

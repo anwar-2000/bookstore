@@ -150,6 +150,7 @@ const Container = styled.div`
   padding-bottom : 3rem;
   margin-top:2rem;
   gap: 2rem;
+  min-height : 65vh;
 
   .pagelivres{
     align-self : start;

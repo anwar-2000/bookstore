@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
+import { toast } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
 interface Props {}
 
 const Favories = () => {

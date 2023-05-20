@@ -14,7 +14,8 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: center;
   font-weight: 400;
-  padding-bottom : 7rem;
+  padding-bottom : 3rem;
+
 
    /* styles for screens smaller than 768px */
    @media screen and (max-width: 767px) {
@@ -32,7 +33,7 @@ const LeftContainer = styled.div`
   display: flex;
   flex-wrap : wrap;
   gap : 1.2rem;
-  flex: 1;
+  flex: 2;
   align-items: center;
   justify-content : center;   
 
@@ -47,7 +48,7 @@ const LeftContainer = styled.div`
   }
 
   .Cards{
-      width : 10rem;
+      width : 15rem;
       height : 10rem;
       display : flex;
       flex-direction : column;
