@@ -61,7 +61,7 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
         </FormGroup>
         <FormGroup>
           <label htmlFor='Description'>Description:</label>
-          <textarea  onChange={setFormData} id='Description' name='Description' />
+          <textarea  onChange={setFormData} id='Description' name='description' />
         </FormGroup>
         <FormGroup>
           <label htmlFor='etat'>Etat:</label>
