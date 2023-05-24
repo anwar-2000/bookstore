@@ -16,7 +16,7 @@ const Index = () => {
         return () => clearTimeout(timer);
       }, []);
   return <Container>
-    <h1>...Merci D'avoir vu nos livres...</h1>  
+    <h1>...Merci D`&apos;`avoir vu nos livres...</h1>  
     <img
       src="/cancel.png"
       alt="Payment Annulé"
