@@ -47,7 +47,7 @@ const SearchInput:FC = ({}) => {
                 placeholder="livres / auteur ..."
                 className="p-2 m-2 rounded outline-none border-l-stone-900  bg-transparent text-slate-700 placeholder:text-slate-700 placeholder-shown:border-none focus:border-none block"
                 />
-              <Search strokeWidth="4" color='black' className="cursor-pointer block" onClick={handleClick(searchParam, searchValue)} />
+              <Search strokeWidth="4" color='black'  className="cursor-pointer block" onClick={handleClick(searchParam, searchValue)} />
               </div>
               {searchValue.length!==0 &&
    <div className='items'>

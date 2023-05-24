@@ -1,8 +1,15 @@
 /**Controllers */
 import type { NextApiRequest, NextApiResponse } from 'next'
+import mongoose from 'mongoose';
 import User from '@/models/User';
 import Livre from '@/models/Livres';
 import LesDonsBoutique from '@/models/LesDons';
+import BooksComments from '@/models/BooksComments'; 
+import ViewsModal from '@/models/Views';
+
+//const BooksComments = mongoose.model('BooksComments')
+
+
 
 // GET : https://localhost/api/books : sorted in reverse 'date'
 export async function getBooks(req: NextApiRequest, res: NextApiResponse) {
@@ -127,7 +134,7 @@ export async function getSearchBooks(req: NextApiRequest, res: NextApiResponse) 
       );
       //console.log("both params provided : " , searchBooks)
     } else {
-      searchBooks = await Livre.find({}, { _id: 1, titre: 1, auteur: 1 , rating : 1 , imageUrl1 : 1 , prix : 1});
+      searchBooks = await Livre.find({}, { _id: 1, titre: 1, auteur: 1 , rating : 1 , imageUrl1 : 1 , prix : 1}).limit(10);
       //console.log(" just one of the params provided : " , searchBooks)
     }
     if (!searchBooks) {
@@ -240,4 +247,137 @@ export async function getDons (req: NextApiRequest, res: NextApiResponse) {
     }catch(err){
       return res.status(500).json({error :"error"});
     }
+}
+
+
+/********************************************************** COMMENTS  ****************************************** */
+export async function getBookComments(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const skip = (page - 1) * limit;
+    const {bookId} = req.query;
+    if(bookId){
+      const commentaires = await BooksComments.find({ bookId: bookId }).sort({ createdAt: -1 }).skip(skip).limit(limit);;
+      res.status(200).json(commentaires) // send comments data in the response
+    }else {
+      res.status(404).json('could not find book id');   
+    }
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: "Error while Fetching comments" });
+    res.end()
+  }
+}
+export async function incrementLikes(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const { commentId , state } = req.query;
+    if (commentId) {
+        if(state=="add"){const updatedComment = await BooksComments.findByIdAndUpdate(
+          commentId,
+          { $inc: { likes: 1 } },
+          { new: true }
+        );
+        if (updatedComment) {
+          res.status(200).json(updatedComment);
+        } else {
+          res.status(404).json("Could not find comment");
+        }
+      }else if(state=="del"){
+        {const updatedComment = await BooksComments.findByIdAndUpdate(
+          commentId,
+          { $inc: { likes: -1 } },
+          { new: true }
+        );
+        if (updatedComment) {
+          res.status(200).json(updatedComment);
+        } else {
+          res.status(404).json("Could not find comment");
+        }
+      }
+      }}
+       else {
+      res.status(400).json("Missing commentId in the request body");
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Error while incrementing likes" });
+  }
+}
+export async function addComment(req: NextApiRequest, res: NextApiResponse){
+  try {
+    const formData = req.body;
+    if (!formData) {
+      return res.status(404).json({ error: 'Form Data not provided' });
+    }
+    const commentaires = await BooksComments.create(formData);
+    //console.log('Don : ',Don);
+    res.status(201).json({commentaires});
+  } catch (err) {
+    //console.log(err);
+     return res.status(500).json({error :"error"});
+  }
+}
+
+export async function deleteBookComments(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const {commentId} = req.query;
+    if(commentId){
+      const comments = await BooksComments.findOneAndDelete({ _id: commentId });
+      res.status(200).json(comments) // send comments data in the response
+    }else {
+      res.status(404).json('could not find book id');   
+    }
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: "Error while deleting comment" });
+    res.end()
+  }
+}
+
+
+/********************************************************** VIEWS  ****************************************** */
+export async function getBookViews(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const { bookId } = req.query;
+    if (bookId) {
+      const views = await ViewsModal.findOne({ bookId }); // Find a single document instead of an array
+      if (views) {
+        res.status(200).json(views.views); // Send the number of views in the response
+      } else {
+        res.status(200).json('0');
+      }
+    } else {
+      res.status(404).json('Could not find book id');
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Error while fetching views" });
+  }
+}
+
+export async function addViewToBook(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const { bookId } = req.body;
+    if (bookId) {
+      // Check if the bookId exists in the ViewsModal collection
+      const existingView = await ViewsModal.findOne({ bookId });
+
+      if (existingView) {
+        // BookId exists, increment the views count by 1
+        existingView.views += 1;
+        await existingView.save();
+        res.status(200).json(existingView);
+      } else {
+        // BookId doesn't exist, create a new document with views count set to 1
+        const newView = await ViewsModal.create({ bookId, views: 1 });
+        res.status(200).json(newView);
+      }
+    } else {
+      res.status(404).json('Could not find bookId');
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Error while adding views" });
+  }
 }

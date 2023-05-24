@@ -5,18 +5,19 @@ interface Props {
   imageUrl1: string;
   imageUrl2: string;
   imageUrl3: string;
+  titre : string;
 }
 
-const ImageSlider: React.FC<Props> = ({ imageUrl1, imageUrl2, imageUrl3 }) => {
+const ImageSlider: React.FC<Props> = ({ imageUrl1, imageUrl2, imageUrl3 , titre }) => {
 const [mainUrl,setMainUrl] = useState<string>(imageUrl1)
 
   return (
     <Container>
       <MainImage src={mainUrl} alt='' id='bigImage' />
       <OtherImages>
-          <img src={imageUrl2} alt=''  onClick={()=>{setMainUrl(imageUrl2)}}/>
-          <img src={imageUrl1} alt=''  onClick={()=>{setMainUrl(imageUrl1)}}/>
-          <img src={imageUrl3} alt=''  onClick={()=>{setMainUrl(imageUrl3)}} />
+          <img src={imageUrl2} alt={titre}  onClick={()=>{setMainUrl(imageUrl2)}}/>
+          <img src={imageUrl1}  alt={titre}  onClick={()=>{setMainUrl(imageUrl1)}}/>
+          <img src={imageUrl3}  alt={titre}  onClick={()=>{setMainUrl(imageUrl3)}} />
       </OtherImages>
     </Container>
 );

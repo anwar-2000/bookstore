@@ -41,9 +41,10 @@ const Index = () => {
 
   /** REDUX STATE OF THE Cart */
   const { show } = useSelector((state: any) => state.cart);
-  console.log("Show cart state : " + show);
+  
+  //console.log("Show cart state : " + show);
 
-  console.log("image : " + data?.imageUrl1);
+ // console.log("image : " + data?.imageUrl1);
 
 
 
@@ -65,8 +66,8 @@ const Index = () => {
       <link rel="icon" href="emmaus.jpg" />
         <meta name="description" content="Tous livres EMMAUS Boutique de Chatellerault" />
         <meta property="og:title" content="Nos Livres : Explore" />
-        <meta property="og:description" content="This is my page description" />
-        <meta property="og:image" content="/my-page-image.jpg" />
+        <meta property="og:description" content="Tous les  rares , beaux livres d'emmaus a vendre a un prix compététif" />
+        <meta property="og:image" content="/logo.jpg" />
       </Head>
     <Container
       initial={{ opacity: 0 }}

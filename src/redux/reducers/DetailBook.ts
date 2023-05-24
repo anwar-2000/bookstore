@@ -14,7 +14,7 @@ const DetailBookSlice = createSlice({
     reducers : {
         setID(state,action){
             state.bookId = action.payload
-            console.log(state.bookId)
+          //  console.log(state.bookId)
         }
     }
 })

@@ -2,21 +2,29 @@ import { GetServerSidePropsContext } from 'next'
 import { getSession } from 'next-auth/react'
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const bookId = context.params?.bookId as string
-  const data = await fetchBook(bookId)
-    //console.log("the author of the  book : " , data.auteur)
-  const session = await getSession(context)
-  //console.log("the session is " ,session)
+  const bookId = context.params?.bookId as string;
+  
+  // Fetch book and views in parallel using Promise.all
+  const [book, views] = await Promise.all([
+    fetchBook(bookId),
+    fetchViews(bookId)
+  ]);
 
-  return { props: { data , session} }
+  const data = book; // Assuming `fetchBook` returns the book data
+
+  const session = await getSession(context);
+
+  return {
+    props: { data, session, bookId, views }
+  };
 }
   
 
  import React, { useEffect, useState } from "react";
   import styled from "styled-components";
-  import { fetchBook } from "@/lib/helpers";
+  import { addViewerToBook, fetchBook, fetchComments, fetchViews } from "@/lib/helpers";
   import { NextPage } from "next";
-import { Star } from "lucide-react";
+import { Eye, Star } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { AddToCart, calculateTotal} from "@/redux/reducers/Cart";
 import getStripe from "@/lib/getStripe";
@@ -24,6 +32,8 @@ import { toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
 import SwiperComponent from '@/Components/ui/Swiper'
 import Head from 'next/head'
+import Comments from '@/Components/Comments'
+import AddCommentComp from '@/Components/addCommentComp'
 
 
 interface Book {
@@ -44,16 +54,46 @@ interface Book {
 
   interface MyPageProps {
     data: Book;
-    session : any
+    session : any;
+    bookId : string;
+    views : number
   }
-const Index: NextPage<MyPageProps> = ({ data , session }) => {
- 
+const Index: NextPage<MyPageProps> = ({ data , session , bookId , views }) => {
+/**
+ * 
+ * fetching for comments based on if the user clicked or not
+ */
+  const [comments, setComments] = useState([]);
+  const [toggleComments,setToggleComments]=useState<boolean>(false)
+
+
+
+  const handleFetchComments = async () => {
+    try {
+      const commentsData = await fetchComments(bookId); 
+      setComments(commentsData);
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+  setToggleComments(true)
+  };
+
+  function onLike(){
+    handleFetchComments()
+  }
+    
+
+
     const dispatch = useDispatch();
-  //const { bookId } = useSelector((state: any) => state.bookDetail);
-  //const { data, isLoading, error } = useQuery(["detail", bookId], () =>
-    //fetchBook(bookId)
-  //);
+
+    //console.log("***************" ,bookId)
+
+
   const [date,setDate] = useState<string>('')
+  /**
+   * 
+   * FORMATTING THE DATE
+   */
     useEffect(()=>{
         const dateString = data.date;
         const date = new Date(dateString);
@@ -65,8 +105,15 @@ const Index: NextPage<MyPageProps> = ({ data , session }) => {
         setDate(`${day}-${month}-${year}`)
 
     },[data.date]);
-    //console.log(data.imageUrl1 , data.imageUrl2 , data.imageUrl3)
- 
+
+    /**
+     * 
+     * ADD VIEWER COUNT TO BOOK
+     */
+    useEffect(()=>{
+      addViewerToBook(bookId)
+    },[]);
+
     /**
      * 
      * 
@@ -139,7 +186,7 @@ const Index: NextPage<MyPageProps> = ({ data , session }) => {
     <Section>
         <Container className="content">
           <Right>
-            <SwiperComponent imageUrl1={data.imageUrl1} imageUrl2={data.imageUrl2} imageUrl3={data.imageUrl3}/>
+            <SwiperComponent imageUrl1={data.imageUrl1} imageUrl2={data.imageUrl2} imageUrl3={data.imageUrl3} titre={data.titre}/>
             </Right>
           <Left>
             <div className="infos">
@@ -156,18 +203,12 @@ const Index: NextPage<MyPageProps> = ({ data , session }) => {
                <p>{data.etat}</p>
               </details>
               <h6>
-                <>
-                <span>Edité Le :</span>
-                {date}
-                </>
-              </h6>
-              <h6>
                 <span>Prix :</span>
                 {data.prix}€
               </h6>
                <div className="rating">
-               <Star id="star" fill="yellow" color="yellow"/>
-                <h6>{data.rating}</h6>
+               <Eye id="star"  color="black"/>
+                <h6>{views}</h6>
               </div>
             </div>
             <div className="buttons">
@@ -177,7 +218,16 @@ const Index: NextPage<MyPageProps> = ({ data , session }) => {
             </div>
           </Left>
         </Container>
+        <button onClick={handleFetchComments} className="buttonComments">Afficher les Commentaires</button>
     </Section>
+    <CommentsContainer>
+      {toggleComments &&  <AddCommentComp onAdd={()=>{}} bookId={bookId} />}
+      {comments.length > 0 && 
+          comments.map((item:any,i:number)=>(
+            <Comments onLike={onLike} comment={item} key={i}/>
+          ))
+      }
+    </CommentsContainer>
     </>;
 };
 
@@ -192,30 +242,47 @@ const Section = styled.section`
   overflow-x:hidden;
   gap: 2rem;
  
-
+  .buttonComments{
+    padding : 1rem 3rem;
+    background : black;
+    color : white;
+    border-radius : 15px;
+    transition : all ease-in 400ms;
+    transform : translateY(-3rem);
+    &:hover{
+      background : white;
+      color : black;
+      border : solid black 1px;
+    }
+  }
  
 
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
     gap: 4rem;
     margin-top : 3rem;
-    padding-bottom : 28rem;
+    padding-bottom : 20rem;
+
+    .buttonComments{
+      transform : translateY(18rem);
+    }
   }
 
   /* styles for screens between 768px and 1024px */
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     gap: 4rem;
     padding-bottom : 28rem;
-    .content {
-      transform: translateY(-8rem);
-    }
+    
   }
 
   @media screen and (min-width: 912px) and (max-width: 1024px) {
     padding-bottom : 28rem;
     gap: 0rem;
+    .buttonComments{
+      transform : translateY(18rem);
+    }
     .content {
-      transform: translateY(-11rem);
+      transform: translateY(-15rem);
     }
   }
 `;
@@ -432,4 +499,13 @@ const Right = styled.div`
     }
   }
 `;
-
+const CommentsContainer = styled.div`
+    margin-top : 2rem;
+    width : 100vw;
+    display : flex;
+    align-items  : center;
+    justify-content : center;
+    flex-wrap : wrap;
+    gap : 2rem;
+    margin-bottom : 3rem;
+`

@@ -154,12 +154,9 @@ export const checkAdminStatus = async (email: string) => {
         return error
     }
  }
- 
+   
   
-  
-  
-  
-  /** CLIENTS AND PAYMENTS FOR STRIPE */
+  /********************************** CLIENTS AND PAYMENTS FOR STRIPE ********************************************************* */
 
   export const fetchStripe = async () => {
     const response = await fetch(`${BASE_URL}/api/stripeclients/clients`);
@@ -188,3 +185,73 @@ export const checkAdminStatus = async (email: string) => {
 
         return data;
    }
+
+   /********************************** LOGIC FOR COMMENTS AND VIEWS */
+
+   export const fetchComments = async (bookId :string , page = 1, limit = 10) => {
+    const response = await fetch(`${BASE_URL}/api/comments?bookId=${bookId}&page=${page}&limit=${limit}`);
+    const data = await response.json();
+    return data;
+  };
+
+   //posting a new comment 
+export const addCommentToBook = async (formData:Object) => {
+  try {
+      const options = {
+          method : "POST",
+          headers :{ "Content-Type" : "application/json"},
+          body : JSON.stringify(formData)
+      }
+      const response = await fetch(`${BASE_URL}/api/comments`,options)
+      const data = await response.json()
+
+      return data
+  } catch (error) {
+      return error
+  }
+}
+
+export const addCommentlikes = async (commentId:string,state:string) => {
+  try {
+      const options = {
+          method : "PUT",
+          headers :{ "Content-Type" : "application/json"},
+          body : ""
+      }
+      const response = await fetch(`${BASE_URL}/api/comments?commentId=${commentId}&state=${state}`,options)
+      const data = await response.json()
+
+      return data
+  } catch (error) {
+      return error
+  }
+}
+
+
+ /********************************** LOGIC FOR  VIEWS */
+
+ export const fetchViews = async (bookId :string) => {
+  const response = await fetch(`${BASE_URL}/api/views?bookId=${bookId}`);
+  const data = await response.json();
+  return data;
+};
+
+ //posting a new comment 
+ export const addViewerToBook = async (bookId: string) => {
+  try {
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ bookId }),
+    };
+    const response = await fetch(`${BASE_URL}/api/views`, options);
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+
+
