@@ -26,7 +26,8 @@ const CartItem:FC<Props> = ({titre , prix , image, quantite}) => {
         let book = {
          titre,
          prix,
-         image
+         image,
+         quantite
         }
         dispatch(AddToCart(book));
         dispatch(calculateTotal());

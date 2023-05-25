@@ -78,7 +78,7 @@ const Index: NextPage<MyPageProps> = ({ data , session , bookId , views }) => {
   setToggleComments(true)
   };
 
-  function onLike(){
+  function refetch(){
     handleFetchComments()
   }
     
@@ -221,10 +221,10 @@ const Index: NextPage<MyPageProps> = ({ data , session , bookId , views }) => {
         <button onClick={handleFetchComments} className="buttonComments">Afficher les Commentaires</button>
     </Section>
     <CommentsContainer>
-      {toggleComments &&  <AddCommentComp onAdd={()=>{}} bookId={bookId} />}
+      {toggleComments &&  <AddCommentComp onAdd={refetch} bookId={bookId} />}
       {comments.length > 0 && 
           comments.map((item:any,i:number)=>(
-            <Comments onLike={onLike} comment={item} key={i}/>
+            <Comments onLike={refetch} comment={item} key={i}/>
           ))
       }
     </CommentsContainer>

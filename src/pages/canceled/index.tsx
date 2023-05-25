@@ -6,7 +6,6 @@ import styled from 'styled-components';
 const Index = () => {
     const router = useRouter()
     useEffect(() => {
-            
         // Redirect after 3 seconds
         const timer = setTimeout(() => {
           router.push('/all'); // Redirect to home page

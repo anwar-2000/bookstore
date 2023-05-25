@@ -44,9 +44,10 @@ const Comments: React.FC<Props> = ({ comment, onLike }) => {
           localStorage.removeItem(commentId);
           // Perform the API request to decrement the likes count
           await addCommentlikes(commentId,"del");
-          // Update the UI or perform any other actions as needed
+          setLiked(false);
           onLike();
         } else {
+          setLiked(true);
           // Comment is not liked, so add the like
           localStorage.setItem(commentId, 'liked');
           // Perform the API request to increment the likes count
@@ -94,7 +95,7 @@ const Container= styled.div`
     flex-wrap : wrap;
     gap : 2rem;
     position : relative;
-    background-color: #f3f707;
+    background-color: #f7f7f7;
     padding: 10px;
     border-radius: 5px;
     padding : 1.2rem;

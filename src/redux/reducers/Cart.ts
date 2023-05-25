@@ -47,14 +47,26 @@ export const CartSlice = createSlice({
         //}
         },
         AddToCart(state, action) {
-            const index = state.cart.findIndex(book => book.titre === action.payload.titre);
+            const { titre, quantite } = action.payload;
+            const index = state.cart.findIndex(book => book.titre === titre);
+            
             if (index !== -1) {
-                // If the item is already in the cart, increase its quantity by 1
-                state.cart[index].quantite += 1;
+                // If the item is already in the cart
+                const currentItem = state.cart[index];
+                
+                // Check if the quantity has reached the maximum allowed value
+                if (currentItem.quantite < quantite) {
+                    // Increase the quantity by 1
+                    currentItem.quantite += 1;
+                } else {
+                    // Quantity has reached the maximum, no further increase allowed
+                    // You can show an error message or handle it in your UI accordingly
+                }
             } else {
-                // Otherwise, add the item to the cart with a quantity of 1
-                state.cart = [...state.cart, {...action.payload, quantite : 1}];
+                // Item not in the cart, add it with a quantity of 1
+                state.cart = [...state.cart, {...action.payload, quantite: 1}];
             }
+            
             state.items = state.cart.length;
         },
         DeleteFromCart(state, action) {
