@@ -49,6 +49,7 @@ interface MyPageProps {
     quantite: 0;
     etat: "";
     prix: 0;
+    poids : 0;
   };
 }
 
