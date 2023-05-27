@@ -6,10 +6,13 @@ const Confetti = dynamic(() => import('react-confetti'), {
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { ArrowBigLeft } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 interface Props {}
 
 const Index = () => {
+  const {isChecked} = useSelector((state:any)=> state.cart)
     const router = useRouter()
     const containerRef = useRef<HTMLDivElement>(null)
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
@@ -30,7 +33,12 @@ const Index = () => {
       window.removeEventListener('resize', handleResize)
     }
   }, [])
-
+  if(isChecked){
+    toast.success(`Veuillez venir a La Boutique pour Prendre Votre Commande , Merci`,{
+      position: toast.POSITION.TOP_CENTER,
+      theme: "colored"
+    });
+  }
   return <Container ref={containerRef}>
       <h1>On Vous Remerci Pour votre Achat </h1>
       <button onClick={()=> router.push('/all')}>

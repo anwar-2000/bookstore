@@ -31,7 +31,7 @@ const NavBar = () => {
         />
             <Link href={`${BASE_URL}/all`}>
             <div>
-              <h3 className="whitespace-nowrap ml-3">Tous Livres</h3>
+              <h3 className="whitespace-nowrap ml-3">Explorer</h3>
             </div>
           </Link>
           </div>

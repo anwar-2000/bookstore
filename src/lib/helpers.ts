@@ -253,5 +253,23 @@ export const addCommentlikes = async (commentId:string,state:string) => {
   }
 };
 
+/**************************************** PAYPAL **********************************/
+
+export const PaypalOrder = async (orderData:Object) => {
+  try {
+      const options = {
+          method : "POST",
+          headers :{ "Content-Type" : "application/json"},
+          body : JSON.stringify(orderData)
+      }
+      const response = await fetch(`${BASE_URL}/api/paypal`,options)
+      const data = await response.json()
+
+      return data
+  } catch (error) {
+      return error
+  }
+}
+
 
 

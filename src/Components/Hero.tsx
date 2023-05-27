@@ -25,7 +25,7 @@ const Hero = () => {
             Vous cherchez votre prochaine lecture passionnante?
           </motion.h1>
           <motion.small variants={titleVariants} initial="hidden" animate="visible">
-            Si vous ne savez pas exactement ce que vous cherchez, nous vous invitons à parcourir nos différentes catégories et listes de livres pour trouver des titres qui pourraient vous plaire
+            Si vous ne savez pas exactement ce que vous cherchez, nous vous invitons à parcourir nos différentes catégories et listes de livres pour trouver des titres qui pourraient vous plaire !
           </motion.small>
           <Link href={'/all'} ><button>Découvrir</button></Link>
         </Left>

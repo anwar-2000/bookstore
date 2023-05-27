@@ -44,7 +44,7 @@ export default function  Index () {
       <meta property="og:description" content="La boutique des livres Emmaus Chatellerault vend ses livres rares, ses BD, ses livres de poche à un prix compétitif." />
     </Head>
         <Container>
-          <h1 >EMMAUS VOUS REMERCI !</h1>
+          <h1 >Emmaüs vous remercie !</h1>
       <Form onSubmit={handleSubmit}>
         <div className='divs' >
         <FormGroup>
@@ -58,11 +58,11 @@ export default function  Index () {
         </div>
         <div className='divs' >
         <FormGroup>
-          <label htmlFor='Addresse'>Addresse:</label>
+          <label htmlFor='Addresse'>Adresse:</label>
           <input type='text' onChange={setFormData} id='Addresse' name='addresse'/>
         </FormGroup>
         <FormGroup>
-          <label htmlFor='Numero'>Numéro :</label>
+          <label htmlFor='Numero'>Numéro  Tel :</label>
           <input type='text' onChange={setFormData} id='Numéro' name='numero' />
         </FormGroup>
         </div>

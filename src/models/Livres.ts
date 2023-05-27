@@ -13,6 +13,7 @@ interface IBook {
   etat: string;
   date: Date;
   rating: number;
+  poids : number;
   pages: string;
   date_du_livre: string;
   categorie: string;
@@ -34,11 +35,21 @@ const bookSchema: Schema<IBook> = new Schema({
   quantite: Number,
   etat: String,
   rating: Number,
+  poids : Number,
   pages: Number,
   date_du_livre: String,
   categorie: String,
 });
+
+
 // Overwrite the existing Book model with the new schema
 
 const Livre = models.Livre || model("Livre", bookSchema);
+
+// Check if the "poids" field already exists in the schema
+if (!Livre.schema.path("poids")) {
+  Livre.schema.add({
+    poids: Number,
+  });
+}
 export default Livre

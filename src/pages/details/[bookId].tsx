@@ -35,6 +35,9 @@ import Head from 'next/head'
 import Comments from '@/Components/Comments'
 import AddCommentComp from '@/Components/addCommentComp'
 
+import {BsStripe} from 'react-icons/bs'
+import Link from 'next/link';
+
 
 interface Book {
     titre: string;
@@ -48,6 +51,7 @@ interface Book {
     status: string;
     date: Date;
     rating: number;
+    poids : number;
     date_du_livre : string,
     categorie : string
   }
@@ -66,7 +70,9 @@ const Index: NextPage<MyPageProps> = ({ data , session , bookId , views }) => {
   const [comments, setComments] = useState([]);
   const [toggleComments,setToggleComments]=useState<boolean>(false)
 
+/** //////////// for the free shipping ////////////*/
 
+const [isChecked, setIsChecked] = useState(false);
 
   const handleFetchComments = async () => {
     try {
@@ -85,7 +91,6 @@ const Index: NextPage<MyPageProps> = ({ data , session , bookId , views }) => {
 
 
     const dispatch = useDispatch();
-
     //console.log("***************" ,bookId)
 
 
@@ -108,7 +113,7 @@ const Index: NextPage<MyPageProps> = ({ data , session , bookId , views }) => {
 
     /**
      * 
-     * ADD VIEWER COUNT TO BOOK
+     * ADD VIEWER COUNT TO BOOK -- DONE
      */
     useEffect(()=>{
       addViewerToBook(bookId)
@@ -117,15 +122,24 @@ const Index: NextPage<MyPageProps> = ({ data , session , bookId , views }) => {
     /**
      * 
      * 
-     * i'll fix the bug when can order a book even if its sold out
+     * i'll fix the bug when can order a book even if its sold out -- FIXED
      */
     
   let book = {
     titre : data.titre,
     prix : data.prix,
     image : data.imageUrl1,
-    quantite : 1
+    poids : data?.poids,
+    quantite : 1,
+    isChecked : isChecked
    }
+
+
+
+  const handleCheckboxChange = (event:any) => {
+    setIsChecked(event.target.checked);
+  };
+   
   const handleClickPanier = () => {
    
      //console.log( book)
@@ -137,16 +151,19 @@ const Index: NextPage<MyPageProps> = ({ data , session , bookId , views }) => {
       theme: "colored"
     });
   };
-
-  const handleClickAchat = async () => {
+  const cart = [book]
+  const handleClickAchatStripe = async () => {
+   // console.log(cart);
     const stripe = await getStripe();
+
     //console.log("FOR STRIPE : ",cart)
+  
     const response = await fetch("/api/stripe", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify([book])
+      body: JSON.stringify({cart,isChecked})
     });
     if (!response.ok) {
       const error = await response.text();
@@ -204,7 +221,14 @@ const Index: NextPage<MyPageProps> = ({ data , session , bookId , views }) => {
               </details>
               <h6>
                 <span>Prix :</span>
-                {data.prix}€
+                {data.prix}€ 
+              </h6>
+              <h6>
+                <span>Poids :</span>
+                {data.poids} Kg <Link target={'_blank'} href={'https://static0.tiendeo.fr/images/tiendas/136330/catalogos/580300/paginas/med/00002.jpg'}><strong style={{color : "blue"}}> ** tarifs de livraison-</strong></Link> 
+                <br/> <label htmlFor='chatel' className="text-xl mt-xl text-center">Je suis de Chatellerault </label><input id='chatel' type={'checkbox'} checked={isChecked}
+        onChange={handleCheckboxChange}
+ />
               </h6>
                <div className="rating">
                <Eye id="star"  color="black"/>
@@ -213,8 +237,8 @@ const Index: NextPage<MyPageProps> = ({ data , session , bookId , views }) => {
             </div>
             <div className="buttons">
               <button onClick={handleClickPanier}>Ajouter au Panier</button>
-              <button onClick={handleClickAchat}>Commander maintenant</button>
-              <button style={{cursor : 'not-allowed'}}>Offrez un Prix</button>
+              <button onClick={handleClickAchatStripe}>Acheter <BsStripe /></button>
+              <button style={{cursor : 'not-allowed'}}>Faire une offre</button>
             </div>
           </Left>
         </Container>
@@ -382,16 +406,22 @@ const Left = styled.div`
 
   .buttons {
     display: flex;
-    
     align-items : center;
     justify-content : center;
     gap: 1rem;
     button {
+      display : flex;
+      align-items : center;
+      justify-content : center;
+      flex-direction : column;
+      height : 4rem;
+      gap : 0rem;
       padding: 0.5rem 1rem;
       border-radius: 5px;
       border: solid 1px black;
       margin: 0.5rem;
       font-weight: bold;
+      text-align : center;
       cursor: pointer;
 
       &:nth-child(1) {

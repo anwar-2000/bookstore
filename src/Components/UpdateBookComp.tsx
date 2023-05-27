@@ -16,6 +16,7 @@ interface BookData {
     quantite: number;
     etat: string;
     prix: number;
+    poids : number;
   }
 
 interface Props {
@@ -99,6 +100,10 @@ const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
         <FormGroup>
           <label htmlFor='prix'>Prix :</label>
           <input type='number' onChange={handleInputChange} id='prix' name='prix'  min={1} step={1} placeholder='15€' value={formData.prix}/>
+        </FormGroup>
+        <FormGroup>
+          <label htmlFor='poids'>Poids :</label>
+          <input type='number' onChange={handleInputChange}  id='poids' name='poids'  min={0.5} step={0.5} placeholder='15Kg' value={formData.poids}/>
         </FormGroup>
         <FormGroup>
         </FormGroup>

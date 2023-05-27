@@ -61,7 +61,7 @@ const  imageUrl = "./logo.jpg"
         <ColumnsContainer>
           <TextColumn>A l&apos;origine : En 1949 l&apos;abbé Pierre est appelé au chevet d&apos;un ancien bagnard. N&apos;ayant rien à lui
 donner, il lui propose :
-« Puisque tu veux mourir, tu n&apos;as rien à perdre. Alors donne-moi ton aide pour aider les autres. »
+« Puisque tu veux mourir, tu n&apos;as rien à perdre. <br />Alors donne-moi ton aide pour aider les autres. »
 Cet homme, Georges, devient le premier de tous les compagnons d&apos;Emmaüs.
 L&apos;association Emmaüs est créée en 1953 pour organiser et développer ce mouvement. Après les
 ravages de la guerre de1939-45, les rigueurs de l&apos;hiver 1954 tuent. Dans ce contexte de graves

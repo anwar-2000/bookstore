@@ -104,7 +104,7 @@ const Index = () => {
         >
           <MainContent>
           <div className="explore">
-              <h1>Explore</h1>
+              <h1>Tous nos livres :</h1>  
             </div>
             <div className="controls">
               <div className="controls__page">

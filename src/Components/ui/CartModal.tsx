@@ -5,7 +5,9 @@ import CartItem from "./CartItem";
 import { createPortal } from "react-dom";
 import { toggleCart } from "@/redux/reducers/Cart";
 import getStripe from "@/lib/getStripe";
-import Stripe from "stripe";
+import { BsStripe } from "react-icons/bs";
+
+import {FaCcPaypal} from 'react-icons/fa'
 
 interface ItemShape {
   titre: string;
@@ -14,13 +16,18 @@ interface ItemShape {
   quantite: number;
 }
 
-const modalVariants = {
-  hidden: { opacity: 0, y: -100 },
-  visible: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -100 },
-};
+
 
 const CartModal = () => {
+  const [showForm, setShowForm] = useState(false);
+
+  const [formData, setFormData] = useState({
+    email: '',
+    address: '',
+    postalCode: ''
+  });
+
+
   const [isMounted, setIsMounted] = useState(false);
   const showModal = useSelector((state: any) => state.show);
   const { total } = useSelector((state: any) => state.cart);
@@ -40,7 +47,36 @@ const CartModal = () => {
 
   if (!isMounted) return null;
 
+async function handlePaypalPayment(e:any) {
+  e.preventDefault();
+  const { email, address, postalCode } = formData;
+  let PaypalData = {
+    cart ,
+    total,email,address,postalCode
+  }
+    const response = await fetch('/api/paypal', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(PaypalData)
+    });
+  
+    if (response.ok) {
+      const data = await response.json();
+      // Handle successful payment here
+    } else {
+      // Handle error here
+    }
+  }
+  
   const handleStripe = async () => {
+
+    let StripeData = {
+      cart ,
+      total
+    }
+    //console.log("MODAL",cart,total)
     const stripe = await getStripe();
     //console.log("FOR STRIPE : ",cart)
     const response = await fetch("/api/stripe", {
@@ -48,7 +84,10 @@ const CartModal = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(cart)
+
+      //total with weight calculated for delivery
+
+      body: JSON.stringify(StripeData)
     });
     if (!response.ok) {
       const error = await response.text();
@@ -62,10 +101,19 @@ const CartModal = () => {
     }
 
     const data = await response.json();
-    /** TO DO : ADD RESIRECT STATE && message  */
+    /** TO DO : ADD REDIRECT STATE && message  */
 
     stripe?.redirectToCheckout({ sessionId: data.id });
   };
+
+  const handleFormChange = (e:any) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
 
   return createPortal(
     <>
@@ -88,8 +136,24 @@ const CartModal = () => {
 
         <div className="total_pay">
           <h3>Total : {total} €</h3>
-          <button onClick={handleStripe}>Acheter maintenant</button>
+          <button onClick={handleStripe}><BsStripe /></button>
+          <button onClick={()=>setShowForm(!showForm)}><FaCcPaypal /></button>
         </div>
+         {/* PayPal Form */}
+      {showForm && (
+        <form onSubmit={handlePaypalPayment}>
+          <input type="email" placeholder="Email" 
+            onChange={handleFormChange}
+ />
+          <input type="text" placeholder="Address" 
+            onChange={handleFormChange}
+ />
+          <input type="text" placeholder="Postal Code" 
+            onChange={handleFormChange}
+ />
+          <button type="submit">Payer</button>
+        </form>
+      )}
       </Container>
     </>,
     document.getElementById("modal-root") as HTMLElement
