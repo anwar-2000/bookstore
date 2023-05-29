@@ -82,7 +82,7 @@ export const deleteBook = async (bookId : string) =>{
 
  // quering books having the title or auteur when search input triggered
  export const fetchCategories = async () => {
-    const response = await fetch(`/api/categories`);
+    const response = await fetch(`${BASE_URL}/api/categories`);
     const data = await response.json();
     return data;
   };
@@ -200,7 +200,7 @@ export const checkAdminStatus = async (email: string) => {
    /********************************** LOGIC FOR COMMENTS AND VIEWS */
 
    export const fetchComments = async (bookId :string , page = 1, limit = 10) => {
-    const response = await fetch(`${BASE_URL}/api/comments?bookId=${bookId}&page=${page}&limit=${limit}`);
+    const response = await fetch(`/api/comments?bookId=${bookId}&page=${page}&limit=${limit}`);
     const data = await response.json();
     return data;
   };
