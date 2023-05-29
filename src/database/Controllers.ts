@@ -32,7 +32,7 @@ export async function getBooks(req: NextApiRequest, res: NextApiResponse) {
   // GET : https://localhost/api/query/bookId
 export async function getBook(req: NextApiRequest, res: NextApiResponse) {
   try {
-        const {bookId} = req.query
+        const {bookId} = req.query;
         if(bookId){
           const book = await Livre.findOne({_id: bookId})
           //console.log(bookId)

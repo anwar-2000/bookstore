@@ -2,6 +2,7 @@ import { GetServerSidePropsContext } from 'next'
 import { getSession } from 'next-auth/react'
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  
   const bookId = context.params?.bookId as string;
   
   // Fetch book and views in parallel using Promise.all

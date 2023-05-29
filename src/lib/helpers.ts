@@ -1,6 +1,6 @@
 
 
-const BASE_URL:String ="https://emmaus-chatelleraudais.vercel.app"
+const BASE_URL:String ="https://emmtaboutique.com"
 //const BASE_URL:String ="http://localhost:3000"
 
 
@@ -11,12 +11,23 @@ export const fetchBooks = async (page = 1, limit = 10) => {
   };
 
 //single book
-export const fetchBook = async (bookId : string) => {
-    const response = await fetch(`/api/query/${bookId}`);
-    const data = await response.json()
-    if(data) return data
-     return {}
- }
+export const fetchBook = async (bookId: string) => {
+  try {
+    const url = `${BASE_URL}/api/query/${bookId}`;
+    //console.log('URL:', url); // Log the URL for debugging
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data) {
+      return data;
+    }
+    return {};
+  } catch (error) {
+    console.error('Error fetching book:', error);
+    throw error;
+  }
+};
 
  //posting a new book
 export const addBook = async (formData:Object) => {
@@ -189,7 +200,7 @@ export const checkAdminStatus = async (email: string) => {
    /********************************** LOGIC FOR COMMENTS AND VIEWS */
 
    export const fetchComments = async (bookId :string , page = 1, limit = 10) => {
-    const response = await fetch(`/api/comments?bookId=${bookId}&page=${page}&limit=${limit}`);
+    const response = await fetch(`${BASE_URL}/api/comments?bookId=${bookId}&page=${page}&limit=${limit}`);
     const data = await response.json();
     return data;
   };
@@ -231,7 +242,7 @@ export const addCommentlikes = async (commentId:string,state:string) => {
  /********************************** LOGIC FOR  VIEWS */
 
  export const fetchViews = async (bookId :string) => {
-  const response = await fetch(`/api/views?bookId=${bookId}`);
+  const response = await fetch(`${BASE_URL}/api/views?bookId=${bookId}`);
   const data = await response.json();
   return data;
 };
