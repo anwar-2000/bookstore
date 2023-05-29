@@ -129,7 +129,7 @@ const Localisation: React.FC = ({}) => {
             </div>
             <div className='Cards'data-aos="fade-down" data-aos-delay="90" data-aos-duration="2000" >
               <h3>Bureaux et lieu de vie et de travail :</h3>
-              <p className='place'> 719 rue de la Tour 86530 Naintré</p>
+              <p className='place'> 19 rue de la Tour 86530 Naintré</p>
               <p className='time'><a href='tel:+33549902730' style={{color : 'white' , fontWeight : 'bold'}}>05.49.90.27.30</a></p>
             </div>
             <div className='Cards' data-aos="fade-left" data-aos-delay="100" data-aos-duration="2000">
