@@ -2,7 +2,7 @@ import { GetServerSidePropsContext } from 'next'
 import { getSession } from 'next-auth/react'
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  
+
   const bookId = context.params?.bookId as string;
   
   // Fetch book and views in parallel using Promise.all
@@ -289,7 +289,7 @@ const Section = styled.section`
     padding-bottom : 20rem;
 
     .buttonComments{
-      transform : translateY(18rem);
+      transform : translateY(20rem);
     }
   }
 

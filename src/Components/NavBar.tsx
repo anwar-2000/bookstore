@@ -29,7 +29,7 @@ const NavBar = () => {
           className="h-28 md:h-48 w-auto max-h-100 object-contain mr-4 rounded cursor-pointer "
           onClick={() => router.push('/')}
         />
-            <Link href={`${BASE_URL}/all`}>
+            <Link href={`https://emmtaboutique.com/all`}>
             <div>
               <h3 className="whitespace-nowrap ml-3">Explorer</h3>
             </div>
