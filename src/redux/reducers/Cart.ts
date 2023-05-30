@@ -7,7 +7,8 @@ interface CartBook {
     image : string,
     quantite : number,
     poids : number;
-    isChecked : boolean
+    isChecked : boolean,
+    livreurcolissimo : boolean;
 }
 
 interface InitialState {
@@ -18,7 +19,8 @@ interface InitialState {
     totalPricePoids : number;
     totalPoids:number;
     quantite : number ;
-    isChecked : boolean; 
+    livreurcolissimo : boolean;
+    isChecked : boolean ; 
     favoriteList : CartBook[];
 }
 
@@ -29,7 +31,8 @@ const initialState: InitialState = {
     totalPricePoids: 0,
     totalPoids :0,
     items: 0,
-    isChecked : false,
+    livreurcolissimo : false,
+    isChecked : true,
     quantite: 1,
     favoriteList : [] ,
 };
@@ -50,9 +53,12 @@ export const CartSlice = createSlice({
                      localStorage.setItem('favoriteBooksList', favoriteListString);
         //}
         },
+        ChangeChecked(state){
+          state.isChecked === false ? state.isChecked = true :  state.isChecked = false;
+        },
         AddToCart(state, action) {
-            const { titre, quantite, poids, prix , isChecked } = action.payload;
-            state.isChecked = isChecked
+            const { titre, quantite , isChecked } = action.payload;
+            state.isChecked = isChecked;
             const index = state.cart.findIndex((book) => book.titre === titre);
           
             if (index !== -1) {
@@ -61,8 +67,9 @@ export const CartSlice = createSlice({
           
               // Check if the quantity has reached the maximum allowed value
               if (currentItem.quantite < quantite) {
-                // Increase the quantity by 1
                 currentItem.quantite += 1;
+              }else{
+                return ;
               } 
             } else {
               // Item not in the cart, add it with a quantity of 1
@@ -72,55 +79,117 @@ export const CartSlice = createSlice({
             // Calculate the total poids and total price by summing the poids and multiplying it by the price of each book in the cart
             let totalPoids = 0;
             let totalPrice = 0;
-          
-           
-state.cart.forEach((book) => {
-    switch (true) {
-      case book.poids <= 0.5:
-        state.totalPricePoids += book.quantite * 3.67;
-        break;
-      case book.poids > 0.5 && book.poids <= 1:
-        state.totalPricePoids += book.quantite * 4.08;
-        break;
-      case book.poids > 1 && book.poids <= 2:
-        state.totalPricePoids += book.quantite * 5.42;
-        break;
-      case book.poids > 2 && book.poids <= 3:
-        state.totalPricePoids += book.quantite * 5.58;
-        break;
-      case book.poids > 3 && book.poids <= 4:
-        state.totalPricePoids += book.quantite * 5.75;
-        break;
-      case book.poids > 4 && book.poids <= 5:
-        state.totalPricePoids += book.quantite * 9.08;
-        break;
-      case book.poids > 5 && book.poids <= 7:
-        state.totalPricePoids += book.quantite * 10.75;
-        break;
-      case book.poids > 7 && book.poids <= 10:
-        state.totalPricePoids += book.quantite * 11.58;
-        break;
-      case book.poids > 10 && book.poids <= 15:
-        state.totalPricePoids += book.quantite * 16.58;
-        break;
-      case book.poids > 15 && book.poids <= 20:
-        state.totalPricePoids += book.quantite * 18.25;
-        break;
-      case book.poids > 20 && book.poids <= 30:
-        state.totalPricePoids += book.quantite * 24.08;
-        break;
-      default:
-        break;
-    }
+        //only if the chatellerault shipping still be selected
+
+       if(!isChecked){
+        state.livreurcolissimo ?  state.cart.forEach((book) => {
+          switch (state.livreurcolissimo) {
+            case book.poids <= 0.250:
+              state.totalPricePoids += book.quantite * 4.95;
+              break;
+            case book.poids === 0.5:
+              state.totalPricePoids += book.quantite * 6.70;
+              break;
+            case book.poids > 0.5 && book.poids <=0.750 :
+              state.totalPricePoids += book.quantite * 7.60;
+              break;
+            case book.poids > 0.750 && book.poids <= 1:
+              state.totalPricePoids += book.quantite * 8.25;
+              console.log('HERE : ',state.totalPricePoids)
+              break;
+            case book.poids > 1 && book.poids <= 2:
+              state.totalPricePoids += book.quantite * 9.55;
+              break;
+            case book.poids > 2 && book.poids <= 5:
+              state.totalPricePoids += book.quantite * 14.65;
+              break;
+            case book.poids > 5 && book.poids <= 10:
+              state.totalPricePoids += book.quantite * 21.30;
+              break;
+            case book.poids > 10 && book.poids <= 15:
+              state.totalPricePoids += book.quantite * 26.95;
+              break;
+            case book.poids > 15 && book.poids <= 30:
+              state.totalPricePoids += book.quantite * 33.40;
+              break;
+            case book.poids > 15 && book.poids <= 20:
+              state.totalPricePoids += book.quantite * 18.25;
+              break;
+            case book.poids > 20 && book.poids <= 30:
+              state.totalPricePoids += book.quantite * 24.08;
+              break;
+            default:
+              break;
+          }
+              
+          totalPoids += book.quantite * book.poids;
+          console.log('COLISSIMO LOGIC: ' , totalPoids );
+        }) :
+              state.cart.forEach((book) => {
+          switch (state.livreurcolissimo === false) {
+            case book.poids <= 0.5:
+              state.totalPricePoids += book.quantite * 3.67;
+               console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+              break;
+            case book.poids > 0.5 && book.poids <= 1:
+              state.totalPricePoids += book.quantite * 4.08;
+               console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+              break;
+            case book.poids > 1 && book.poids <= 2:
+              state.totalPricePoids += book.quantite * 5.42;
+               console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+              break;
+            case book.poids > 2 && book.poids <= 3:
+              state.totalPricePoids += book.quantite * 5.58;
+               console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+              break;
+            case book.poids > 3 && book.poids <= 4:
+              state.totalPricePoids += book.quantite * 5.75;
+               console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+              break;
+            case book.poids > 4 && book.poids <= 5:
+              state.totalPricePoids += book.quantite * 9.08;
+               console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+              break;
+            case book.poids > 5 && book.poids <= 7:
+              state.totalPricePoids += book.quantite * 10.75;
+               console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+              break;
+            case book.poids > 7 && book.poids <= 10:
+              state.totalPricePoids += book.quantite * 11.58;
+               console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+              break;
+            case book.poids > 10 && book.poids <= 15:
+              state.totalPricePoids += book.quantite * 16.58;
+               console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+              break;
+            case book.poids > 15 && book.poids <= 20:
+              state.totalPricePoids += book.quantite * 18.25;
+               console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+              break;
+            case book.poids > 20 && book.poids <= 30:
+              state.totalPricePoids += book.quantite * 24.08;
+               console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+              break;
+            default:
+              break;
+          }
   
-    totalPoids += book.quantite * book.poids;
-  });
           
-            // Update the state with the new totalPoids and totalPrice values
+          totalPoids += book.quantite * book.poids;
+          console.log('MONDIAL LOGIC : ' , totalPoids );
+        });
+      
+      
             
-            state.totalPoids = totalPoids;
-            state.total = totalPrice;
-            state.items = state.cart.length;
+              // Update the state with the new totalPoids and totalPrice values
+              
+              state.totalPoids = totalPoids;
+              state.total = totalPrice;
+              state.items = state.cart.length;
+       }   
+       state.items = state.cart.length;
+
           },
         DeleteFromCart(state, action) {
             const index = state.cart.findIndex(book => book.titre === action.payload.titre);
@@ -131,16 +200,242 @@ state.cart.forEach((book) => {
                 } else {
                     // If the item is in the cart only once, remove it from the cart
                     state.cart.splice(index, 1);
+                    state.total = 0;
+                    state.totalPricePoids = 0;
+                    state.totalPoids = 0;
                 }
             }
-            state.items = state.cart.length;
+            
+             // Calculate the total poids and total price by summing the poids and multiplying it by the price of each book in the cart
+             let totalPoids = 0;
+             let totalPrice = 0;
+           
+       state.livreurcolissimo ?  state.cart.forEach((book) => {
+         switch (state.livreurcolissimo) {
+           case book.poids <= 0.250:
+             state.totalPricePoids += book.quantite * 4.95;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids === 0.5:
+             state.totalPricePoids += book.quantite * 6.70;
+             console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 0.5 && book.poids <=0.750 :
+             state.totalPricePoids += book.quantite * 7.60;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 0.750 && book.poids <= 1:
+             state.totalPricePoids += book.quantite * 8.25;
+             console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 1 && book.poids <= 2:
+             state.totalPricePoids += book.quantite * 9.55;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 2 && book.poids <= 5:
+             state.totalPricePoids += book.quantite * 14.65;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 5 && book.poids <= 10:
+             state.totalPricePoids += book.quantite * 21.30;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 10 && book.poids <= 15:
+             state.totalPricePoids += book.quantite * 26.95;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 15 && book.poids <= 30:
+             state.totalPricePoids += book.quantite * 33.40;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 15 && book.poids <= 20:
+             state.totalPricePoids += book.quantite * 18.25;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 20 && book.poids <= 30:
+             state.totalPricePoids += book.quantite * 24.08;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           default:
+             break;
+         }
+             
+         totalPoids += book.quantite * book.poids;
+         console.log('COLISSIMO LOGIC: ' , totalPoids );
+       }) :
+             state.cart.forEach((book) => {
+         switch (state.livreurcolissimo === false) {
+           case book.poids <= 0.5:
+             state.totalPricePoids += book.quantite * 3.67;
+             break;
+           case book.poids > 0.5 && book.poids <= 1:
+             state.totalPricePoids += book.quantite * 4.08;
+             break;
+           case book.poids > 1 && book.poids <= 2:
+             state.totalPricePoids += book.quantite * 5.42;
+             break;
+           case book.poids > 2 && book.poids <= 3:
+             state.totalPricePoids += book.quantite * 5.58;
+             break;
+           case book.poids > 3 && book.poids <= 4:
+             state.totalPricePoids += book.quantite * 5.75;
+             break;
+           case book.poids > 4 && book.poids <= 5:
+             state.totalPricePoids += book.quantite * 9.08;
+             break;
+           case book.poids > 5 && book.poids <= 7:
+             state.totalPricePoids += book.quantite * 10.75;
+             break;
+           case book.poids > 7 && book.poids <= 10:
+             state.totalPricePoids += book.quantite * 11.58;
+             break;
+           case book.poids > 10 && book.poids <= 15:
+             state.totalPricePoids += book.quantite * 16.58;
+             break;
+           case book.poids > 15 && book.poids <= 20:
+             state.totalPricePoids += book.quantite * 18.25;
+             break;
+           case book.poids > 20 && book.poids <= 30:
+             state.totalPricePoids += book.quantite * 24.08;
+             break;
+           default:
+             break;
+         }
+ 
+         
+         totalPoids += book.quantite * book.poids;
+         console.log('MONDIAL LOGIC : ' , totalPoids );
+       });
+     
+     
+           
+             // Update the state with the new totalPoids and totalPrice values
+             
+             state.totalPoids = totalPoids;
+             state.total = totalPrice;
+             state.items = state.cart.length;
         },
         calculateTotal(state) {
+            state.total = 0;
             let totalPrice = state.cart.reduce((acc, book) => acc + parseFloat(book.prix) * book.quantite, 0).toFixed(2);
-      
             state.total = state.isChecked ? parseFloat(totalPrice) : parseFloat(totalPrice) + state.totalPricePoids;
+            if(state.cart.length===0){
+              state.total = 0;
+            }
         },
+        changeLivreur(state,action){
+          if (action.payload.type === "COLISSIMO") {
+            state.livreurcolissimo = true;
+            console.log("LIVREUR CHOISIS :", state.livreurcolissimo);
+          }
+          if (action.payload.type === "MONDIAL") {
+            state.livreurcolissimo = false;
+            console.log("LIVREUR CHOISIS :", state.livreurcolissimo);
+          }
+          calculateTotal()
+        },
+    reCalculate(state){
+             // Re-Calculate the total poids and total price by summing the poids and multiplying it by the price of each book in the cart
+        //
+       let totalPoids = 0;           
+       state.livreurcolissimo ?  state.cart.forEach((book) => {
+         switch (state.livreurcolissimo) {
+           case book.poids <= 0.250:
+             state.totalPricePoids += book.quantite * 4.95;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids === 0.5:
+             state.totalPricePoids += book.quantite * 6.70;
+             console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 0.5 && book.poids <=0.750 :
+             state.totalPricePoids += book.quantite * 7.60;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 0.750 && book.poids <= 1:
+             state.totalPricePoids += book.quantite * 8.25;
+             console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 1 && book.poids <= 2:
+             state.totalPricePoids += book.quantite * 9.55;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 2 && book.poids <= 5:
+             state.totalPricePoids += book.quantite * 14.65;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 5 && book.poids <= 10:
+             state.totalPricePoids += book.quantite * 21.30;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 10 && book.poids <= 15:
+             state.totalPricePoids += book.quantite * 26.95;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 15 && book.poids <= 30:
+             state.totalPricePoids += book.quantite * 33.40;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 15 && book.poids <= 20:
+             state.totalPricePoids += book.quantite * 18.25;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           case book.poids > 20 && book.poids <= 30:
+             state.totalPricePoids += book.quantite * 24.08;
+              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
+             break;
+           default:
+             break;
+         }
+             
+         totalPoids += book.quantite * book.poids;
+         console.log('COLISSIMO LOGIC: ' , totalPoids );
+       }) :
+             state.cart.forEach((book) => {
+         switch (state.livreurcolissimo === false) {
+           case book.poids <= 0.5:
+             state.totalPricePoids += book.quantite * 3.67;
+             break;
+           case book.poids > 0.5 && book.poids <= 1:
+             state.totalPricePoids += book.quantite * 4.08;
+             break;
+           case book.poids > 1 && book.poids <= 2:
+             state.totalPricePoids += book.quantite * 5.42;
+             break;
+           case book.poids > 2 && book.poids <= 3:
+             state.totalPricePoids += book.quantite * 5.58;
+             break;
+           case book.poids > 3 && book.poids <= 4:
+             state.totalPricePoids += book.quantite * 5.75;
+             break;
+           case book.poids > 4 && book.poids <= 5:
+             state.totalPricePoids += book.quantite * 9.08;
+             break;
+           case book.poids > 5 && book.poids <= 7:
+             state.totalPricePoids += book.quantite * 10.75;
+             break;
+           case book.poids > 7 && book.poids <= 10:
+             state.totalPricePoids += book.quantite * 11.58;
+             break;
+           case book.poids > 10 && book.poids <= 15:
+             state.totalPricePoids += book.quantite * 16.58;
+             break;
+           case book.poids > 15 && book.poids <= 20:
+             state.totalPricePoids += book.quantite * 18.25;
+             break;
+           case book.poids > 20 && book.poids <= 30:
+             state.totalPricePoids += book.quantite * 24.08;
+             break;
+           default:
+             break;
+         }
+ 
+         
+         totalPoids += book.quantite * book.poids;
+         console.log('MONDIAL LOGIC : ' , totalPoids );
+       });
+        }
     }
 })
-export const {toggleCart , AddToCart , DeleteFromCart , calculateTotal , AddToFavorite} = CartSlice.actions
+export const {ChangeChecked ,toggleCart , AddToCart , DeleteFromCart , calculateTotal , AddToFavorite , changeLivreur , reCalculate} = CartSlice.actions
 export default CartSlice.reducer

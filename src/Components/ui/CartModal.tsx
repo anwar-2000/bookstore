@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import CartItem from "./CartItem";
 import { createPortal } from "react-dom";
-import { toggleCart } from "@/redux/reducers/Cart";
+import { calculateTotal, toggleCart } from "@/redux/reducers/Cart";
 import getStripe from "@/lib/getStripe";
 import { BsStripe } from "react-icons/bs";
 
@@ -19,8 +19,8 @@ interface ItemShape {
 
 
 const CartModal = () => {
-  const [showForm, setShowForm] = useState(false);
-
+  //const [showForm, setShowForm] = useState(false);
+  const {isChecked} = useSelector((state:any)=>state.cart)
   const [formData, setFormData] = useState({
     email: '',
     address: '',
@@ -34,6 +34,8 @@ const CartModal = () => {
   const { cart } = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
 
+
+
   useEffect(() => {
     setIsMounted(true);
     return () => {
@@ -43,7 +45,8 @@ const CartModal = () => {
 
   useEffect(() => {
     document.body.style.overflow = showModal ? "hidden" : "auto"; // to stop scrolling on the body
-  }, [showModal]);
+    calculateTotal()
+  }, [showModal,cart]);
 
   if (!isMounted) return null;
 
@@ -74,9 +77,11 @@ async function handlePaypalPayment(e:any) {
 
     let StripeData = {
       cart ,
-      total
+      total,
+      isChecked 
     }
-    //console.log("MODAL",cart,total)
+    console.log("MODAL",cart,total)
+
     const stripe = await getStripe();
     //console.log("FOR STRIPE : ",cart)
     const response = await fetch("/api/stripe", {
@@ -106,13 +111,15 @@ async function handlePaypalPayment(e:any) {
     stripe?.redirectToCheckout({ sessionId: data.id });
   };
 
-  const handleFormChange = (e:any) => {
+
+  
+  /*const handleFormChange = (e:any) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value
     }));
-  };
+  };*/
 
 
   return createPortal(
@@ -136,11 +143,12 @@ async function handlePaypalPayment(e:any) {
 
         <div className="total_pay">
           <h3>Total : {total} €</h3>
-          <button onClick={handleStripe}><BsStripe /></button>
-          <button onClick={()=>setShowForm(!showForm)}><FaCcPaypal /></button>
+          <button onClick={handleStripe}>Payer</button>
+          {//<button onClick={()=>setShowForm(!showForm)}><FaCcPaypal /></button>
+          }
         </div>
          {/* PayPal Form */}
-      {showForm && (
+      { /*showForm && (
         <form onSubmit={handlePaypalPayment}>
           <input type="email" placeholder="Email" 
             onChange={handleFormChange}
@@ -153,7 +161,7 @@ async function handlePaypalPayment(e:any) {
  />
           <button type="submit">Payer</button>
         </form>
-      )}
+      ) */}
       </Container>
     </>,
     document.getElementById("modal-root") as HTMLElement

@@ -25,9 +25,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   import styled from "styled-components";
   import { addViewerToBook, fetchBook, fetchComments, fetchViews } from "@/lib/helpers";
   import { NextPage } from "next";
-import { Eye, Star } from "lucide-react";
-import { useDispatch } from "react-redux";
-import { AddToCart, calculateTotal} from "@/redux/reducers/Cart";
+import { Eye } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { AddToCart, calculateTotal , ChangeChecked, changeLivreur, reCalculate} from "@/redux/reducers/Cart";
 import getStripe from "@/lib/getStripe";
 import { toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
@@ -36,7 +36,6 @@ import Head from 'next/head'
 import Comments from '@/Components/Comments'
 import AddCommentComp from '@/Components/addCommentComp'
 
-import {BsStripe} from 'react-icons/bs'
 import Link from 'next/link';
 
 
@@ -63,7 +62,7 @@ interface Book {
     bookId : string;
     views : number
   }
-const Index: NextPage<MyPageProps> = ({ data , session , bookId , views }) => {
+const Index: NextPage<MyPageProps> = ({ data  , bookId , views }) => {
 /**
  * 
  * fetching for comments based on if the user clicked or not
@@ -73,7 +72,14 @@ const Index: NextPage<MyPageProps> = ({ data , session , bookId , views }) => {
 
 /** //////////// for the free shipping ////////////*/
 
-const [isChecked, setIsChecked] = useState(false);
+const {isChecked} = useSelector((state:any)=>state.cart);
+
+/****************************************** */
+
+const [isCheckedMondialRelay, setIsCheckedMondialRelay] = useState(false);
+const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
+
+
 
   const handleFetchComments = async () => {
     try {
@@ -125,24 +131,47 @@ const [isChecked, setIsChecked] = useState(false);
      * 
      * i'll fix the bug when can order a book even if its sold out -- FIXED
      */
-    
+  const { total } = useSelector((state: any) => state.cart);
+  const { cart } = useSelector((state: any) => state.cart);
+
+
   let book = {
     titre : data.titre,
     prix : data.prix,
     image : data.imageUrl1,
     poids : data?.poids,
     quantite : 1,
-    isChecked : isChecked
+    isChecked,
+    total
    }
 
+  const handleChatelleraultChange = () => {
+    dispatch(ChangeChecked());
+    setIsCheckedColissimo(false)
+    setIsCheckedMondialRelay(false)
+    dispatch(reCalculate())
+  }
 
+   const handleMondialRelayBox = () => {
+    dispatch(ChangeChecked());
+    setIsCheckedMondialRelay(true);
+    setIsCheckedColissimo(false);
+    dispatch(changeLivreur({type : "MONDIAL"}))
+    dispatch(reCalculate())
 
-  const handleCheckboxChange = (event:any) => {
-    setIsChecked(event.target.checked);
   };
-   
+
+  const handleColissimoBox = () => {
+    dispatch(ChangeChecked());
+    setIsCheckedMondialRelay(false);
+    setIsCheckedColissimo(true);
+    dispatch(changeLivreur({type : "COLISSIMO"}))
+    dispatch(reCalculate())
+  };
+
+  
   const handleClickPanier = () => {
-   
+     
      //console.log( book)
      dispatch(AddToCart(book))
      dispatch(calculateTotal())
@@ -152,36 +181,41 @@ const [isChecked, setIsChecked] = useState(false);
       theme: "colored"
     });
   };
-  const cart = [book]
-  const handleClickAchatStripe = async () => {
-   // console.log(cart);
-    const stripe = await getStripe();
 
-    //console.log("FOR STRIPE : ",cart)
+  /*const handleButtonClick = async () => {
+    dispatch(AddToCart(book));
+    dispatch(calculateTotal());
+    
+    handleClickAchatStripe();
+  };
   
+  const handleClickAchatStripe = async () => {
+    let StripeData = {
+      cart,
+      total,
+      isChecked,
+    };
+  
+    const stripe = await getStripe();
     const response = await fetch("/api/stripe", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({cart,isChecked})
+      body: JSON.stringify(StripeData),
     });
+  
     if (!response.ok) {
       const error = await response.text();
       console.error(error);
       return;
     }
-    // if error just exit function
-    if ((response as any).statusCode === 500) {
-      console.error((response as any).message);
-      return;
-    }
-
+  
     const data = await response.json();
-    /** TO DO : ADD REDIRECT STATE && message  */
-
+    /** TO DO: ADD REDIRECT STATE && message 
+  
     stripe?.redirectToCheckout({ sessionId: data.id });
-  };
+  };*/
 
  
 
@@ -225,12 +259,25 @@ const [isChecked, setIsChecked] = useState(false);
                 {data.prix}€ 
               </h6>
               <h6>
-                <span>Poids :</span>
-                {data.poids} Kg <Link target={'_blank'} href={'https://static0.tiendeo.fr/images/tiendas/136330/catalogos/580300/paginas/med/00002.jpg'}><strong style={{color : "blue"}}> ** tarifs de livraison-</strong></Link> 
-                <br/> <label htmlFor='chatel' className="text-xl mt-xl text-center">Je suis de Chatellerault </label><input id='chatel' type={'checkbox'} checked={isChecked}
-        onChange={handleCheckboxChange}
- />
+                <span>Poids :</span>{data.poids} Kg 
+                <br/><label htmlFor='chatel' className="text-xl mt-xl text-center">Je suis de Chatellerault </label><input id='chatel' type={'checkbox'} checked={isChecked}
+                onChange={handleChatelleraultChange}/>
               </h6>
+              <div className='flex gap-3 items-center justify-center'>
+               <h6><label htmlFor='livreur' className="text-xl mt-xl text-center">Mondial Relay</label>
+               <input className='ml-3' id='livreur' type={'checkbox'} checked={isCheckedMondialRelay}
+                onChange={handleMondialRelayBox} />
+                </h6>
+                <h6>
+               <label htmlFor='livreur' className="text-xl mt-xl text-center">Colissimo</label>
+               <input  id='livreur' className='ml-3' type={'checkbox'} checked={isCheckedColissimo}
+                onChange={handleColissimoBox} />
+                </h6>
+                </div>
+                <div>
+                <Link target={'_blank'} href={'https://static0.tiendeo.fr/images/tiendas/136330/catalogos/580300/paginas/med/00002.jpg'} className='text-blue-400 mr-2' >tarifs Mondial Relay</Link> 
+                <Link target={'_blank'}  href='https://www.laposte.fr/tarif-colissimo' className='text-blue-400' >tarifs colissimo </Link>
+                </div>
                <div className="rating">
                <Eye id="star"  color="black"/>
                 <h6>{views}</h6>
@@ -238,12 +285,14 @@ const [isChecked, setIsChecked] = useState(false);
             </div>
             <div className="buttons">
               <button onClick={handleClickPanier}>Ajouter au Panier</button>
-              <button onClick={handleClickAchatStripe}>Acheter <BsStripe /></button>
               <button style={{cursor : 'not-allowed'}}>Faire une offre</button>
             </div>
+
+            <button onClick={handleFetchComments} className="buttonComments">Afficher les Commentaires</button>
           </Left>
+
         </Container>
-        <button onClick={handleFetchComments} className="buttonComments">Afficher les Commentaires</button>
+       
     </Section>
     <CommentsContainer>
       {toggleComments &&  <AddCommentComp onAdd={refetch} bookId={bookId} />}
@@ -273,7 +322,7 @@ const Section = styled.section`
     color : white;
     border-radius : 15px;
     transition : all ease-in 400ms;
-    transform : translateY(-3rem);
+  
     &:hover{
       background : white;
       color : black;
@@ -289,22 +338,22 @@ const Section = styled.section`
     padding-bottom : 20rem;
 
     .buttonComments{
-      transform : translateY(20rem);
+      transform : translateY(2rem);
     }
   }
 
   /* styles for screens between 768px and 1024px */
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     gap: 4rem;
-    padding-bottom : 28rem;
+    padding-bottom : 3rem;
     
   }
 
   @media screen and (min-width: 912px) and (max-width: 1024px) {
-    padding-bottom : 28rem;
+    padding-bottom : 26rem;
     gap: 0rem;
     .buttonComments{
-      transform : translateY(18rem);
+      transform : translateY(4rem);
     }
     .content {
       transform: translateY(-15rem);

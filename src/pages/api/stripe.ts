@@ -9,7 +9,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     try {
       const { cart, total , isChecked } = req.body;
+
+      
       const priceToPay = total * 100;
+
+
+      console.log(total , priceToPay , isChecked)
      // console.log('Cart:', cart); 
 
 
@@ -27,7 +32,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 name: item.titre,
                 images: [item.image],
               },
-              unit_amount: isChecked ? item.prix * 100 : (item.poids * item.quantite + item.prix) * 100,
+              unit_amount: isChecked &&  total !== 'undefined'
+              ? item.prix * 100
+              : !isChecked &&  total === 'undefined'
+                ? (item.poids * item.quantite + item.prix) * 100
+                : !isChecked &&  total !== 'undefined'
+                  ? total * 100
+                  : 0,
             },
             quantity: item.quantite,
           };
@@ -43,7 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 name: item.titre,
                 images: [item.image],
               },
-              unit_amount: priceToPay,
+              unit_amount: priceToPay - (item.prix * 100),
             },
             quantity: item.quantite,
           };

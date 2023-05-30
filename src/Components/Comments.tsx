@@ -102,6 +102,11 @@ const Container= styled.div`
     box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.75);
 -webkit-box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.75);
 -moz-box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.75);
+h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* styles for screens smaller than 768px */
 @media screen and (max-width: 767px) {
@@ -126,15 +131,26 @@ const Heads = styled.div`
     top:0rem;
     left : 0.5rem;
     gap : 0.7rem;
+    white-space: nowrap;
+     overflow: hidden;
+   text-overflow: ellipsis;
     h3{
         font-size : 15px;
+        
     }
 
         /* styles for screens smaller than 768px */
 @media screen and (max-width: 767px) {
-    gap : 0.4rem;
+    flex-direction : column;
+    align-items : start;
+    h3{width : 8rem;}
    &  small{
-        font-size : 0.6rem;
+        font-size : 0.7rem;
+        position : absolute;
+        top : 1.3rem;
+        width : 7rem;
+
+        
     }
 }
 `

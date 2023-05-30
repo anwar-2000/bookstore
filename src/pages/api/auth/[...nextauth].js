@@ -8,7 +8,6 @@ import {createMongoConnection} from "@/database/conn"
 
 export default nextAuth({
     session : {
-        
     },
     providers : [
         CredentialProvider({
@@ -27,41 +26,9 @@ export default nextAuth({
                             throw  new Error("Username or password doesnt match")
                         }
                         console.log("result in Authorize ",result)
-                        // Generate JWT token with user data
-
-                        
-  /** const token = jwt.sign(
-    { 
-      user: { 
-        _id: result._id,
-        email: result.email,
-        username: result.username,
-        isAdmin: result.isAdmin
-      }
-    },
-    process.env.JWT_SECRET,
-    { expiresIn: '1d' }
-  );
-
-           console.log('token in server :', token);
-          const user = { ...result.toObject(), token };
-          console.log('user in server :', user);
-          */
+        
            return result;}
         })
     ],
-   /**  callbacks: {
-      async jwt(token, user) {
-        if (user) {
-          token.accessToken = user.token;
-        }
-        return token;
-      },
-      async session(session, token) {
-        session.accessToken = token.accessToken;
-        console.log("session with AcessToken :",session);
-        return session;
-      },
-    },*/
     
 });

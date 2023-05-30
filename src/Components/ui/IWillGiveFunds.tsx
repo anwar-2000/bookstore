@@ -15,12 +15,12 @@ const Container = styled.div`
 
     height : 30px;
     z-index : 99;
-    background: rgb(231,76,60);
+    background: rgb(60, 220, 231);
     color : #e7e4e4;
     display  : flex;
     align-items : center;
     justify-content : center;
-    font-weight : bold;
+    font-weight : bolder;
     
 `
 
