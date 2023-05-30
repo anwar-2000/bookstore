@@ -1,4 +1,6 @@
+import { createMongoConnection } from "@/database/conn";
 import { deleteBook, updateBook } from "@/lib/helpers";
+import Livre from "@/models/Livres";
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 
@@ -7,6 +9,14 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 //console.log(process.env.STRIPE_SECRET_KEY)
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+
+    try{
+        await createMongoConnection();
+    }catch(err){
+        console.log(err)
+    }
+
+
   if (req.method === 'POST') {
     try {
       const { cart, total , isChecked } = req.body;
@@ -81,13 +91,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // After successful payment, delete the products from the database
       if (session.payment_status === 'paid') {
         for (const item of cart) {
-          if (item.quantite === 0) {
+          const book = await Livre.findById(item._id);
+          console.log('TRYING TO DELETE THE BOOK : ',book)
+      
+          if (book.quantite === 1) {
             await deleteBook(item._id);
           } else {
-            await updateBook(item._id,{ "quantite" : item.quantite - 1});
+            await Livre.findByIdAndUpdate(
+              item._id,
+              { $inc: { quantite: -1 } }
+            );
           }
         }
       }
+      
       res.status(200).json(session);
     } catch (err) {
       const error = err as Error;

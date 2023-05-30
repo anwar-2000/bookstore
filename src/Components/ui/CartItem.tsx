@@ -1,34 +1,52 @@
 import { AddToCart, calculateTotal, DeleteFromCart } from '@/redux/reducers/Cart'
 import { Minus, Plus } from 'lucide-react'
 import React, { FC } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 interface Props {
+    _id : string,
     titre : string ,
     prix : number,
     image : string,
+    poids  : number,
     quantite : number
 }
 
-const CartItem:FC<Props> = ({titre , prix , image, quantite}) => {
+
+
+const CartItem:FC<Props> = ({ _id ,titre , prix , poids ,image, quantite}) => {
+
+    const { total } = useSelector((state: any) => state.cart);
+    const { isChecked } = useSelector((state: any) => state.cart);
+
+
     const dispatch = useDispatch();
     const deleteItemHandler = () =>{
-       let book = {
-        titre,
-        prix,
-        image
+      
+    let book = {
+        _id ,
+        titre ,
+        prix ,
+        image ,
+        poids ,
+        quantite ,
+        isChecked,
+        total
        }
        dispatch(DeleteFromCart(book))
        dispatch(calculateTotal())
     }
+
+    let book = {
+        _id,
+        titre,
+        prix,
+        image,
+        poids
+       }
     const addItemHandler = () =>{
-        let book = {
-         titre,
-         prix,
-         image,
-         quantite
-        }
+        console.log(book)
         dispatch(AddToCart(book));
         dispatch(calculateTotal());
      }

@@ -11,7 +11,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     fetchViews(bookId)
   ]);
 
-  const data = book; // Assuming `fetchBook` returns the book data
+  const data = book; 
 
   const session = await getSession(context);
 
@@ -28,7 +28,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 import { Eye } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { AddToCart, calculateTotal , ChangeChecked, changeLivreur, reCalculate} from "@/redux/reducers/Cart";
-import getStripe from "@/lib/getStripe";
+//import getStripe from "@/lib/getStripe";
 import { toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
 import SwiperComponent from '@/Components/ui/Swiper'
@@ -37,6 +37,7 @@ import Comments from '@/Components/Comments'
 import AddCommentComp from '@/Components/addCommentComp'
 
 import Link from 'next/link';
+import { SET_LIVRAISON } from '@/redux/reducers/Toggle';
 
 
 interface Book {
@@ -128,13 +129,8 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
       addViewerToBook(bookId)
     },[]);
 
-    /**
-     * 
-     * 
-     * i'll fix the bug when can order a book even if its sold out -- FIXED
-     */
   const { total } = useSelector((state: any) => state.cart);
- 
+  const {showOptions} = useSelector((state:any)=>state.toggle);
 
 
   let book = {
@@ -143,7 +139,7 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
     prix : data.prix,
     image : data.imageUrl1,
     poids : data?.poids,
-    quantite : 1,
+    quantite : data.quantite,
     isChecked,
     total
    }
@@ -152,7 +148,12 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
     dispatch(ChangeChecked());
     setIsCheckedColissimo(false)
     setIsCheckedMondialRelay(false)
+    
+    //recalculate logic
     dispatch(reCalculate())
+
+
+    dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
   }
 
    const handleMondialRelayBox = () => {
@@ -160,8 +161,12 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
     setIsCheckedMondialRelay(true);
     setIsCheckedColissimo(false);
     dispatch(changeLivreur({type : "MONDIAL"}))
+    
+
+    //recalculate logic
     dispatch(reCalculate())
 
+    dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
   };
 
   const handleColissimoBox = () => {
@@ -169,19 +174,26 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
     setIsCheckedMondialRelay(false);
     setIsCheckedColissimo(true);
     dispatch(changeLivreur({type : "COLISSIMO"}))
+
+    
+    //recalculate logic
     dispatch(reCalculate())
+
+    dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
   };
+
+
 
   
   const handleClickPanier = () => {
      
-     //console.log( book)
+     //console.log( 'PANIER : ',book)
      dispatch(AddToCart(book))
      dispatch(calculateTotal())
 
-     toast.success(`Le Livre ${book.titre} est dans votre Panier`,{
+    toast.info(` le livre ${book.titre}  de Poids : ${book.poids} Kg est dans votre panier `,{
       position: toast.POSITION.TOP_RIGHT,
-      theme: "colored"
+      theme: "colored",
     });
   };
 
@@ -225,7 +237,7 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
 
   return <>
     <Head>
-      <title>{data.titre} - Emmaus </title>
+      <title>{data.titre}</title>
       <link rel="icon" href={data.imageUrl1} />
       <meta name="description" content="La boutique des livres Emmaus Chatellerault vend ses livres rares, ses BD, ses livres de poche à un prix compétitif."  />
       <meta name="keywords" content="Livres Rares,livres Anciens,Les BD,Livres Francais,Lives,Rares,Ancien,BD" />
@@ -259,30 +271,36 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
               </details>
               <h6>
                 <span>Prix :</span>
-                <span className='font-thin '> {data.prix}€</span> 
+                <span className='font-thin '> {data.prix} €</span> 
               </h6>
               <small>
                 <span >Il reste <span className='text-blue-500'>{data.quantite} </span>  dans la boutique</span> 
               </small>
               <h6>
                 <span>Poids :</span>{data.poids} Kg 
-                <br/><label htmlFor='chatel' className="text-xl mt-xl text-center">Je suis de Chatellerault </label><input id='chatel' type={'checkbox'} checked={isChecked}
-                onChange={handleChatelleraultChange}/>
               </h6>
-              <div className='flex gap-3 items-center justify-center'>
+
+                { showOptions && <div>
+                <label htmlFor='chatel' className="text-xl mt-xl text-center">Je suis de Chatellerault </label>
+                <input id='chatel' type={'checkbox'} 
+                onChange={handleChatelleraultChange}/>
+                </div>}
+              
+              { showOptions && <div className='flex gap-3 items-center justify-center'>
                <h6><label htmlFor='livreur' className="text-xl mt-xl text-center">Mondial Relay</label>
-               <input className='ml-3' id='livreur' type={'checkbox'} checked={isCheckedMondialRelay}
+               <input className='ml-3' id='livreur' type={'checkbox'} 
                 onChange={handleMondialRelayBox} />
                 </h6>
                 <h6>
                <label htmlFor='livreur' className="text-xl mt-xl text-center">Colissimo</label>
-               <input  id='livreur' className='ml-3' type={'checkbox'} checked={isCheckedColissimo}
+               <input  id='livreur' className='ml-3' type={'checkbox'} 
                 onChange={handleColissimoBox} />
                 </h6>
-                </div>
+                </div>}
                 <div>
                 <Link target={'_blank'} href={'https://static0.tiendeo.fr/images/tiendas/136330/catalogos/580300/paginas/med/00002.jpg'} className='text-blue-400 mr-2' >tarifs Mondial Relay</Link> 
-                <Link target={'_blank'}  href='https://www.laposte.fr/tarif-colissimo' className='text-blue-400' >tarifs colissimo </Link>
+                  ||  
+                <Link  target={'_blank'}  href='https://www.laposte.fr/tarif-colissimo' className='text-blue-400 ml-2' >tarifs colissimo </Link>
                 </div>
                <div className="rating">
                <Eye id="star"  color="black"/>

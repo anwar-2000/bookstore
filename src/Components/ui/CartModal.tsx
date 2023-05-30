@@ -5,14 +5,13 @@ import CartItem from "./CartItem";
 import { createPortal } from "react-dom";
 import { calculateTotal, toggleCart } from "@/redux/reducers/Cart";
 import getStripe from "@/lib/getStripe";
-import { BsStripe } from "react-icons/bs";
-
-import {FaCcPaypal} from 'react-icons/fa'
 
 interface ItemShape {
+  _id : string,
   titre: string;
   prix: number;
   image: string;
+  poids : number;
   quantite: number;
 }
 
@@ -32,6 +31,9 @@ const CartModal = () => {
   const showModal = useSelector((state: any) => state.show);
   const { total } = useSelector((state: any) => state.cart);
   const { cart } = useSelector((state: any) => state.cart);
+
+  // to update the total if user changes the livreur
+  const {livreurcolissimo} = useSelector((state:any)=>state.cart)
   const dispatch = useDispatch();
 
 
@@ -47,6 +49,7 @@ const CartModal = () => {
     document.body.style.overflow = showModal ? "hidden" : "auto"; // to stop scrolling on the body
     calculateTotal()
   }, [showModal,cart]);
+
 
   if (!isMounted) return null;
 
@@ -74,13 +77,13 @@ async function handlePaypalPayment(e:any) {
   }
   
   const handleStripe = async () => {
-
+    
     let StripeData = {
       cart ,
       total,
       isChecked 
     }
-    console.log("MODAL",cart,total)
+    //console.log("MODAL",cart,total)
 
     const stripe = await getStripe();
     //console.log("FOR STRIPE : ",cart)
@@ -130,12 +133,13 @@ async function handlePaypalPayment(e:any) {
         <div className="items">
           {cart.map((item: ItemShape, i: number) => (
             <CartItem
+              _id={item._id}
               titre={item.titre}
               prix={item.prix}
               image={item.image}
               key={i}
               quantite={item.quantite}
-            />
+              poids={item.poids}            />
           ))}
         </div>
 

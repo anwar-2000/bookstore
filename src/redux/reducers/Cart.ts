@@ -10,6 +10,7 @@ interface CartBook {
     poids : number;
     isChecked : boolean,
     livreurcolissimo : boolean;
+    max_quantite : number;
 }
 
 interface InitialState {
@@ -33,7 +34,7 @@ const initialState: InitialState = {
     totalPoids :0,
     items: 0,
     livreurcolissimo : false,
-    isChecked : true,
+    isChecked : false,
     quantite: 1,
     favoriteList : [] ,
 };
@@ -65,16 +66,16 @@ export const CartSlice = createSlice({
             if (index !== -1) {
               // If the item is already in the cart
               const currentItem = state.cart[index];
-          
+              
               // Check if the quantity has reached the maximum allowed value
-              if (currentItem.quantite < quantite) {
+              if (currentItem.quantite < currentItem.max_quantite) {
                 currentItem.quantite += 1;
               }else{
                 return ;
               } 
             } else {
               // Item not in the cart, add it with a quantity of 1
-              state.cart = [...state.cart, { ...action.payload, quantite: 1 }];
+              state.cart = [...state.cart, { ...action.payload, quantite: 1 , max_quantite : quantite }];
             }
           
             // Calculate the total poids and total price by summing the poids and multiplying it by the price of each book in the cart
@@ -335,107 +336,72 @@ export const CartSlice = createSlice({
           }
           calculateTotal()
         },
-    reCalculate(state){
-             // Re-Calculate the total poids and total price by summing the poids and multiplying it by the price of each book in the cart
-        //
-       let totalPoids = 0;           
-       state.livreurcolissimo ?  state.cart.forEach((book) => {
-         switch (state.livreurcolissimo) {
-           case book.poids <= 0.250:
-             state.totalPricePoids += book.quantite * 4.95;
-              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
-             break;
-           case book.poids === 0.5:
-             state.totalPricePoids += book.quantite * 6.70;
-             console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
-             break;
-           case book.poids > 0.5 && book.poids <=0.750 :
-             state.totalPricePoids += book.quantite * 7.60;
-              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
-             break;
-           case book.poids > 0.750 && book.poids <= 1:
-             state.totalPricePoids += book.quantite * 8.25;
-             console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
-             break;
-           case book.poids > 1 && book.poids <= 2:
-             state.totalPricePoids += book.quantite * 9.55;
-              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
-             break;
-           case book.poids > 2 && book.poids <= 5:
-             state.totalPricePoids += book.quantite * 14.65;
-              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
-             break;
-           case book.poids > 5 && book.poids <= 10:
-             state.totalPricePoids += book.quantite * 21.30;
-              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
-             break;
-           case book.poids > 10 && book.poids <= 15:
-             state.totalPricePoids += book.quantite * 26.95;
-              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
-             break;
-           case book.poids > 15 && book.poids <= 30:
-             state.totalPricePoids += book.quantite * 33.40;
-              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
-             break;
-           case book.poids > 15 && book.poids <= 20:
-             state.totalPricePoids += book.quantite * 18.25;
-              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
-             break;
-           case book.poids > 20 && book.poids <= 30:
-             state.totalPricePoids += book.quantite * 24.08;
-              console.log(`HERE ${state.totalPoids} kg for : `,state.totalPricePoids)
-             break;
-           default:
-             break;
-         }
-             
-         totalPoids += book.quantite * book.poids;
-         console.log('COLISSIMO LOGIC: ' , totalPoids );
-       }) :
-             state.cart.forEach((book) => {
-         switch (state.livreurcolissimo === false) {
-           case book.poids <= 0.5:
-             state.totalPricePoids += book.quantite * 3.67;
-             break;
-           case book.poids > 0.5 && book.poids <= 1:
-             state.totalPricePoids += book.quantite * 4.08;
-             break;
-           case book.poids > 1 && book.poids <= 2:
-             state.totalPricePoids += book.quantite * 5.42;
-             break;
-           case book.poids > 2 && book.poids <= 3:
-             state.totalPricePoids += book.quantite * 5.58;
-             break;
-           case book.poids > 3 && book.poids <= 4:
-             state.totalPricePoids += book.quantite * 5.75;
-             break;
-           case book.poids > 4 && book.poids <= 5:
-             state.totalPricePoids += book.quantite * 9.08;
-             break;
-           case book.poids > 5 && book.poids <= 7:
-             state.totalPricePoids += book.quantite * 10.75;
-             break;
-           case book.poids > 7 && book.poids <= 10:
-             state.totalPricePoids += book.quantite * 11.58;
-             break;
-           case book.poids > 10 && book.poids <= 15:
-             state.totalPricePoids += book.quantite * 16.58;
-             break;
-           case book.poids > 15 && book.poids <= 20:
-             state.totalPricePoids += book.quantite * 18.25;
-             break;
-           case book.poids > 20 && book.poids <= 30:
-             state.totalPricePoids += book.quantite * 24.08;
-             break;
-           default:
-             break;
-         }
- 
-         
-         totalPoids += book.quantite * book.poids;
-         console.log('MONDIAL LOGIC : ' , totalPoids );
-       });
+        reCalculate(state) {
+          let totalPoids = 0;
+          state.totalPricePoids = 0;
+        
+          if (state.livreurcolissimo) {
+            state.cart.forEach((book) => {
+              if (book.poids <= 0.250) {
+                state.totalPricePoids += book.quantite * 4.95;
+              } else if (book.poids <= 0.5) {
+                state.totalPricePoids += book.quantite * 6.70;
+              } else if (book.poids <= 0.750) {
+                state.totalPricePoids += book.quantite * 7.60;
+              } else if (book.poids <= 1) {
+                state.totalPricePoids += book.quantite * 8.25;
+              } else if (book.poids <= 2) {
+                state.totalPricePoids += book.quantite * 9.55;
+              } else if (book.poids <= 5) {
+                state.totalPricePoids += book.quantite * 14.65;
+              } else if (book.poids <= 10) {
+                state.totalPricePoids += book.quantite * 21.30;
+              } else if (book.poids <= 15) {
+                state.totalPricePoids += book.quantite * 26.95;
+              } else if (book.poids <= 30) {
+                state.totalPricePoids += book.quantite * 33.40;
+              } else if (book.poids <= 20) {
+                state.totalPricePoids += book.quantite * 18.25;
+              } else if (book.poids <= 30) {
+                state.totalPricePoids += book.quantite * 24.08;
+              }
+        
+              totalPoids += book.quantite * book.poids;
+            });
+          } else {
+            state.cart.forEach((book) => {
+              if (book.poids <= 0.5) {
+                state.totalPricePoids += book.quantite * 3.67;
+              } else if (book.poids <= 1) {
+                state.totalPricePoids += book.quantite * 4.08;
+              } else if (book.poids <= 2) {
+                state.totalPricePoids += book.quantite * 5.42;
+              } else if (book.poids <= 3) {
+                state.totalPricePoids += book.quantite * 5.58;
+              } else if (book.poids <= 4) {
+                state.totalPricePoids += book.quantite * 5.75;
+              } else if (book.poids <= 5) {
+                state.totalPricePoids += book.quantite * 9.08;
+              } else if (book.poids <= 7) {
+                state.totalPricePoids += book.quantite * 10.75;
+              } else if (book.poids <= 10) {
+                state.totalPricePoids += book.quantite * 11.58;
+              } else if (book.poids <= 15) {
+                state.totalPricePoids += book.quantite * 16.58;
+              } else if (book.poids <= 20) {
+                state.totalPricePoids += book.quantite * 18.25;
+              } else if (book.poids <= 30) {
+                state.totalPricePoids += book.quantite * 24.08;
+              }
+        
+              totalPoids += book.quantite * book.poids;
+            });
+          }
+        
+          console.log('Total Poids:', totalPoids);
+          console.log('Total Price Poids:', state.totalPricePoids);
         }
+        
     }
 })
 export const {ChangeChecked ,toggleCart , AddToCart , DeleteFromCart , calculateTotal , AddToFavorite , changeLivreur , reCalculate} = CartSlice.actions

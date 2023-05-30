@@ -50,7 +50,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <NavBar />
         <MyApp Component={Component} pageProps={pageProps} router={router} />
         <Footer />
-        <ToastContainer autoClose={6000}  key="unique_key" />
+        <ToastContainer autoClose={4000}  key="unique_key" />
         </SessionProvider>
       </Provider>
     </QueryClientProvider>
