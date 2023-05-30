@@ -519,13 +519,14 @@ const Left = styled.div`
     }
     /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
+      
       & {
         flex-wrap : wrap;
       }
   }
   }
   /* styles for screens smaller than 768px */
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 624px) {
     align-items: center;
     justify-content: center;
     
@@ -545,11 +546,12 @@ const Left = styled.div`
     }
     
     & .infos {
+      margin-top : 1.3rem;
       justify-content: center;
       align-items: center;
 
       h1 {
-        font-size: 30px;
+        font-size: 25px;
         margin: 0.6rem 2rem;
         text-align : center;
       }
