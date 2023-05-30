@@ -1,3 +1,4 @@
+import { deleteBook, updateBook } from "@/lib/helpers";
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 
@@ -76,6 +77,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       };
 
       const session: Stripe.Checkout.Session = await stripe.checkout.sessions.create(params);
+
+      // After successful payment, delete the products from the database
+      if (session.payment_status === 'paid') {
+        for (const item of cart) {
+          if (item.quantite === 0) {
+            await deleteBook(item._id);
+          } else {
+            await updateBook(item._id,{ "quantite" : item.quantite - 1});
+          }
+        }
+      }
       res.status(200).json(session);
     } catch (err) {
       const error = err as Error;
@@ -86,3 +98,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(405).end('Method Not Allowed');
   }
 }
+
+
+
+

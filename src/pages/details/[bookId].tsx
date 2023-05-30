@@ -40,6 +40,7 @@ import Link from 'next/link';
 
 
 interface Book {
+    _id : string;
     titre: string;
     auteur: string;
     description: string;
@@ -49,6 +50,7 @@ interface Book {
     imageUrl2 : string;
     imageUrl3 : string;
     status: string;
+    quantite : number,
     date: Date;
     rating: number;
     poids : number;
@@ -132,10 +134,11 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
      * i'll fix the bug when can order a book even if its sold out -- FIXED
      */
   const { total } = useSelector((state: any) => state.cart);
-  const { cart } = useSelector((state: any) => state.cart);
+ 
 
 
   let book = {
+    _id : data._id,
     titre : data.titre,
     prix : data.prix,
     image : data.imageUrl1,
@@ -256,8 +259,11 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
               </details>
               <h6>
                 <span>Prix :</span>
-                {data.prix}€ 
+                <span className='font-thin '> {data.prix}€</span> 
               </h6>
+              <small>
+                <span >Il reste <span className='text-blue-500'>{data.quantite} </span>  dans la boutique</span> 
+              </small>
               <h6>
                 <span>Poids :</span>{data.poids} Kg 
                 <br/><label htmlFor='chatel' className="text-xl mt-xl text-center">Je suis de Chatellerault </label><input id='chatel' type={'checkbox'} checked={isChecked}
@@ -315,6 +321,12 @@ const Section = styled.section`
   justify-content: start;
   overflow-x:hidden;
   gap: 2rem;
+
+
+#livreur:checked{
+    background-color: #00ff4c !important;       
+}
+
  
   .buttonComments{
     padding : 1rem 3rem;

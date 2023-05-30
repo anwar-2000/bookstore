@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 interface CartBook {
+    _id : string;
     titre : string ,
     prix : string ,
     image : string,

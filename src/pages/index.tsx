@@ -18,14 +18,14 @@ export default function Home() {
   }, []);
   return <>
   <Head>
-      <title>EMMAUS NAINTRE</title>
-      <link rel="icon" href="./logo.jpg" />
-      <meta name="description" content="La boutique des livres Emmaus Chatellerault vend ses livres rares, ses BD, ses livres de poche à un prix compétitif."  />
-      <meta name="keywords" content="Livres Rares,livres Anciens,Les BD,Livres Francais,Lives,Rares,Ancien,BD" />
-      <meta name="author" content="Emmaus Naintré - Chatellerault" />
-      <meta property="og:title" content="Emmaus Naintré - Boutique chatellerault" />
-      <meta property="og:description" content="La boutique des livres Emmaus Chatellerault vend ses livres rares, ses BD, ses livres de poche à un prix compétitif." />
-    </Head>
+  <title>EMMAUS NAINTRE</title>
+  <link rel="icon" href="./logo.jpg" />
+  <meta name="description" content="La boutique des livres Emmaus Naintré propose des livres rares, anciens, des bandes dessinées (BD) et des livres de poche à des prix compétitifs. Découvrez notre large sélection de livres français et élargissez votre bibliothèque avec nos trouvailles uniques."  />
+  <meta name="keywords" content="Livres Rares, Livres Anciens, Bandes Dessinées, BD, Livres de Poche, Livres Français, Emmaus Naintré, Boutique Chatellerault" />
+  <meta name="author" content="Emmaus Naintré - Chatellerault" />
+  <meta property="og:title" content="Emmaus Naintré - Boutique Chatellerault" />
+  <meta property="og:description" content="La boutique des livres Emmaus Naintré propose des livres rares, anciens, des bandes dessinées (BD) et des livres de poche à des prix compétitifs." />
+</Head>
 
         { isLoading ? <Loading />
         : <><Hero />
