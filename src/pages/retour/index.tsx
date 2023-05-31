@@ -52,7 +52,7 @@ export default function  Index () {
           <input type='text' onChange={setFormData} id='nom' name='nom' />
         </FormGroup>
         <FormGroup>
-          <label htmlFor='Prénom'>Nom du Livre's' :</label>
+          <label htmlFor='Prénom'>Nom du Livre :</label>
           <input type='text'   id='Prénom' name='retour' onChange={setFormData} />
         </FormGroup>
         </div>
