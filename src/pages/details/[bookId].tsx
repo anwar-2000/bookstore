@@ -76,7 +76,7 @@ const Index: NextPage<MyPageProps> = ({ data  , bookId , views }) => {
 /** //////////// for the free shipping ////////////*/
 
 const {isChecked} = useSelector((state:any)=>state.cart);
-
+console.log("in details",isChecked)
 /****************************************** */
 
 const [isCheckedMondialRelay, setIsCheckedMondialRelay] = useState(false);
@@ -140,7 +140,6 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
     image : data.imageUrl1,
     poids : data?.poids,
     quantite : data.quantite,
-    isChecked,
     total
    }
 
@@ -282,7 +281,7 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
 
                 { showOptions && <div>
                 <label htmlFor='chatel' className="text-xl mt-xl text-center">Je suis de Chatellerault </label>
-                <input id='chatel' type={'checkbox'} 
+                <input id='chatel' type={'checkbox'} checked={isChecked}
                 onChange={handleChatelleraultChange}/>
                 </div>}
               

@@ -6,6 +6,7 @@ import Livre from '@/models/Livres';
 import LesDonsBoutique from '@/models/LesDons';
 import BooksComments from '@/models/BooksComments'; 
 import ViewsModal from '@/models/Views';
+import LesRetour from '@/models/Retour';
 
 //const BooksComments = mongoose.model('BooksComments')
 
@@ -380,4 +381,36 @@ export async function addViewToBook(req: NextApiRequest, res: NextApiResponse) {
     console.log(err);
     res.status(500).json({ error: "Error while adding views" });
   }
+}
+
+
+/********************************************************* */
+
+
+export async function addRetour(req: NextApiRequest, res: NextApiResponse){
+  try {
+    const formData = req.body;
+    if (!formData) {
+      return res.status(404).json({ error: 'Form Data not provided' });
+    }
+    const Retour = await LesRetour.create(formData);
+    //console.log('Don : ',Don);
+    res.status(201).json({Retour});
+  } catch (err) {
+    //console.log(err);
+     return res.status(500).json({error :"error"});
+  }
+}
+
+
+export async function getAllRetour (req: NextApiRequest, res: NextApiResponse) {
+    try {
+      const retours = await LesRetour.find({}).sort({ date: -1 })
+      if (!retours) {
+        res.status(404).json({ error: "retours Not Found" });
+       }
+        res.status(200).json(retours); // send funds data in the response
+    }catch(err){
+      return res.status(500).json({error :"error"});
+    }
 }

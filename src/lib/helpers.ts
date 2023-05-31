@@ -283,4 +283,24 @@ export const PaypalOrder = async (orderData:Object) => {
 }
 
 
+/*************************** Retours logic */
 
+export const getAllRetour = async () => {
+    
+  const response =  await fetch(`/api/retour`);
+  const data = await response.json()
+
+  return data;
+}
+
+export const addRetour = async (formData:Object) => {
+  const options = {
+  method : "POST",
+  headers :{ "Content-Type" : "application/json"},
+  body : JSON.stringify(formData)
+   }
+    const response =  await fetch(`/api/retour`,options);
+    const data = await response.json()
+
+    return data;
+}

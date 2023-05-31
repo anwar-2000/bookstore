@@ -48,6 +48,7 @@ const Footer: React.FC = () => {
           <Link href="https://www.instagram.com/emmaus.chatelleraultnaintre"><Instagram color='white' /></Link>
           <Link href="tel:+33988048607"><PhoneCall color='white'/></Link>
           <Link href="mailto:contact@emmaus-chatelleraudais.org"><Mail color='white'/></Link>
+          <Link href="/retour" className='text-white font-semibold'>Retourner Un Livre</Link>
         </List>
       </ListContainer>
       <Image src={imageUrl} alt="" />
