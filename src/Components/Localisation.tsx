@@ -43,8 +43,8 @@ const LeftContainer = styled.div`
   }
 
   /* styles for screens between 768px and 1024px */
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
-    
+  @media screen and (min-width: 800px) and (max-width: 1024px) {
+    margin-bottom : 1.5rem;
   }
 
   .Cards{
@@ -86,7 +86,7 @@ const LeftContainer = styled.div`
       .time{
         margin-top : 4px;
         font-size : 10px;
-        overflow-y : scroll;
+        overflow-y : visible;
         font-size  : 12px;
       }
   
