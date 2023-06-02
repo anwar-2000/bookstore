@@ -81,6 +81,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         line_items: lineItems,
         success_url: `${req.headers.origin}/success`,
         cancel_url: `${req.headers.origin}/canceled`,
+        phone_number_collection: { enabled: true }
       };
 
       const session: Stripe.Checkout.Session = await stripe.checkout.sessions.create(params);
