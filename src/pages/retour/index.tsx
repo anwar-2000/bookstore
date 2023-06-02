@@ -68,7 +68,7 @@ export default function  Index () {
         </div>
         <div  className='divs' >
         <FormGroup>
-          <label htmlFor='dons'>La Cause :</label>
+          <label htmlFor='dons'>Raison :</label>
           <textarea onChange={setFormData} id='cause' name='cause' placeholder='je vais retourner ce livre a cause de ...' />
         </FormGroup>
         <FormGroup>

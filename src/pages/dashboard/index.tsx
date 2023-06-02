@@ -33,6 +33,7 @@ import { ClipLoader } from "react-spinners";
 import UpdateBookComp from "@/Components/UpdateBookComp";
 import { useRouter } from "next/router";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
+import Link from "next/link";
 
 interface MyPageProps {
   session: any;
@@ -190,6 +191,14 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
               </button>
             )}
             <div className="actions">
+         <button onClick={() => router.push("/dashboard/dons")}>
+                {" "}
+                Gérer les Dons{" "}
+              </button>
+              <button onClick={() => router.push("/dashboard/retours")}>
+                {" "}
+                Gérer les Retours{" "}
+              </button>
               <button onClick={() => router.push("/dashboard/users")}>
                 {" "}
                 Gérer les Modérateurs{" "}
@@ -303,14 +312,18 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding-bottom: 3rem;
-  margin-top: 2rem;
+  margin-top: 6rem;
   gap: 2rem;
   position : relative;
 
   .actions {
     position : absolute;
-    top : -1.4rem;
+    top : -3.4rem;
     left : 0.3rem;
+    button {
+      margin-right : 0.5rem;
+      margin-bottom : 1rem;
+    }
     #clients {
       margin-left: 1rem;
     }
