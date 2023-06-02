@@ -30,14 +30,14 @@ const SideNav:FC<Props> = ({...rest}) => {
         <div className='header'>
             <Menu className='Menu' color='#4F6398' onClick={toggle} />
             <img src='./logo.jpg' alt='Emmaus Image'  />
-            <h1>EMMAUS CHATELLEARAULT</h1>
+            <h1>EMMAUS CHATELLERAULT</h1>
             <small>BOUTIQUE</small>
         </div>
         <div className='block lg:hidden'>
             <SearchInput />
         </div>
         <div className='navlinks'>
-            <h5>Explore</h5>
+            <h5>Explorer</h5>
             <ChevronRight color='#4F6398' />
         </div>
         <Link href={'/all/categories'}>
@@ -48,7 +48,7 @@ const SideNav:FC<Props> = ({...rest}) => {
         </Link>
         <Link href={'/all/favories'}>
         <div className='navlinks'>
-            <h5>Mes Favorie</h5>
+            <h5>Mes Favories</h5>
             <ChevronRight color='#4F6398' />
         </div>
         </Link>

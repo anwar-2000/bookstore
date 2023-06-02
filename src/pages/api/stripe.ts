@@ -1,5 +1,5 @@
 import { createMongoConnection } from "@/database/conn";
-import { deleteBook, updateBook } from "@/lib/helpers";
+import { deleteBook } from "@/lib/helpers";
 import Livre from "@/models/Livres";
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
@@ -78,9 +78,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         mode: 'payment',
         payment_method_types: ['card'],
         billing_address_collection: 'required',
-        shipping_options : [
-          {shipping_rate : 'shr_1N4PcvHz6XdTAx5rqKiTltEv'}  //free shipping - 0 €
-           ],
         line_items: lineItems,
         success_url: `${req.headers.origin}/success`,
         cancel_url: `${req.headers.origin}/canceled`,

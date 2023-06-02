@@ -67,7 +67,7 @@ const Footer: React.FC = () => {
       <div className='flex gap-2 text-xs'>
       <Link id='link' href="/retour" className='text-white font-semibold'>Retour & remboursement</Link>
       <Link id='link' href="/rgpd" className='text-white font-semibold'>|| RGPD ||</Link>
-      <Link id='link' href="/conditionsGenerale" className='text-white font-semibold'>Conditions Générale</Link>
+      <Link id='link' href="/conditionsGenerale" className='text-white font-semibold'>Conditions Générales</Link>
       </div>
         <List>
           <Link href="https://www.facebook.com/emmauschatelleraudais"><Facebook color='white'/></Link>
