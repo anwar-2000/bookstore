@@ -16,6 +16,8 @@ import 'aos/dist/aos.css';
 import IWillGiveFunds from "@/Components/ui/IWillGiveFunds";
 
 
+import { Analytics } from '@vercel/analytics/react';
+
 //creating client
 const queryclient =  new QueryClient()
 
@@ -35,7 +37,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       </Container>
       <NextNProgress color="blue" />
       <Component {...pageProps} router={router} />
-      
+      <Analytics />
     </>
   );
 }
