@@ -11,7 +11,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang='fr' title='Emmaüs Naintré - Boutique en ligne pour vendre les livres Rares , Anciens , les Beaux Livres , lex BDs , Les Livres de collections , les Objects de Collections ... a un prix compététif'>
         <Head />
         <body>      
           <Main />

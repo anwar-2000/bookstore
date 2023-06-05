@@ -42,11 +42,11 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
         <link rel="icon" href="emmaus.jpg" />
         <meta
           name="description"
-          content="Tous livres EMMAUS Boutique de Chatellerault"
+          content="Tous livres d&apos;EMMAUS Boutique de Chatellerault"
         />
-        <meta property="og:title" content="Nos Livres : Explore" />
-        <meta property="og:description" content="This is my page description" />
-        <meta property="og:image" content="/my-page-image.jpg" />
+        <meta property="og:title" content="Explorer notre Categories de Livres" />
+        <meta property="og:description" content="Du BD vers anciens vers Livres Rares - emmaus vends ses livres a un prix compététif !" />
+        <meta property="og:image" content="/emmaus.jpg" />
       </Head>
 
       
@@ -66,7 +66,7 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
           <PuffLoader
             color="yellow"
             size={250}
-            aria-label="Loading Spinner"
+            aria-label="attendez un moments"
             data-testid="loader"
           />
         </Spiner>
@@ -105,7 +105,7 @@ export default Categories;
 export async function getServerSideProps() {
   const response = await fetchCategories();
   const categories = response.categories;
-  console.log(categories);
+  //console.log(categories);
   return { props: { categories } };
 }
 

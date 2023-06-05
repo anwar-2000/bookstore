@@ -1,6 +1,5 @@
 /**Controllers */
 import type { NextApiRequest, NextApiResponse } from 'next'
-import mongoose from 'mongoose';
 import User from '@/models/User';
 import Livre from '@/models/Livres';
 import LesDonsBoutique from '@/models/LesDons';
@@ -29,8 +28,8 @@ export async function getBooks(req: NextApiRequest, res: NextApiResponse) {
       res.end()
     }
   }
-
-  // GET : https://localhost/api/query/bookId
+  
+// GET : https://localhost/api/query/bookId
 export async function getBook(req: NextApiRequest, res: NextApiResponse) {
   try {
         const {bookId} = req.query;

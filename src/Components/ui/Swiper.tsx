@@ -15,9 +15,9 @@ const [mainUrl,setMainUrl] = useState<string>(imageUrl1)
     <Container>
       <MainImage src={mainUrl} alt='' id='bigImage' />
       <OtherImages>
-          <img src={imageUrl2} alt={titre}  onClick={()=>{setMainUrl(imageUrl2)}}/>
-          <img src={imageUrl1}  alt={titre}  onClick={()=>{setMainUrl(imageUrl1)}}/>
-          <img src={imageUrl3}  alt={titre}  onClick={()=>{setMainUrl(imageUrl3)}} />
+          <img src={imageUrl2} alt={titre}  onClick={()=>{setMainUrl(imageUrl2)}} title={titre} aria-details={titre}/>
+          <img src={imageUrl1}  alt={titre}  onClick={()=>{setMainUrl(imageUrl1)}}  title={titre} aria-details={titre}/>
+          <img src={imageUrl3}  alt={titre}  onClick={()=>{setMainUrl(imageUrl3)}}  title={titre} aria-details={titre} />
       </OtherImages>
     </Container>
 );

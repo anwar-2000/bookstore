@@ -149,6 +149,8 @@ const Localisation: React.FC = ({}) => {
             allowFullScreen={true}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
+            title="EMMAUS CHATELLERAULT - BOUTIQUE EN LIGNE - BRIC A BRAC - LA FERME - LES BUREAUX D&apos;EMMAUS NAINTRE"
+            sandbox="allow-scripts allow-same-origin"
           ></iframe>
         </RightContainer>
       </Container>

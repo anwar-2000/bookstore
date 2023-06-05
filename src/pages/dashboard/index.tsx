@@ -33,7 +33,7 @@ import { ClipLoader } from "react-spinners";
 import UpdateBookComp from "@/Components/UpdateBookComp";
 import { useRouter } from "next/router";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
-import Link from "next/link";
+
 
 interface MyPageProps {
   session: any;

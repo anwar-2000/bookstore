@@ -65,9 +65,9 @@ const Index = () => {
       <title>Nos Livres : Explore</title>
       <link rel="icon" href="emmaus.jpg" />
         <meta name="description" content="Tous livres EMMAUS Boutique de Chatellerault" />
-        <meta property="og:title" content="Nos Livres : Explore" />
+        <meta property="og:title" content="Explorer tous les livres que emmaus a mis dans la boutique , n&pos;hesiter pas !" />
         <meta property="og:description" content="Tous les  rares , beaux livres d'emmaus a vendre a un prix compététif" />
-        <meta property="og:image" content="/logo.jpg" />
+        <meta property="og:image" content="/emmaus.jpg" />
       </Head>
     <Container
       initial={{ opacity: 0 }}

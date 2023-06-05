@@ -16,7 +16,7 @@ const Index = () => {
       <meta property="og:description" content="Petit historique de la Communauté Châtellerault-Naintré" />
     </Head>
     <Container>
-            <img src="/logo.jpg" alt="" width={'400'} style={{borderRadius : '15px' , mixBlendMode : 'multiply'}} />
+            <img src="/logo.jpg" alt="Emmaüs France - Naintré " width={'400'} style={{borderRadius : '15px' , mixBlendMode : 'multiply'}}  title="Emmaus International - France - Naintré - Boutique en ligne pour livres rares" aria-details="Emmaus International - France - Naintré - Boutique en ligne pour livres rares"/>
       <Emmaus>
         <div className="France" data-aos="fade-down" data-aos-duration="3000">
           <h1>Emmaüs France</h1>
@@ -29,7 +29,7 @@ const Index = () => {
         </div>
 
         <div className="international" data-aos="fade-up" data-aos-duration="3000">
-          <img src="https://www.emmaus-international.org/wp-content/themes/emmausint/assets/img/logo/logo-emmaus-horizontal-en.svg" alt="emmaus-international " />
+          <img src="https://www.emmaus-international.org/wp-content/themes/emmausint/assets/img/logo/logo-emmaus-horizontal-en.svg" alt="emmaus-international "  title="Emmaus International - France - Naintré - Boutique en ligne pour livres rares" aria-details="Emmaus International - France - Naintré - Boutique en ligne pour livres rares"/>
           <p>
             350 associations dans 37 pays tous basés sur les mêmes principes et
             valeurs d&apos;origine

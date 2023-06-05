@@ -8,8 +8,7 @@ import Loading from "@/Components/ui/Loading";
 
 
 export default function Home() {
-      const [isLoading, setIsLoading] = useState(true);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     // simulate page load delay
     setTimeout(() => {

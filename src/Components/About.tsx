@@ -67,10 +67,10 @@ L&apos;association Emmaüs est créée en 1953 pour organiser et développer ce 
 ravages de la guerre de1939-45, les rigueurs de l&apos;hiver 1954 tuent. Dans ce contexte de graves
 pénuries de logements, l&apos;abbé Pierre lance son célèbre appel, « Mes amis, au secours ! » ; il
 déclenche l&apos;insurrection de la Bonté » et influence fortement les pouvoirs publics. <br />
-    <Link href={'/emmausNaintre'} style={{color : 'blue'}}>Voir Plus ...</Link>
+    <Link href={'/emmausNaintre'} style={{color : 'blue'}} title="Emmaus Naintré - Boutique Des Livres Rares et anciens">Voir Plus Sur Emmaüs Naintré ...</Link> 
 </TextColumn>
           <ImageColumn>
-            <Image src={imageUrl} alt=""  data-aos="fade-down" data-aos-delay="50" data-aos-duration="2000" />
+            <Image src={imageUrl} title="Emmaus-Boutique-Livres-Rares" aria-details="la boutique emmaus chatellerault vens ses livres rares et anciens a un prix compététif"  data-aos="fade-down" data-aos-delay="50" data-aos-duration="2000" />
           </ImageColumn>
         </ColumnsContainer>
       </SectionContainer>

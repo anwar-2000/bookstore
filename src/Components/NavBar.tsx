@@ -25,7 +25,7 @@ const NavBar = () => {
       <div className="flex gap-0 items-center justify-center">
         <img
           src={imageUrl}
-          alt=""
+          title="Emmaus-chatellerault-Boutique des livres rares" aria-details="livres rares et anciens disponibles dans la boutique emmaus chatellerault a un prix compététif"
           className="h-28 md:h-48 w-auto max-h-100 object-contain mr-4 rounded cursor-pointer "
           onClick={() => router.push('/')}
         />
