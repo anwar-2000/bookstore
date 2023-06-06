@@ -86,7 +86,7 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
         </FormGroup>
         <FormGroup>
           <label htmlFor='poids'>Poids :</label>
-          <input type='number' onChange={setFormData} id='poids' name='poids'  min={0.1} step={0.1} placeholder='0.100 kg'/>
+          <input type='number' onChange={setFormData} id='poids' name='poids'  min={0.1}  placeholder='0.100 kg'/>
         </FormGroup>
         <FormGroup>
        

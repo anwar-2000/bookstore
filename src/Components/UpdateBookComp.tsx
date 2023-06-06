@@ -103,7 +103,7 @@ const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
         </FormGroup>
         <FormGroup>
           <label htmlFor='poids'>Poids :</label>
-          <input type='number' onChange={handleInputChange}  id='poids' name='poids' min={0.1} step={0.1} placeholder='0.100 kg' value={formData.poids}/>
+          <input type='number' onChange={handleInputChange}  id='poids' name='poids' min={0.1}  placeholder='0.100 kg' value={formData.poids}/>
         </FormGroup>
         <FormGroup>
         </FormGroup>
