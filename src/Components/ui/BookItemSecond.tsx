@@ -54,9 +54,9 @@ const BookItemSecond:FC<Props> = ({title , image , rating, prix , ...rest}) => {
         <div className='image__rating'>
                 <img src={image} alt={title} id="imgg" aria-details={title} title={title} loading="lazy"/>
         </div>
-        <div className='rating'> 
+       {/* <div className='rating'> 
                <Star fill="yellow" color='black'  size={15} /><h6>{rating}</h6>
-        </div>
+</div>*/}
        <div className='heart' onClick={favoriteclickHandler}><Heart fill={favorite ? 'red' : 'none'} color='red' size={18} /></div> 
        <h2>{title}</h2>
        <h6 id='prix'> Prix : {prix} €</h6>
