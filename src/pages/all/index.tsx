@@ -197,7 +197,7 @@ const MainContent = styled.div`
   align-items: start;
   justify-content: start;
   margin: 1.5rem 2rem;
-  height: 100vh;
+  min-height: 100vh;
   overflow-y: scroll !important;
 
   &::-webkit-scrollbar {

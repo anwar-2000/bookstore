@@ -481,6 +481,9 @@ const Left = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    @media screen and (max-width: 767px) {
+      margin-top : 1.5rem;
+  }
   }
 
   .buttons {

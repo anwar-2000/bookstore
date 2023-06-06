@@ -3,6 +3,7 @@ import React, { FC, useReducer} from 'react'
 import styled from 'styled-components'
 import {  toast ,} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import slugify from 'slugify';
 
 
 interface Props {
@@ -10,9 +11,17 @@ interface Props {
 }
 
 const formReducer = (state: Object, e: any) => {
+  if (e.target.name === 'titre') {
+    const slug = slugify(e.target.value, { lower: true });
+    return {
+      ...state,
+      [e.target.name]: e.target.value,
+      slug: slug,
+    };
+  }
   return {
     ...state,
-    [e.target.name]: e.target.name === 'poids' ? parseFloat(e.target.value) : e.target.value,
+    [e.target.name]: e.target.value,
   };
 };
 
@@ -23,7 +32,7 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
     if(Object.keys(formData).length == 0) {
         return <h1>form empty</h1>
     }
-      //console.log(formData);
+     console.log(formData);
       const response =  await addBook(formData);
       if(response){toast.success('book Added Successfully',{
         position: toast.POSITION.TOP_RIGHT,
@@ -86,7 +95,7 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
         </FormGroup>
         <FormGroup>
           <label htmlFor='poids'>Poids :</label>
-          <input type='text' onChange={setFormData} id='poids' name='poids'  placeholder='0.100 kg'/>
+          <input type='number' onChange={setFormData} id='poids' name='poids' min="0" step="0.001"  placeholder='0.100 kg'/>
         </FormGroup>
         <FormGroup>
        

@@ -3,6 +3,7 @@ import React, { FC, useReducer, useState} from 'react'
 import styled from 'styled-components'
 import {  toast ,} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import slugify from 'slugify';
 
 interface BookData {
     titre: string;
@@ -17,6 +18,7 @@ interface BookData {
     etat: string;
     prix: number;
     poids : number;
+    slug? : string
   }
 
 interface Props {
@@ -45,10 +47,19 @@ const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.name === 'poids' ? parseFloat(event.target.value) : event.target.value,
-    });
+    if(event.target.name === 'titre') {
+      const slug = slugify(event.target.value , {lower : true});
+      setFormData({
+        ...formData,
+        [event.target.name]: event.target.value,
+        slug: slug,
+      })
+    }else {
+      setFormData({
+        ...formData,
+        [event.target.name]: event.target.value,
+      });
+    }
   };
   return (
     <Container>
@@ -103,7 +114,7 @@ const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
         </FormGroup>
         <FormGroup>
           <label htmlFor='poids'>Poids :</label>
-          <input type='text' onChange={handleInputChange}  id='poids' name='poids'   placeholder='0.100 kg' value={formData.poids}/>
+          <input type='number' onChange={handleInputChange}  id='poids' name='poids' min="0" step="0.001"  placeholder='0.100 kg' value={formData.poids}/>
         </FormGroup>
         <FormGroup>
         </FormGroup>
