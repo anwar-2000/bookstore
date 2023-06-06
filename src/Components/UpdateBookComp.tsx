@@ -47,7 +47,7 @@ const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.name === 'poids' ? parseFloat(event.target.value) : event.target.value,
     });
   };
   return (
@@ -103,7 +103,7 @@ const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
         </FormGroup>
         <FormGroup>
           <label htmlFor='poids'>Poids :</label>
-          <input type='number' onChange={handleInputChange}  id='poids' name='poids' min={0.1}  placeholder='0.100 kg' value={formData.poids}/>
+          <input type='text' onChange={handleInputChange}  id='poids' name='poids'   placeholder='0.100 kg' value={formData.poids}/>
         </FormGroup>
         <FormGroup>
         </FormGroup>

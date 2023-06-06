@@ -9,12 +9,12 @@ interface Props {
   onAdd : () => void // to then refetch()
 }
 
-const formReducer = (state : Object, e : any) =>{
+const formReducer = (state: Object, e: any) => {
   return {
-    ...state ,
-    [e.target.name]:e.target.value //for every input  , its name = event.target.itsValue
-  }
-}
+    ...state,
+    [e.target.name]: e.target.name === 'poids' ? parseFloat(e.target.value) : e.target.value,
+  };
+};
 
 const AddBookComp:FC<Props> = ({onAdd}) => {
     const [formData,setFormData] = useReducer(formReducer,{}) 
@@ -86,7 +86,7 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
         </FormGroup>
         <FormGroup>
           <label htmlFor='poids'>Poids :</label>
-          <input type='number' onChange={setFormData} id='poids' name='poids'  min={0.1}  placeholder='0.100 kg'/>
+          <input type='text' onChange={setFormData} id='poids' name='poids'  placeholder='0.100 kg'/>
         </FormGroup>
         <FormGroup>
        
