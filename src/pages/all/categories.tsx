@@ -59,7 +59,7 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
             </h1>
           ))}
         </div>
-      </Container>
+     
       {isLoading ? (
         <div className="spinner">
         <Spiner>
@@ -95,7 +95,7 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
             )
           )}
         </Items>
-      )}
+      )} </Container>
     </>
   );
 };
@@ -153,6 +153,7 @@ const Items = styled.div`
   flex-wrap: wrap;
   gap: 1.5rem;
   padding-bottom : 3rem;
+  margin : 2.8rem 3rem;
  
 `;
 const Spiner = styled.div`

@@ -106,16 +106,6 @@ const Index = () => {
           <div className="explore">
               <h1>Tous nos livres :</h1>  
             </div>
-            <div className="controls">
-              <div className="controls__page">
-                <ArrowBigLeft onClick={minusPageHandler} /> Pages : {page}{" "}
-                <ArrowBigRight onClick={addPageHandler} />
-              </div>
-              <div className="controls__limit">
-                <ArrowBigLeft onClick={minusLimitHandler} /> Limite : {limit}{" "}
-                <ArrowBigRight onClick={addLimitHandler} />
-              </div>
-            </div>
 
             <motion.div
               className="allBooks"
@@ -152,6 +142,16 @@ const Index = () => {
                 </>
               ))}
             </motion.div>
+            <div className="controls">
+              <div className="controls__page">
+                <ArrowBigLeft onClick={minusPageHandler} /> Pages : {page}{" "}
+              {data.length !== 0  &&  <ArrowBigRight onClick={addPageHandler} />}
+              </div>
+              <div className="controls__limit">
+                <ArrowBigLeft onClick={minusLimitHandler} /> Limite : {limit}{" "}
+                { data.length !== 0 && <ArrowBigRight onClick={addLimitHandler} />}
+              </div>
+            </div>
           </MainContent>
         </motion.div>
       )}
@@ -162,6 +162,7 @@ const Index = () => {
         variants={Cartvariants}
         transition={transition}
       ></motion.div>
+      
     </Container>
   </>
 };
@@ -278,6 +279,7 @@ const MainContent = styled.div`
     align-items: center;
     justify-content: center;
     gap: 4rem;
+    align-self : center;
 
     .controls__page {
       display: flex;

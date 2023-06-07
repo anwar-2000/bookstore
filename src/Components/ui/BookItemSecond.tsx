@@ -87,7 +87,7 @@ const Container = styled.div`
         height: 200px;
     }
     .heart{
-        transform: translateY(-1rem);
+        transform: translateY(2.8rem);
     }
     .rating{
         display: flex;
