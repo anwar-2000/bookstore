@@ -13,7 +13,7 @@ interface BookData {
     imageUrl2: string;
     imageUrl3: string
     description: string;
-    rating: number;
+    rating?: number;
     quantite: number;
     etat: string;
     prix: number;
@@ -93,20 +93,12 @@ const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
           <textarea  onChange={handleInputChange} id='Description' name='description' value={formData.description}/>
         </FormGroup>
         <FormGroup>
-          <label htmlFor='rating'>Rating:</label>
-          <input type='number' onChange={handleInputChange} id='rating' name='rating' max={5} min={0} step={0.5} value={formData.rating}/>
-        </FormGroup>
-        <FormGroup>
           <label htmlFor='quantite'>quantité :</label>
           <input type='number' onChange={handleInputChange} id='quantite' name='quantite'  min={1} step={1} value={formData.quantite}/>
         </FormGroup>
         <FormGroup>
           <label htmlFor='etat'>Etat :</label>
           <input type='text' onChange={handleInputChange} id='etat' name='etat'  value={formData.etat}/>
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor='date_du_livre'>Date De Livre :</label>
-          <input type='date'  onChange={handleInputChange} id='date_du_livre' name='date_du_livre'/>
         </FormGroup>
         <FormGroup>
           <label htmlFor='prix'>Prix :</label>
@@ -148,7 +140,7 @@ const Form = styled.form`
   justify-items: center;
 
   .button{
-    transform : translateX(-7rem);
+    transform : translateX(9.5rem);
   }
 `
 

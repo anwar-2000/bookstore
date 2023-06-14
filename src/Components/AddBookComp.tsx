@@ -32,7 +32,7 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
     if(Object.keys(formData).length == 0) {
         return <h1>form empty</h1>
     }
-     console.log(formData);
+     //console.log(formData);
       const response =  await addBook(formData);
       if(response){toast.success('book Added Successfully',{
         position: toast.POSITION.TOP_RIGHT,
@@ -76,18 +76,9 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
           <label htmlFor='etat'>Etat:</label>
           <input type='text' onChange={setFormData} id='etat' name='etat' />
         </FormGroup>
-        
-        <FormGroup>
-          <label htmlFor='rating'>Rating:</label>
-          <input type='number' onChange={setFormData} id='rating' name='rating' max={5} min={0} step={0.5}/>
-        </FormGroup>
         <FormGroup>
           <label htmlFor='quantite'>quantité :</label>
           <input type='number' onChange={setFormData} id='quantite' name='quantite'  min={1} step={1}/>
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor='date_du_livre'>Date De Livre :</label>
-          <input type='date' onChange={setFormData} id='date_du_livre' name='date_du_livre'/>
         </FormGroup>
         <FormGroup>
           <label htmlFor='prix'>Prix :</label>
