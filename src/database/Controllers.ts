@@ -32,9 +32,10 @@ export async function getBooks(req: NextApiRequest, res: NextApiResponse) {
 // GET : https://localhost/api/query/bookId
 export async function getBook(req: NextApiRequest, res: NextApiResponse) {
   try {
-        const {bookId} = req.query;
-        if(bookId){
-          const book = await Livre.findOne({_id: bookId})
+        const {slug} = req.query;
+        //console.log('CONTROLLER',slug)
+        if(slug){
+          const book = await Livre.findOne({slug: slug})
           //console.log(bookId)
           res.status(200).json(book)
           return ;
@@ -256,9 +257,9 @@ export async function getBookComments(req: NextApiRequest, res: NextApiResponse)
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
     const skip = (page - 1) * limit;
-    const {bookId} = req.query;
-    if(bookId){
-      const commentaires = await BooksComments.find({ bookId: bookId }).sort({ createdAt: -1 }).skip(skip).limit(limit);;
+    const {slug} = req.query;
+    if(slug){
+      const commentaires = await BooksComments.find({ slug: slug }).sort({ createdAt: -1 }).skip(skip).limit(limit);;
       res.status(200).json(commentaires) // send comments data in the response
     }else {
       res.status(404).json('could not find book id');   
@@ -339,9 +340,9 @@ export async function deleteBookComments(req: NextApiRequest, res: NextApiRespon
 /********************************************************** VIEWS  ****************************************** */
 export async function getBookViews(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { bookId } = req.query;
-    if (bookId) {
-      const views = await ViewsModal.findOne({ bookId }); // Find a single document instead of an array
+    const { slug } = req.query;
+    if (slug) {
+      const views = await ViewsModal.findOne({ slug }); // Find a single document instead of an array
       if (views) {
         res.status(200).json(views.views); // Send the number of views in the response
       } else {
@@ -358,10 +359,10 @@ export async function getBookViews(req: NextApiRequest, res: NextApiResponse) {
 
 export async function addViewToBook(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { bookId } = req.body;
-    if (bookId) {
+    const { slug } = req.body;
+    if (slug) {
       // Check if the bookId exists in the ViewsModal collection
-      const existingView = await ViewsModal.findOne({ bookId });
+      const existingView = await ViewsModal.findOne({ slug });
 
       if (existingView) {
         // BookId exists, increment the views count by 1
@@ -370,7 +371,7 @@ export async function addViewToBook(req: NextApiRequest, res: NextApiResponse) {
         res.status(200).json(existingView);
       } else {
         // BookId doesn't exist, create a new document with views count set to 1
-        const newView = await ViewsModal.create({ bookId, views: 1 });
+        const newView = await ViewsModal.create({ slug, views: 1 });
         res.status(200).json(newView);
       }
     } else {

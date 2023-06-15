@@ -56,8 +56,8 @@ const Index = () => {
   const minusPageHandler = () => setPage(page > 1 ? page - 1 : 1);
   const minusLimitHandler = () => setLimit(limit > 15 ? limit - 1 : 15);
 
-  const getBookIdHandler = (id: string) => {
-    router.push(`/details/${id}`); //pushing to details page api with the selected items ID
+  const getBookIdHandler = (slug: string) => {
+    router.push(`/details/${slug}`); //pushing to details page api with the selected items Slugs
   };
   return <>
         
@@ -136,7 +136,7 @@ const Index = () => {
                       image={book.imageUrl1}
                       rating={book.rating}
                       prix = {book.prix}
-                      onClick={() => getBookIdHandler(book._id)}
+                      onClick={() => getBookIdHandler(book.slug)}
                     />
                   </motion.div>{" "}
                 </>

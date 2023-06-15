@@ -2,7 +2,7 @@ import mongoose, { Schema, models, model } from "mongoose";
 import Book from "./Book";
 
 interface CommentInterface {
-  bookId: mongoose.Schema.Types.ObjectId;
+  slug: string;
   username: string;
   comment: string;
   createdAt: Date;
@@ -10,8 +10,8 @@ interface CommentInterface {
 }
 
 const CommentSchema: Schema<CommentInterface> = new Schema({
-  bookId: {
-    type: mongoose.Schema.Types.ObjectId,
+  slug: {
+    type: String,
     ref: Book,
     required: true,
   },

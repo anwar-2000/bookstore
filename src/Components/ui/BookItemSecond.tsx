@@ -67,10 +67,15 @@ const BookItemSecond:FC<Props> = ({title , image , rating, prix , ...rest}) => {
 export default BookItemSecond;
 
 const Container = styled.div`
-    width: 8rem;
+    width: 10rem;
     display: grid;
     place-items: center;
     border-radius: 5%;
+    filter: drop-shadow(0 0 0.4rem grey);
+     /* styles for screens smaller than 768px */
+  @media screen and (max-width: 767px) {
+        width : 8.5rem;
+  }
     h2{
         text-align: center;
         transform: translateY(-0.9rem);

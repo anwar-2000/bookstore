@@ -7,12 +7,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
   onAdd : () => void // to then refetch()
-  bookId : string;
+  slug : string;
 }
 
 
 
-const AddCommentComp: FC<Props> = ({ onAdd, bookId }) => {
+const AddCommentComp: FC<Props> = ({ onAdd, slug }) => {
     const [username, setUsername] = useState<string>('');
     const [comment, setComment] = useState<string>('');
   
@@ -25,7 +25,7 @@ const AddCommentComp: FC<Props> = ({ onAdd, bookId }) => {
       const formData = {
         username: username,
         comment: comment,
-        bookId: bookId,
+        slug: slug,
       };
   
       const response = await addCommentToBook(formData);
@@ -63,9 +63,14 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   font-family: 'Playfair Display SC', serif;
-
+  margin-left :15rem;
   @media screen and (min-width: 912px) and (max-width: 1024px) {
     transform : translateY(-9rem);
+  }
+
+  /* styles for screens smaller than 768px */
+  @media screen and (max-width: 767px) {
+      margin-left : 5rem;
   }
 `;
 

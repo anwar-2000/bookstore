@@ -11,9 +11,10 @@ export const fetchBooks = async (page = 1, limit = 10) => {
   };
 
 //single book
-export const fetchBook = async (bookId: string) => {
+export const fetchBook = async (slug: string) => {
+  console.log('helper',slug)
   try {
-    const url = `${BASE_URL}/api/query/${bookId}`;
+    const url = `${BASE_URL}/api/query/${slug}`;
     //console.log('URL:', url); // Log the URL for debugging
 
     const response = await fetch(url);
@@ -199,8 +200,8 @@ export const checkAdminStatus = async (email: string) => {
 
    /********************************** LOGIC FOR COMMENTS AND VIEWS */
 
-   export const fetchComments = async (bookId :string , page = 1, limit = 10) => {
-    const response = await fetch(`/api/comments?bookId=${bookId}&page=${page}&limit=${limit}`);
+   export const fetchComments = async (slug :string , page = 1, limit = 10) => {
+    const response = await fetch(`/api/comments?slug=${slug}&page=${page}&limit=${limit}`);
     const data = await response.json();
     return data;
   };
@@ -241,19 +242,19 @@ export const addCommentlikes = async (commentId:string,state:string) => {
 
  /********************************** LOGIC FOR  VIEWS */
 
- export const fetchViews = async (bookId :string) => {
-  const response = await fetch(`${BASE_URL}/api/views?bookId=${bookId}`);
+ export const fetchViews = async (slug :string) => {
+  const response = await fetch(`${BASE_URL}/api/views?slug=${slug}`);
   const data = await response.json();
   return data;
 };
 
  //posting a new comment 
- export const addViewerToBook = async (bookId: string) => {
+ export const addViewerToBook = async (slug: string) => {
   try {
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ bookId }),
+      body: JSON.stringify({ slug }),
     };
     const response = await fetch(`/api/views`, options);
     const data = await response.json();

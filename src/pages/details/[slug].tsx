@@ -3,20 +3,20 @@ import { getSession } from 'next-auth/react'
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 
-  const bookId = context.params?.bookId as string;
-  
+  const slug = context.params?.slug as string;
+  //console.log('SLUG IS',slug)
   // Fetch book and views in parallel using Promise.all
   const [book, views] = await Promise.all([
-    fetchBook(bookId),
-    fetchViews(bookId)
+    fetchBook(slug),
+    fetchViews(slug)
   ]);
 
   const data = book; 
-
+  //console.log(data)
   const session = await getSession(context);
 
   return {
-    props: { data, session, bookId, views }
+    props: { data, session, slug, views }
   };
 }
   
@@ -62,10 +62,10 @@ interface Book {
   interface MyPageProps {
     data: Book;
     session : any;
-    bookId : string;
+    slug : string;
     views : number
   }
-const Index: NextPage<MyPageProps> = ({ data  , bookId , views }) => {
+const Index: NextPage<MyPageProps> = ({ data  , slug , views }) => {
 /**
  * 
  * fetching for comments based on if the user clicked or not
@@ -76,7 +76,7 @@ const Index: NextPage<MyPageProps> = ({ data  , bookId , views }) => {
 /** //////////// for the free shipping ////////////*/
 
 const {isChecked} = useSelector((state:any)=>state.cart);
-console.log("in details",isChecked)
+//console.log("in details",isChecked)
 /****************************************** */
 
 const [isCheckedMondialRelay, setIsCheckedMondialRelay] = useState(false);
@@ -86,7 +86,7 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
 
   const handleFetchComments = async () => {
     try {
-      const commentsData = await fetchComments(bookId); 
+      const commentsData = await fetchComments(slug); 
       setComments(commentsData);
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -101,7 +101,7 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
 
 
     const dispatch = useDispatch();
-    //console.log("***************" ,bookId)
+    //console.log("***************" ,slug)
 
 
   const [date,setDate] = useState<string>('')
@@ -126,7 +126,7 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
      * ADD VIEWER COUNT TO BOOK -- DONE
      */
     useEffect(()=>{
-      addViewerToBook(bookId)
+      addViewerToBook(slug)
     },[]);
 
   const { total } = useSelector((state: any) => state.cart);
@@ -240,7 +240,7 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
       <link rel="icon" href={data.imageUrl1} />
       <meta name="description" content="La boutique des livres Emmaus Chatellerault vend ses livres rares, ses BD, ses livres de poche à un prix compétitif."  />
       <meta name="keywords" content="Livres Rares,livres Anciens,Les BD,Livres Francais,Lives,Rares,Ancien,BD" />
-      <meta name="author" content={data.auteur} />
+      <meta name="author" content={data?.auteur} />
       <meta property="og:title" content="Emmaus- Boutique chatellerault" />
       <meta property="og:description" content={data.description} />
     </Head>
@@ -318,7 +318,7 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
        
     </Section>
     <CommentsContainer>
-      {toggleComments &&  <AddCommentComp onAdd={refetch} bookId={bookId} />}
+      {toggleComments &&  <AddCommentComp onAdd={refetch} slug={slug} />}
       {comments.length > 0 && 
           comments.map((item:any,i:number)=>(
             <Comments onLike={refetch} comment={item} key={i}/>
@@ -338,7 +338,7 @@ const Section = styled.section`
   justify-content: start;
   overflow-x:hidden;
   gap: 2rem;
-
+  //min-height : 100vh;
 
 #livreur:checked{
     background-color: #00ff4c !important;       
@@ -363,9 +363,8 @@ const Section = styled.section`
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
     gap: 4rem;
-    margin-top : 3rem;
-    padding-bottom : 20rem;
-
+   // margin-top : 3rem;
+   // padding-bottom : 20rem;
     .buttonComments{
       transform : translateY(2rem);
     }
@@ -390,19 +389,20 @@ const Section = styled.section`
   }
 `;
 const Container = styled.div`
-  height: 100vh;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   flex-direction: row;
   justify-content: center;
   margin-top : 2rem;
-  margin-bottom : 3rem;
+  //margin-bottom : 3rem;
   gap: 4rem;
 
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
     flex-direction: column;
-    //margin-top : 9rem;
+    transform : translateY(-20rem);
+    margin-bottom : 0rem;
   }
 
   /* styles for screens between 768px and 1024px */
@@ -615,7 +615,7 @@ const Right = styled.div`
 `;
 const CommentsContainer = styled.div`
     margin-top : 2rem;
-    width : 100vw;
+    width : 80vw;
     display : flex;
     align-items  : center;
     justify-content : center;

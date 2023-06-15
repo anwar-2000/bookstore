@@ -2,13 +2,13 @@ import mongoose, { Schema, models, model } from "mongoose";
 import Book from "./Book";
 
 interface ViewsInterface {
-    bookId : mongoose.Schema.Types.ObjectId;
+    slug : string;
     views : number;
 }
 
 const ViewSchema:Schema<ViewsInterface> = new Schema({
-    bookId: {
-        type: mongoose.Schema.Types.ObjectId,
+    slug: {
+        type: String,
         ref: Book, 
         required: true,
       },

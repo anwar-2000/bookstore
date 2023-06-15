@@ -79,7 +79,7 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
                 titre: string;
                 imageUrl1: string;
                 rating: number;
-                _id: string;
+                slug: string;
                 prix: number;
               },
               i: number
@@ -89,7 +89,7 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
                 title={book.titre}
                 image={book.imageUrl1}
                 rating={book.rating}
-                onClick={() => getBookIdHandler(book._id)}
+                onClick={() => getBookIdHandler(book.slug)}
                 prix={book.prix}
               />
             )
