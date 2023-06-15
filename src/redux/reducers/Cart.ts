@@ -59,9 +59,9 @@ export const CartSlice = createSlice({
           state.isChecked === false ? state.isChecked = true :  state.isChecked = false;
         },
         AddToCart(state, action) {
-           console.log("ADDING TO CART WITH COlissimo :  ",state.livreurcolissimo)
+            console.log("ADDING TO CART WITH COlissimo :  ",state.livreurcolissimo)
             const { titre, quantite , isChecked } = action.payload;
-            console.log("SEEING IF ITS CHECKED : " , isChecked , state.isChecked)
+            console.log("SEEING IF Chatellerault IS CHECKED : " , state.isChecked)
             const index = state.cart.findIndex((book) => book.titre === titre);
           
             if (index !== -1) {
@@ -81,8 +81,8 @@ export const CartSlice = createSlice({
           
             // Calculate the total poids and total price by summing the poids and multiplying it by the price of each book in the cart
             let totalPoids = 0;
-            let totalPrice = 0;
-        //only if the chatellerault shipping still be selected
+            
+        //only if the chatellerault shipping is not  selected
 
        if(!isChecked){
         
@@ -130,6 +130,7 @@ export const CartSlice = createSlice({
                 
             totalPoids += book.quantite * book.poids;
             console.log('COLISSIMO LOGIC: ' , totalPoids );
+            calculateTotal()
           })
         }else {
           console.log("ENTERING MONDIAL LOGIC :")
@@ -186,6 +187,7 @@ export const CartSlice = createSlice({
       
       totalPoids += book.quantite * book.poids;
       console.log('MONDIAL LOGIC : ' , totalPoids );
+      calculateTotal()
     });
         }
         
@@ -196,8 +198,9 @@ export const CartSlice = createSlice({
               // Update the state with the new totalPoids and totalPrice values
               
               state.totalPoids = totalPoids;
-              state.total = totalPrice;
+              //state.total = totalPrice;
               state.items = state.cart.length;
+      calculateTotal()
        }   
        state.items = state.cart.length;
 
@@ -273,6 +276,7 @@ export const CartSlice = createSlice({
          
          totalPoids += book.quantite * book.poids;
          console.log('COLISSIMO LOGIC: ' , totalPoids );
+         calculateTotal()
        }) :
          state.totalPricePoids = 0 ;
          state.cart.forEach((book) => {
@@ -325,7 +329,7 @@ export const CartSlice = createSlice({
              // Update the state with the new totalPoids and totalPrice values
              
              state.totalPoids = totalPoids;
-             state.total = state.totalPricePoids;
+             //state.total = state.totalPricePoids;
              state.items = state.cart.length;
         },
         calculateTotal(state) {
