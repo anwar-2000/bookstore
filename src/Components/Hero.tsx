@@ -27,7 +27,7 @@ const Hero = () => {
           <motion.small variants={titleVariants} initial="hidden" animate="visible">
             Si vous ne savez pas exactement ce que vous cherchez, nous vous invitons à parcourir nos différentes catégories et listes de livres pour trouver des titres qui pourraient vous plaire !
           </motion.small>
-          <Link href={'/all'} ><button>Découvrez Nos Livres</button></Link>
+          <Link href={'/all'} ><button>Découvrez nos livres</button></Link>
         </Left>
         <Right>
           <img src="/book1.jpeg" alt='book1'  id="book1" />
@@ -87,12 +87,12 @@ small {
 
 
 button {
-padding: 0.3rem 2rem;
+padding: 0.7rem 1rem;
 border: solid 1px black;
 border-radius: 5px;
 font-family: 'Raleway', sans-serif;
 z-index: 11 ;
-width: 9rem;
+width: 16rem;
 margin-left: 4rem;
 background-color: black;
 transition: all ease-in-out 400ms;
@@ -125,6 +125,7 @@ justify-content: center;
 
 & button {
   margin-left: 0rem;
+  width: 14rem;
 }
 }
 
