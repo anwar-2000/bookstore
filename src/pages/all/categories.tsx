@@ -154,6 +154,7 @@ const Items = styled.div`
   gap: 1.5rem;
   padding-bottom : 3rem;
   margin : 2.8rem 3rem;
+  width : 90%;
  
 `;
 const Spiner = styled.div`
