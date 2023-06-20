@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import BookItemSecond from "@/Components/ui/BookItemSecond";
 import { PuffLoader } from "react-spinners";
 import Head from "next/head";
+import CategoriesSlider from "@/Components/CategoriesSlider";
 
 interface Categorie {
   categorie: string;
@@ -52,14 +53,10 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
       
       <Container>
         <div className="categories">
-          {categories.map((categoryy, i: number) => (
-            <h1 key={i} onClick={() => selectCategoryHandler(categoryy)}>
-              {/* @ts-ignore */}
-                {categoryy}
-            </h1>
-          ))}
+        {<CategoriesSlider categories={categories} onChange={selectCategoryHandler} />}
+         
         </div>
-     
+           
       {isLoading ? (
         <div className="spinner">
         <Spiner>
