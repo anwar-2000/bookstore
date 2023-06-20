@@ -69,7 +69,7 @@ const Debounce:React.FC<Props> = ({ searchParam, searchValue , resetValue}) => {
     }
   return (<Container>
     <SimpleBar style={{ maxHeight: 300 }}>
-    {!isLoading && books.map((book : Book) => (
+      {!isLoading && books.map((book : Book) => (
       <Item key={book.id} onClick={handleClick(book._id)}>
         <img src={book.imageUrl1} alt={book.titre} />
         {book.titre}

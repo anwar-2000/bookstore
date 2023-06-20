@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 
 const NavBar = () => {
   const BASE_URL:string ="https://emmaus-chatelleraudais.vercel.app"
-  const BASE_URL2:string ="http://localhost:3000"
+  //const BASE_URL2:string ="http://localhost:3000"
 
   const imageUrl = `${BASE_URL}/emmaus2.png`;
   const router = useRouter()
@@ -26,29 +26,29 @@ const NavBar = () => {
         <img
           src={imageUrl}
           title="Emmaus-chatellerault-Boutique des livres rares" aria-details="livres rares et anciens disponibles dans la boutique emmaus chatellerault a un prix compététif"
-          className="h-28 md:h-48 w-auto max-h-100 object-contain mr-4 rounded cursor-pointer "
-          onClick={() => router.push('/')}
+          className=" sm:ml-6 h-24 w-28 max-h-70 object-contain mr-4 rounded cursor-pointer "
+          
         />
             <Link href={`https://emmtaboutique.com/all`}>
-            <div>
+            <div className="md:block md:mr-8 lg:block">
               <h3 className="whitespace-nowrap ml-3">Explorer</h3>
             </div>
           </Link>
           </div>
           <div className="flex items-center justify-center gap-5 md:justify-end">
             <div className="flex items-center justify-center">
-              <div className="hidden md:block">
+              <div className="hidden md:block md:mr-8" >
                 <SearchInput />
               </div>
             </div>
           </div>
           <Link href="/">
-            <div>
-              <h3>Accueil</h3>
+            <div className="md:hidden block lg:block " >
+              <h3 >Accueil</h3>
             </div>
           </Link>
           <Link href="/dons">
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
               <h3>Donner</h3>
             </div>
           </Link>
@@ -58,7 +58,7 @@ const NavBar = () => {
               className="relative"
             >
               <ShoppingCart
-                className="cursor-pointer border rounded-lg p-2 hover:outline"
+                className="cursor-pointer p-3 "
                 size={45}
               />
               <small

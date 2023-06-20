@@ -24,7 +24,7 @@ const CategoriesSlider: React.FC<Props> = ({ categories, onChange }) => {
 
   return (
     <Container>
-      <div>
+      <div className='cursors'>
         <AiFillCaretLeft onClick={handlePrevClick} />
       </div>
       <Items>
@@ -34,7 +34,7 @@ const CategoriesSlider: React.FC<Props> = ({ categories, onChange }) => {
           </h1>
         ))}
       </Items>
-      <div>
+      <div className='cursors'>
         <AiFillCaretRight onClick={handleNextClick} />
       </div>
     </Container>
@@ -48,7 +48,17 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
+  gap: 2.4rem;
+
+  @media screen and (max-width: 320px) {
+      gap : 0.5rem;
+  }
+  .cursors{
+    cursor : pointer;
+    border : solid 1px black;
+    border-radius : 50%;
+    padding : 0.5rem;
+  }
 
   h1 {
     font-weight: bold;
@@ -57,5 +67,5 @@ const Container = styled.div`
 `;
 const Items = styled.div`
   display : flex;
-  gap:1rem;
+  gap:0.5rem;
 `

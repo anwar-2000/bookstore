@@ -71,7 +71,9 @@ flex-direction: column;
 align-items: start;
 justify-content: center;
 gap: 1.25rem;
+overflow-x : hidden;
 flex: 2;
+
 
 h1{
 font-size: 2.9rem;
@@ -105,8 +107,22 @@ color : white;
 
 
 }
+@media screen and (max-width : 425px){
+   & button{
+    margin-left : 12rem;
+    //transform : translateX(7rem);
+  }
+}
+
+@media screen and (max-width : 320px){
+   & button{
+    margin-left : 12rem;
+    font-size : 12px;
+  }
+}
+
 /* styles for screens smaller than 768px */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
 align-items: center;
 justify-content: center;
 & h1 {
@@ -124,7 +140,7 @@ justify-content: center;
 }
 
 & button {
-  margin-left: 0rem;
+  transform : translateX(-6rem);
   width: 14rem;
 }
 }
@@ -145,7 +161,7 @@ justify-content: center;
 }
 
 & button {
-  margin-left: 12rem;
+  margin-left: 9rem;
   z-index: 11;
 }
 }

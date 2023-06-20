@@ -13,6 +13,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  gap : 1rem;
   font-weight: 400;
   padding-bottom : 3rem;
 

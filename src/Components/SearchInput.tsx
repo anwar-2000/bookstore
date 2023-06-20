@@ -14,13 +14,6 @@ const SearchInput:FC = ({}) => {
     const changeParamHandler = () =>{
         if (searchParam === 'titre') {setSearchParam('auteur')} else {setSearchParam('titre')}
     }
-    const handleClick = (searchParam: string, searchValue: string) => (
-      event: MouseEvent<SVGSVGElement>
-    ) => {
-      const inputValue = searchInput.current?.value ?? "";
-      router.push(`/search?searchParam=${searchParam}&searchValue=${inputValue}`);
-    };
-
     const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) =>{
         setSearchValue(event.target.value);
     }
@@ -44,8 +37,8 @@ const SearchInput:FC = ({}) => {
                 autoComplete="false"
                 onChange={changeHandler}
                 value={searchValue}
-                placeholder="livres / auteur ..."
-                className="p-2 m-2 rounded outline-none border-l-stone-900  bg-transparent text-slate-700 placeholder:text-slate-700 placeholder-shown:border-none focus:border-none block"
+                placeholder="livre / auteur ..."
+                className="md:p-2 m-2 rounded outline-none border-l-stone-900  bg-transparent text-slate-700 placeholder:text-slate-700 placeholder-shown:border-none focus:border-none block"
                 />
               <Search strokeWidth="4" color='black'  className="cursor-pointer block" />
               </div>
@@ -69,56 +62,77 @@ const Container = styled.div`
   display : flex;
   flex-direction : column;
   gap : 1.5rem;
+  
+ 
+    
 `
 
 const InputContainer = styled.div`
-
   transform: translateX(0.4rem);
   display: flex;
-  position : relative;
+  position: relative;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  margin-left : 2rem;
+  margin-left: 2rem;
 
-  .items{
-    position : absolute;
-    top : 4.9rem;
-    right : 1.2rem;
+  /* Adding media queries here */
+  @media screen and (max-width: 768px) {
+    
+    margin-left: 2rem;
+    flex-direction: row; /* Add this line to make it flex row */
+  }
+
+
+  .items {
+    position: absolute;
+    top: 4.9rem;
+    right: 1.2rem;
+
     /* Adding media queries here */
-  @media (max-width: 768px) {
-      top : 9rem;
-      right : 0.5rem;
+    @media (max-width: 768px) {
+      top: 9rem;
+      right: 0.5rem;
     }
   }
+
+  select {
+    border: solid 1.5px black;
+    padding: 1.1rem;
+    border-radius: 10px;
+    @media screen and (max-width: 768px) {
+      padding : 0.6rem 0.7rem;
   }
-  select  {
-      border : solid 1.5px black;
-      padding : 1.1rem;
-      border-radius : 10px;
-    }
-  #inputs{
-    display : flex;
-    flex-direction : column;
-    gap : 1.5rem;
   }
+
+  #inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    @media screen and (max-width: 768px) {
+        flex-direction : row;
+        gap : 0.8rem;
+  }
+  }
+
   .inputs2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    border : solid 1.5px black;
-    padding-right : 0.5rem;
-    border-radius : 10px;
+    border: solid 1.5px black;
+    padding-right: 0.5rem;
+    border-radius: 10px;
   }
-
+    
   /* Adding media queries here */
   @media (max-width: 768px) {
-    flex-direction: column;
+    flex-direction: row;
     gap: 1rem;
 
     #inputs {
       flex-direction: row;
-      margin-left : 2rem;
+      margin-left: 0; /* Remove the margin-left */
       gap: 0.5rem;
     }
   }
