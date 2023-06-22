@@ -18,6 +18,10 @@ interface MyPageProps {
 }
 
 const Categories: NextPage<MyPageProps> = ({ categories }) => {
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+
   const router = useRouter();
   // @ts-ignore
   const [selectedCategorie, setSelectedCategorie] = useState<String>(categories[0]);
@@ -29,9 +33,15 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
 // @ts-ignore
   const { data: books, isLoading } = useBooksOfCategory(selectedCategorie);
 
-  /** testing */ //it worked
-  //useEffect(()=>{setSelectedCategorie('Fiction')},[selectedCategorie])
-  //
+  /**
+   * 
+   * SEARCHING WITH TITLE FOR EACH CATEGORY 
+   */
+  const filteredBooks = books?.filter((book: any) => { 
+    const titre = book.titre;
+    return titre && titre.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
   const getBookIdHandler = (id: string) => {
     router.push(`/details/${id}`); //pushing to details page api with the selected items ID
   };
@@ -56,7 +66,12 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
         {<CategoriesSlider categories={categories} onChange={selectCategoryHandler} />}
          
         </div>
-           
+        <div className="controls__input">
+                <input type="text"
+                 placeholder="Rechercher Un Livre..."
+                 value={searchTerm}
+                 onChange={(e) => setSearchTerm(e.target.value)} />
+              </div>
       {isLoading ? (
         <div className="spinner">
         <Spiner>
@@ -69,8 +84,10 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
         </Spiner>
         </div>
       ) : (
+        
         <Items>
-          {books.map(
+
+          {filteredBooks.map(
             (
               book: {
                 titre: string;
@@ -112,9 +129,17 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding-bottom : 5rem;
-  h1 {
-    
-  }
+  
+
+  .controls__input{
+      input {
+        margin-top : 1rem;
+        padding : 0.6rem 3rem;
+        border-radius : 10px;
+        background : none;
+        outline : 2px solid black;
+      }
+    }
 
   .categories{
     display: flex;
