@@ -30,7 +30,7 @@ const Index = () => {
   /** STATES */
   const router = useRouter();
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(20);
+  const [limit, setLimit] = useState(24);
   /** REACT-QUERY */
   const { isLoading, data, isError, error } = useQuery(
     ["books", page, limit],
@@ -148,7 +148,7 @@ const Index = () => {
               {data.length !== 0  &&  <ArrowBigRight onClick={addPageHandler} />}
               </div>
               <div className="controls__limit">
-                <ArrowBigLeft onClick={minusLimitHandler} /> Limite : {limit}{" "}
+                <ArrowBigLeft onClick={minusLimitHandler} /> Limite : {limit}
                 { data.length !== 0 && <ArrowBigRight onClick={addLimitHandler} />}
               </div>
             </div>
