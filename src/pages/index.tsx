@@ -1,3 +1,10 @@
+export async function getServerSideProps(context : GetServerSidePropsContext) {
+      const expensiveBooks = await fetchHighPriceBooks(1,6);
+
+      return { props: { expensiveBooks } };
+}
+
+
 import AboutSection from "@/Components/About";
 import "react-toastify/dist/ReactToastify.css";
 import Hero from "@/Components/Hero";
@@ -5,9 +12,15 @@ import Localisation from "@/Components/Localisation";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import Loading from "@/Components/ui/Loading";
+import { GetServerSidePropsContext } from "next";
+import { fetchHighPriceBooks } from "@/lib/helpers";
+import ExpensiveBooks from "@/Components/ExpensiveBooks";
+import styled from "styled-components";
 
 
-export default function Home() {
+
+
+export default function Home({expensiveBooks} : any) {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     // simulate page load delay
@@ -33,11 +46,22 @@ export default function Home() {
 </Head>
 
         { isLoading ? <Loading />
-        : <><Hero />
+        : <Container>
+        <Hero />
+        <ExpensiveBooks expensiveBooks={expensiveBooks} />
         <AboutSection />
         <Localisation />
-        </>
+        </Container>
         }
     </>
   
 }
+
+const Container = styled.div`
+    display : flex;
+    align-items:center;
+    flex-direction : column;
+    justify-content : center;
+    overflow-x : hidden;
+    gap : 2rem
+`

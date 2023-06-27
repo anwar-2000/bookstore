@@ -11,23 +11,31 @@ import LesRetour from '@/models/Retour';
 
 
 
-// GET : https://localhost/api/books : sorted in reverse 'date'
 export async function getBooks(req: NextApiRequest, res: NextApiResponse) {
-    try {
-      const page = parseInt(req.query.page as string) || 1;
-      const limit = parseInt(req.query.limit as string) || 15;
-      const skip = (page - 1) * limit;
-      const books = await Livre.find({}).sort({ date: -1 }).skip(skip).limit(limit);
-      if (!books) {
-       res.status(404).json({ error: "Data Not Found" });
-      }
-       res.status(200).json(books); // send books data in the response
-    } catch (err) {
-      console.log(err)
-      res.status(500).json({ error: "Error while Fetching data" });
-      res.end()
+  try {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 15;
+    const skip = (page - 1) * limit;
+    let books;
+
+    if (req.query.sort && req.query.sort === 'highprice') {
+      books = await Livre.find({}).sort({ prix: -1 }).skip(skip).limit(limit);
+    } else {
+      books = await Livre.find({}).sort({ date: -1 }).skip(skip).limit(limit);
     }
+
+    if (!books) {
+      res.status(404).json({ error: "Data Not Found" });
+    }
+
+    res.status(200).json(books); // send books data in the response
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Error while Fetching data" });
+    res.end();
   }
+}
+
   
 // GET : https://localhost/api/query/bookId
 export async function getBook(req: NextApiRequest, res: NextApiResponse) {

@@ -10,6 +10,12 @@ export const fetchBooks = async (page = 1, limit = 10) => {
     return data;
   };
 
+  export const fetchHighPriceBooks = async (page = 1, limit = 8) => {
+    const response = await fetch(`${BASE_URL}/api/books?page=${page}&limit=${limit}&sort=highprice`);
+    const data = await response.json();
+    return data;
+  };
+
 //single book
 export const fetchBook = async (slug: string) => {
   console.log('helper',slug)

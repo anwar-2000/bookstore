@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const SectionContainer = styled.section`
   padding: 20px;
-  margin-top : 5rem;
+
 
   h1{
       font-size: 2.9rem;

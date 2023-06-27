@@ -47,12 +47,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-evenly;
   flex-direction: row;
-  margin-top: 2.5rem;
   margin-bottom: 7.5rem;
-  
-
-  
-
 
   /* styles for screens smaller than 768px */
 @media screen and (max-width: 767px) {

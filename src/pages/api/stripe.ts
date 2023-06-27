@@ -93,7 +93,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           console.log('TRYING TO DELETE THE BOOK : ',book)
       
           if (book.quantite === 1) {
-            await deleteBook(item._id);
+             await Livre.findByIdAndUpdate(item._id, { vendu: true });
           } else {
             await Livre.findByIdAndUpdate(
               item._id,

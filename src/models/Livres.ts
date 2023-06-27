@@ -12,6 +12,7 @@ interface IBook {
   quantite: number;
   etat: string;
   date: Date;
+  vendu : boolean;
   rating: number;
   slug : string;
   poids : number;
@@ -32,6 +33,10 @@ const bookSchema: Schema<IBook> = new Schema({
   date: {
     type: Date,
     default: Date.now,
+  },
+  vendu :{
+    type : Boolean,
+    default : false,
   },
   quantite: Number,
   etat: String,

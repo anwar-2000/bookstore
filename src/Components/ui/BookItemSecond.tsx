@@ -67,6 +67,7 @@ const BookItemSecond:FC<Props> = ({title , image , rating, prix , ...rest}) => {
 export default BookItemSecond;
 
 const Container = styled.div`
+    cursor : pointer;
     width: 10rem;
     display: grid;
     place-items: center;

@@ -50,6 +50,7 @@ interface Book {
     imageUrl1: string;
     imageUrl2 : string;
     imageUrl3 : string;
+    vendu : boolean,
     status: string;
     quantite : number,
     date: Date;
@@ -196,40 +197,6 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
     });
   };
 
-  /*const handleButtonClick = async () => {
-    dispatch(AddToCart(book));
-    dispatch(calculateTotal());
-    
-    handleClickAchatStripe();
-  };
-  
-  const handleClickAchatStripe = async () => {
-    let StripeData = {
-      cart,
-      total,
-      isChecked,
-    };
-  
-    const stripe = await getStripe();
-    const response = await fetch("/api/stripe", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(StripeData),
-    });
-  
-    if (!response.ok) {
-      const error = await response.text();
-      console.error(error);
-      return;
-    }
-  
-    const data = await response.json();
-    /** TO DO: ADD REDIRECT STATE && message 
-  
-    stripe?.redirectToCheckout({ sessionId: data.id });
-  };*/
 
  
 
@@ -306,10 +273,12 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
                 <h6>{views}</h6>
               </div>
             </div>
-            <div className="buttons">
+           { data?.vendu === false ? <div className="buttons">
               <button onClick={handleClickPanier}>Ajouter au Panier</button>
               <button style={{cursor : 'not-allowed'}}>Faire une offre</button>
-            </div>
+            </div> : (
+              <h1 className='text-red-700'>Vendu</h1>
+            )}
 
             <button onClick={handleFetchComments} className="buttonComments">Afficher les Commentaires</button>
           </Left>
