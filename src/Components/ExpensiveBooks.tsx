@@ -15,7 +15,7 @@ const ExpensiveBooks: React.FC<Props> = ({ expensiveBooks }) => {
   };
 
   return <>
-    <h1 style={{fontSize : '2.9rem' , }}>NOS ARTICLE DIVERS ET RARES</h1>
+    <h1 style={{fontSize : '2.5rem' , textAlign : 'center' }}>NOS ARTICLE DIVERS ET RARES</h1>
     <Container>
       {expensiveBooks.map((item: any) => (
         <BookItemSecond
@@ -34,10 +34,11 @@ const ExpensiveBooks: React.FC<Props> = ({ expensiveBooks }) => {
 export default ExpensiveBooks;
 
 const Container = styled.div`
-  margin-top : 2rem;
+ 
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap : wrap;
   gap: 1rem;
+
 `;
