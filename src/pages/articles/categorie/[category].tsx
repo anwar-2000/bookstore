@@ -1,17 +1,31 @@
+
 import BookItemSecond from '@/Components/ui/BookItemSecond'
 import { fetchBooksOfCategory } from '@/lib/helpers'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 
 interface Props {}
 
 const Index = () => {
+  const [articles, setarticles] = useState([]);
+  const [loading, setloading] = useState(false);
     const router = useRouter()
-
     const category = router.query.category as string
-
-    const {data , isLoading , error } = useQuery(['books', category], () => fetchBooksOfCategory(category))
+    if(category === "vetements"){
+      const {data , isLoading } = useQuery(['articles', category], () => fetchBooksOfCategory(category))
+      setloading(isLoading)
+      setarticles(data);
+    }else if (category === "materiaux"){
+      const {data , isLoading } = useQuery(['articles', category], () => fetchBooksOfCategory(category))
+      setloading(isLoading)
+      setarticles(data);
+    }else {
+      const {data , isLoading } = useQuery(['articles', category], () => fetchBooksOfCategory(category))
+      setloading(isLoading)
+      setarticles(data);
+    }
+    
 
 
     const getBookSlugHandler = (slug: string) => {
@@ -20,10 +34,10 @@ const Index = () => {
 
 
   return <div>
-        {isLoading && <h1>Loading</h1>}
+        {loading && <h1>Loading</h1>}
 
-        {data && (
-            data.map((item : any , i : number)=>(
+        {articles && (
+            articles.map((item : any , i : number)=>(
                 <BookItemSecond
                 key={i}
                 title={item.titre}

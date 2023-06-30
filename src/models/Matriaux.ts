@@ -6,7 +6,8 @@ interface MaterialPattern {
     price: number;
     poids : number
     color: string;
-    vendu : boolean
+    vendu : boolean;
+    slug : string;
 }
 
 const  MaterialSchema : Schema<MaterialPattern> = new Schema({
@@ -15,7 +16,8 @@ const  MaterialSchema : Schema<MaterialPattern> = new Schema({
     price: { type: Number, required: true },
     poids: { type: Number, required: true },
     color: { type: String, required: true },
-    vendu : {type : Boolean , default : false}
+    vendu : {type : Boolean , default : false},
+    slug : String
 });
 
 

@@ -7,7 +7,8 @@ interface vetementPattern {
     poids : number
     color: string;
     size: string;
-    vendu : boolean
+    vendu : boolean;
+    slug : string,
 }
 
 const vetementSchema : Schema<vetementPattern> = new Schema({
@@ -17,7 +18,8 @@ const vetementSchema : Schema<vetementPattern> = new Schema({
     poids: { type: Number, required: true },
     color: { type: String, required: true },
     size: { type: String, required: true },
-    vendu : {type : Boolean , default : false}
+    vendu : {type : Boolean , default : false},
+    slug : String
 });
 
 
