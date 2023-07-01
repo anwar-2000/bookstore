@@ -1,6 +1,6 @@
 
 import {createMongoConnection} from "@/database/conn"
-import { deleteMateriaux, editMateriaux, getMaterial, getMateriaux } from "@/database/materiauxControllers";
+import { deleteMateriaux, editMateriaux, postMateriaux, getMateriaux } from "@/database/materiauxControllers";
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 
@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       break;
           //res.status(200).json({method,name:'GET RESPONSE'});break;
       case 'POST' :
-        getMaterial(req,res)
+        postMateriaux(req,res)
        // res.status(200).json({method,name:'POST RESPONSE'});
         break;
       case 'PUT' :

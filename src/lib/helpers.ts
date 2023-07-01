@@ -96,7 +96,7 @@ export const deleteBook = async (bookId : string) =>{
 
 // query  books based on categorie
   export const fetchBooksOfCategory = async (categorie : string) =>{
-    const response = await fetch(`/api/${categorie}`);
+    const response = await fetch(`${BASE_URL}/api/${categorie}`);
     const data = await response.json()
     if(data) return data
      return {}

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { AnimatePresence, motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 const Infos = {
     
@@ -23,7 +24,7 @@ const Infos = {
   
 const FinalHero = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
-    
+    const router = useRouter()
     useEffect(() => {
         const interval = setInterval(() => {
           setActiveIndex((prevIndex) => (prevIndex + 1) % Infos.images.length);
@@ -34,9 +35,9 @@ const FinalHero = () => {
   return <Container>
         <Left>
             <h1>
-               La boutique Emmaüs Naintré   vous <br/> vends ses <span style={{color : 'black'}}>{Infos.texts[activeIndex]} </span>
+               La Boutique Emmaüs Naintré vous vends <br/>  ses <span style={{color : 'black'}}>{Infos.texts[activeIndex]} </span>
             </h1>
-            <button>Acheter Maintenant</button>
+            <button onClick={()=>router.push('/all')}>Voir Nos Livres</button>
         </Left>
         <Right>
         <AnimatePresence mode='wait'>
@@ -73,9 +74,9 @@ const Container = styled.div`
 
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
-    height : 60vh;
+   height : 80vh;
    justify-content :center;
-   gap :2rem;
+   gap :1rem;
    flex-direction : column;
   }
 
@@ -89,8 +90,6 @@ const Container = styled.div`
 
  
 `
-
-
 
 const Left = styled.div`    
         display : flex;
@@ -119,10 +118,11 @@ const Left = styled.div`
 
         /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
-      gap : 1.5rem;
-      transform : translateY(3.8rem);
+      gap : 1rem;
+      transform : translate(0.3rem,1.8rem);
       h1{
-        margin-right : 3rem;
+        text-align : center;
+        font-size : 15px;
         width : 250px;
         align-self : start;
         font-size : 25px;
@@ -143,9 +143,11 @@ const Left = styled.div`
     h1{
       text-align : center;
       transform : translateX(0.5rem);
-      font-size : 25px;
+
+      font-size : 20px;
     }
       button {
+        font-size : 10px;
         transform : translateX(-6.5rem);
       }
   }
@@ -172,7 +174,7 @@ const Right = styled.div`
     }
     /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
-    margin-top : 1rem;
+    transform : translateY(3rem);
   }
 
   /*styles for screens between 768px and 1024px */

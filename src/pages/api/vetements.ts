@@ -1,5 +1,5 @@
 import {createMongoConnection} from "@/database/conn"
-import { deleteVetement, editVetement, getVetement, postVetement } from "@/database/VetementControllers";
+import { deleteVetement, editVetement,  getVetements, postVetement } from "@/database/VetementControllers";
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 
@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     switch(method){
       case 'GET' : 
-      getVetement(req,res)
+      getVetements(req,res)
       break;
           //res.status(200).json({method,name:'GET RESPONSE'});break;
       case 'POST' :
