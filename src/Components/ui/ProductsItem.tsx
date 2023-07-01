@@ -1,4 +1,4 @@
-import { Star , Heart } from 'lucide-react'
+import { Heart } from 'lucide-react'
 import React, { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
