@@ -83,7 +83,7 @@ import RetourCard from '@/Components/ui/RetourCard';
             <>
               <Items>
               {data.map((retour:any , i : number) =>(
-                      <RetourCard  key={i} name={retour.nom}  email={retour.email} address={retour.address} numero={retour.numero} cause={retour.cause} retour={retour.retour} />
+                      <RetourCard  id={retour._id}  key={i} name={retour.nom}  email={retour.email} address={retour.address} numero={retour.numero} cause={retour.cause} retour={retour.retour} />
               ))}
               </Items>
             </>

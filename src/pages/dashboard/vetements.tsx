@@ -33,13 +33,15 @@ import { ClipLoader } from "react-spinners";
 import UpdateBookComp from "@/Components/UpdateBookComp";
 import { useRouter } from "next/router";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
+import { deleteVetements, fetchVetements } from "@/lib/vetementHelpers";
 import ActionButtons from "@/Components/ui/ActionButtons";
+import ProductForm from "@/Components/ProductForm";
 
 
 interface MyPageProps {
-  session: any;
-  existdata: {
-    bookId: "";
+   session: any;
+    existdata: {
+    vetmentId: "";
     titre: "";
     auteur: "";
     categorie: "";
@@ -84,7 +86,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
       checkAdmin();
     };
   }, [session.user.email]);
-  const [bookId, setBookId] = useState<string>("");
+  const [vetmentId, setvetmentId] = useState<string>("");
 
   const [showEditForm, setShowEditform] = useState<boolean>(false);
   const [showForm, setShowForm] = useState<boolean>(false);
@@ -97,8 +99,8 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
 
   /** REACT-QUERY */
   const { isLoading, data, isError, error, refetch } = useQuery(
-    ["books", page, limit],
-    () => fetchBooks(page, limit)
+    ["vetement", page, limit],
+    () => fetchVetements(page, limit)
   );
 
   useEffect(() => {
@@ -110,16 +112,16 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
   }, [session.user.email]);
 
   /** CLICK HANDLERS */
-  const deleteBookFromIdClickHanlder = async (bookId: string) => {
-    //console.log(bookId);
+  const deleteBookFromIdClickHanlder = async (vetmentId: string) => {
+    //console.log(vetmentId);
     try {
-      const response = await deleteBook(bookId);
+      const response = await deleteVetements(vetmentId);
       !response &&
-        toast.error("Book Not Deleted", {
+        toast.error("Produits Not Deleted", {
           position: toast.POSITION.TOP_RIGHT,
           theme: "colored",
         });
-      toast.success("Book Deleted", {
+      toast.success("Produits Deleted", {
         position: toast.POSITION.TOP_RIGHT,
         theme: "colored",
       });
@@ -128,8 +130,8 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
       //console.log(error);
     }
   };
-  const updateBookFromIdClickHanlder = async (theBookId: string) => {
-    setBookId(theBookId);
+  const updateBookFromIdClickHanlder = async (thevetmentId: string) => {
+    setvetmentId(thevetmentId);
   };
 
   /** LOGIC FOR CONTROLLING THE LIMIT AND PAGE */
@@ -143,8 +145,8 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
 
   /** FILTERING LOGIC */
 
-  const filteredBooks = data?.filter((book: any) => { 
-    const titre = book.titre;
+  const filteredBooks = data?.filter((produit: any) => { 
+    const titre = produit.nom;
     return titre && titre.toLowerCase().includes(searchTerm.toLowerCase());
   });
  
@@ -170,17 +172,19 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                 <UpdateBookComp
                   onUpdate={() => setaddSignal(addSignal - 1)}
                   existingData={existingData}
-                  bookId={bookId}
+                  bookId={vetmentId}
                 />
               ) : (
-                <AddBookComp onAdd={() => setaddSignal(addSignal + 1)} />
+                <div className="form">
+                <ProductForm onSubmit={() => setaddSignal(addSignal + 1)} />
+                </div>
               )}
             </FormDiv>
           )}
 
           <>
             <button id="showFormTrigger" onClick={() => setShowForm(!showForm)}>
-              {showForm ? "FERMER LE FORMULAIRE" : "AFFICHER LE FORMULAIRE"}{" "}
+              {showForm ? "FERMER LE FORMULAIRE" : "AFFICHER LE FORMULAIRE"}
             </button>
 
             {showEditForm && (
@@ -194,11 +198,11 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
               <ActionButtons />
             <div className="controls">
               <div className="controls__page">
-                <ArrowBigLeft onClick={minusPageHandler} /> Pages : {page}{" "}
+                <ArrowBigLeft onClick={minusPageHandler} /> Pages : {page}
                 <ArrowBigRight onClick={addPageHandler} />
               </div>
               <div className="controls__limit">
-                <ArrowBigLeft onClick={minusLimitHandler} /> Limite : {limit}{" "}
+                <ArrowBigLeft onClick={minusLimitHandler} /> Limite : {limit}
                 <ArrowBigRight onClick={addLimitHandler} />
               </div>
               <div className="controls__input">
@@ -224,28 +228,27 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                     <th>Image</th>
                     <th>Titre</th>
                     <th>Prix</th>
-                    <th>Quantité</th>
                     <th>Modifier</th>
                     <th>Supprimer</th>
                   </TR>
                 </thead>
 
                 <tbody>
-                  {filteredBooks.map((book: any) => (
-                    <TR key={book._id}>
+                  {filteredBooks.map((produit: any) => (
+                    <TR key={produit._id}>
                       <td>
-                        <img src={book.imageUrl1} alt={book.title} />
+                        <img src={produit.imageUrl1} alt={produit.nom} />
                       </td>
-                      <td>{book.titre}</td>
-                      <td>{book.prix}€</td>
-                      <td>{book.quantite}</td>
+                      <td>{produit.nom}</td>
+                      <td>{produit.price}€</td>
+                     
                       <td>
                         <button
                           id="edit"
                           onClick={() => {
-                            updateBookFromIdClickHanlder(book._id);
+                            updateBookFromIdClickHanlder(produit._id);
                             setShowEditform(true);
-                            setExistingData(book);
+                            setExistingData(produit);
                           }}
                         >
                           Modifier
@@ -253,7 +256,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                       </td>
                       <td>
                         <button
-                          onClick={() => deleteBookFromIdClickHanlder(book._id)}
+                          onClick={() => deleteBookFromIdClickHanlder(produit._id)}
                         >
                           Supprimer
                         </button>
@@ -289,6 +292,10 @@ const Container = styled.div`
   padding-bottom: 3rem;
   gap: 2rem;
   position : relative;
+
+  .form{
+    transform : translateX(33rem);
+  }
 
   .actions {
     position : absolute;

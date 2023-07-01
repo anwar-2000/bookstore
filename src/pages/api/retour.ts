@@ -1,6 +1,6 @@
 import {createMongoConnection} from "@/database/conn"
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { addRetour , getAllRetour } from "@/database/Controllers";
+import { addRetour , deleteRetour, getAllRetour } from "@/database/Controllers";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -23,6 +23,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         addRetour(req,res)
        // res.status(200).json({method,name:'POST RESPONSE'});
         break;
+        case 'DELETE' :
+          deleteRetour(req,res)
+         // res.status(200).json({method,name:'POST RESPONSE'});
+          break;
       default :
             res.setHeader('Allow',['GET','POST',])
             res.status(405).end(`Method ${method} is not ALLOWED`)

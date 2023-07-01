@@ -1,6 +1,6 @@
 import {createMongoConnection} from "@/database/conn"
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getDons , addDon } from "@/database/Controllers"
+import { getDons , addDon, deleteDon } from "@/database/Controllers"
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -23,8 +23,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         addDon(req,res)
        // res.status(200).json({method,name:'POST RESPONSE'});
         break;
+      case 'DELETE':
+        deleteDon(req,res)
+        break;
       default :
-            res.setHeader('Allow',['GET','POST',])
+            res.setHeader('Allow',['GET','POST','DELETE'])
             res.status(405).end(`Method ${method} is not ALLOWED`)
             break;
           }}

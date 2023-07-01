@@ -11,6 +11,7 @@ export async function getServerSideProps(context : GetServerSidePropsContext) {
    url = "/articles/details/materiaux"
   }else {
      data = await fetchBooksOfCategory(category)
+     //console.log(data)
   }
 
   // Pass the fetched data as props to the component
@@ -39,47 +40,59 @@ const Index = ({data , url , category } : {data : [] , url : string , category :
   
     const [loading, setloading] = useState(true);
 
+    const ItemCard = category === "Vetements" || category === "Cuirs" ;
+
+
     useEffect(() => {
       const timer = setTimeout(()=>setloading(false),2000)
 
       return ()=> clearTimeout(timer)
-    }, [category])
+    }, [category , ItemCard])
     
     const router = useRouter()
     
-    
-    const ItemCard = category !== "Vetement" && category !== "Materiaux" ;
 
     const getBookSlugHandler = (slug: string) => {
         router.push(`${url}/${slug}`); //pushing to details page api with the selected items SLUG
       };
 
 
-  return <Container>
-        {loading && <LoadingCards />}
+  return  <Container>
+  {loading && <LoadingCards />}
 
-        {data && !loading && !ItemCard ? (
-            data.map((item : any , i : number)=>(
-                <BookItemSecond
-                key={i}
-                title={item.nom}
-                image={item.imageUrl1}
-                rating={0}
-                onClick={() => getBookSlugHandler(item.slug)}
-                prix={item.price}
-              />
-            ))
-        ) : !loading && (
-          data.map((item : any , i : number)=>(
-            <ProductsItem key={i} title={item.nom}  onClick={() => getBookSlugHandler(item.slug)} image={item.imageUrl1} color={item.color} prix={item.price} size={item.size}  />
-        ))
-        )}
-  </Container>
+  {data && !loading && !ItemCard && (
+    data.map((item: any, i: number) => (
+      <BookItemSecond
+        key={i}
+        title={item.titre}
+        image={item.imageUrl1}
+        rating={0}
+        onClick={() => getBookSlugHandler(item.slug)}
+        prix={item.prix}
+      />
+    ))
+  )}
+
+  { !loading && ItemCard && (
+    data.map((item: any, i: number) => (
+      <ProductsItem
+        key={i}
+        title={item.nom}
+        onClick={() => getBookSlugHandler(item.slug)}
+        image={item.imageUrl1}
+        color={item.color}
+        prix={item.price}
+        size={item.size}
+      />
+    ))
+  )}
+</Container>
 }
 
 export default Index
 
 const Container = styled.div`
+    margin-top : 2rem;
     min-height : 100vh;
     display : flex;
     align-items : start;
