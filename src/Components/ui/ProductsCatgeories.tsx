@@ -21,8 +21,8 @@ const ProductsCatgeories = () => {
   <div className='card vetements'  onClick={()=>router.push('/articles/categorie/Vetements')}>
       <h1>Vêtements</h1>
   </div>
-  <div className='card rares'  onClick={()=>router.push('/articles/categorie/Rares')}>
-      <h1>Livres Rares</h1>
+  <div className='card rares'  onClick={()=>router.push('/articles/categorie/Histoire')}>
+      <h1>Livres D&apos;Histoire</h1>
   </div>
 </Categorie>
 }

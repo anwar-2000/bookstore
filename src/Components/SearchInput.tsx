@@ -40,7 +40,7 @@ const SearchInput:FC = ({}) => {
                 autoComplete="false"
                 onChange={changeHandler}
                 value={searchValue}
-                placeholder="livre / vetements ..."
+                placeholder="livres / vetements ..."
                 className="md:p-2 m-2 rounded outline-none border-l-stone-900  bg-transparent text-slate-700 placeholder:text-slate-700 placeholder-shown:border-none focus:border-none block"
                 />
               <Search strokeWidth="4" color='black'  className="cursor-pointer block" />
@@ -101,6 +101,7 @@ const InputContainer = styled.div`
 
   select {
     border: solid 1.5px black;
+    
     padding: 1.1rem;
     border-radius: 10px;
     @media screen and (max-width: 768px) {

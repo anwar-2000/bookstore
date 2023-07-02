@@ -3,12 +3,7 @@ import { getSession, signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function showToast(sessionUserEmail: string) {
-  toast.success(`Bonjour ${sessionUserEmail}`, {
-    position: toast.POSITION.TOP_RIGHT,
-    theme: "colored",
-  });
-}
+
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
@@ -24,36 +19,32 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return { props: { session } };
 }
 
-import AddBookComp from "@/Components/AddBookComp";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useQuery } from "react-query";
-import { checkAdminStatus, deleteBook, fetchBooks } from "@/lib/helpers";
+import { checkAdminStatus,  } from "@/lib/helpers";
 import { ClipLoader } from "react-spinners";
-import UpdateBookComp from "@/Components/UpdateBookComp";
 import { useRouter } from "next/router";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 import { deleteVetements, fetchVetements } from "@/lib/vetementHelpers";
 import ActionButtons from "@/Components/ui/ActionButtons";
 import ProductForm from "@/Components/ProductForm";
+import UpdateProduct from "@/Components/UpdateProduct";
 
 
 interface MyPageProps {
    session: any;
     existdata: {
-    vetmentId: "";
-    titre: "";
-    auteur: "";
-    categorie: "";
-    imageUrl1: "";
-    imageUrl2: "";
-    imageUrl3: "";
-    description: "";
-    rating: 0;
-    quantite: 0;
-    etat: "";
-    prix: 0;
-    poids : 0;
+      nom: "";
+      description: "";
+      price: 0;
+      poids: 0;
+      imageUrl1: "";
+      imageUrl2: "";
+      imageUrl3: "";
+      color: "";
+      size?: "";
+      slug : ""
   };
 }
 
@@ -77,12 +68,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
           theme: "colored",
         });
         router.push("/users/login");
-      } else {
-        toast.success(`Bonjour Mr ${email}`, {
-          position: toast.POSITION.TOP_RIGHT,
-          theme: "colored",
-        });
-      }
+      } 
       checkAdmin();
     };
   }, [session.user.email]);
@@ -107,9 +93,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
     refetch();
   }, [data, addSignal]);
 
-  useEffect(() => {
-    showToast(session.user.email);
-  }, [session.user.email]);
+ 
 
   /** CLICK HANDLERS */
   const deleteBookFromIdClickHanlder = async (vetmentId: string) => {
@@ -169,14 +153,16 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                 <h1>Ajouter Un Livre</h1>
               )}
               {showEditForm ? (
-                <UpdateBookComp
-                  onUpdate={() => setaddSignal(addSignal - 1)}
+                <div className="form">
+                <UpdateProduct
+                   onSubmit={() => setaddSignal(addSignal - 1)}
                   existingData={existingData}
-                  bookId={vetmentId}
+                  id={vetmentId}
                 />
+                </div>
               ) : (
                 <div className="form">
-                <ProductForm onSubmit={() => setaddSignal(addSignal + 1)} />
+                <ProductForm size={true} onSubmit={() => setaddSignal(addSignal + 1)} />
                 </div>
               )}
             </FormDiv>

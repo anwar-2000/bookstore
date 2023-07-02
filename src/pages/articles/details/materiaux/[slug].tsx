@@ -43,17 +43,18 @@ import { fetchMaterial } from '@/lib/materiauxHelpers';
 
 
 interface Produit {
-    _id : string;
-    nom: string;
-    description: string;
-    price: number;
-    imageUrl1: string;
-    imageUrl2 : string;
-    imageUrl3 : string;
-    vendu : boolean,
-    poids : number;
-    color : string;
-  }
+  _id : string;
+  nom: string;
+  description: string;
+  price: number;
+  imageUrl1: string;
+  imageUrl2 : string;
+  imageUrl3 : string;
+  vendu : boolean,
+  poids : number;
+  color : string;
+  size ?: string;
+}
 
   interface MyPageProps {
     data: Produit;
@@ -61,125 +62,126 @@ interface Produit {
     slug : string;
     views : number
   }
-const Index: NextPage<MyPageProps> = ({ data  , slug , views }) => {
-  //console.log(data)
-/**
- * 
- * fetching for comments based on if the user clicked or not
- */
-  const [comments, setComments] = useState([]);
-  const [toggleComments,setToggleComments]=useState<boolean>(false)
-
-/** //////////// for the free shipping ////////////*/
-
-const {isChecked} = useSelector((state:any)=>state.cart);
-//console.log("in details",isChecked)
-/****************************************** */
-
-const [isCheckedMondialRelay, setIsCheckedMondialRelay] = useState(false);
-const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
-
-
-
-  const handleFetchComments = async () => {
-    try {
-      const commentsData = await fetchComments(slug); 
-      setComments(commentsData);
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-    }
-  setToggleComments(true)
-  };
-
-  function refetch(){
-    handleFetchComments()
-  }
-    
-
-
-    const dispatch = useDispatch();
-    //console.log("***************" ,slug)
-
-
-  const [date,setDate] = useState<string>('')
-
-    /**
-     * 
-     * ADD VIEWER COUNT TO BOOK -- DONE
-     */
-    useEffect(()=>{
-      addViewerToBook(slug)
-    },[]);
-
-  const { total } = useSelector((state: any) => state.cart);
-  const {showOptions} = useSelector((state:any)=>state.toggle);
-
-
-  let produits = {
-    _id : data._id,
-    titre : data.nom,
-    prix : data.price,
-    image : data.imageUrl1,
-    poids : data?.poids,
-    total
-   }
-
-  const handleChatelleraultChange = () => {
-    dispatch(ChangeChecked());
-    setIsCheckedColissimo(false)
-    setIsCheckedMondialRelay(false)
-    
-    //recalculate logic
-    dispatch(reCalculate())
-
-
-    dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
-  }
-
-   const handleMondialRelayBox = () => {
-    dispatch(ChangeChecked());
-    setIsCheckedMondialRelay(true);
-    setIsCheckedColissimo(false);
-    dispatch(changeLivreur({type : "MONDIAL"}))
-    
-
-    //recalculate logic
-    dispatch(reCalculate())
-
-    dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
-  };
-
-  const handleColissimoBox = () => {
-    dispatch(ChangeChecked());
-    setIsCheckedMondialRelay(false);
-    setIsCheckedColissimo(true);
-    dispatch(changeLivreur({type : "COLISSIMO"}))
-
-    
-    //recalculate logic
-    dispatch(reCalculate())
-
-    dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
-  };
-
-
-
+  const Index: NextPage<MyPageProps> = ({ data  , slug , views }) => {
+    //console.log(data)
+  /**
+   * 
+   * fetching for comments based on if the user clicked or not
+   */
+    const [comments, setComments] = useState([]);
+    const [toggleComments,setToggleComments]=useState<boolean>(false)
   
-  const handleClickPanier = () => {
-     
-     //console.log( 'PANIER : ',book)
-     dispatch(AddToCart(produits))
-     dispatch(calculateTotal())
-
-    toast.info(` le livre ${produits.titre}  de Poids : ${produits.poids} Kg est dans votre panier `,{
-      position: toast.POSITION.TOP_RIGHT,
-      theme: "colored",
-    });
-  };
-
-
- 
-
+  /** //////////// for the free shipping ////////////*/
+  
+  const {isChecked} = useSelector((state:any)=>state.cart);
+  //console.log("in details",isChecked)
+  /****************************************** */
+  
+  const [isCheckedMondialRelay, setIsCheckedMondialRelay] = useState(false);
+  const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
+  
+  
+  
+    const handleFetchComments = async () => {
+      try {
+        const commentsData = await fetchComments(slug); 
+        setComments(commentsData);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    setToggleComments(true)
+    };
+  
+    function refetch(){
+      handleFetchComments()
+    }
+      
+  
+  
+      const dispatch = useDispatch();
+      //console.log("***************" ,slug)
+  
+  
+    const [date,setDate] = useState<string>('')
+  
+      /**
+       * 
+       * ADD VIEWER COUNT TO BOOK -- DONE
+       */
+      useEffect(()=>{
+        addViewerToBook(slug)
+      },[]);
+  
+    const { total } = useSelector((state: any) => state.cart);
+    const {showOptions} = useSelector((state:any)=>state.toggle);
+  
+  
+    let produits = {
+      _id : data._id,
+      titre : data.nom,
+      prix : data.price,
+      image : data.imageUrl1,
+      poids : data?.poids,
+      total
+     }
+  
+    const handleChatelleraultChange = () => {
+      dispatch(ChangeChecked());
+      setIsCheckedColissimo(false)
+      setIsCheckedMondialRelay(false)
+      
+      //recalculate logic
+      dispatch(reCalculate())
+  
+  
+      dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
+    }
+  
+     const handleMondialRelayBox = () => {
+      dispatch(ChangeChecked());
+      setIsCheckedMondialRelay(true);
+      setIsCheckedColissimo(false);
+      dispatch(changeLivreur({type : "MONDIAL"}))
+      
+  
+      //recalculate logic
+      dispatch(reCalculate())
+  
+      dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
+    };
+  
+    const handleColissimoBox = () => {
+      dispatch(ChangeChecked());
+      setIsCheckedMondialRelay(false);
+      setIsCheckedColissimo(true);
+      dispatch(changeLivreur({type : "COLISSIMO"}))
+  
+      
+      //recalculate logic
+      dispatch(reCalculate())
+  
+      dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
+    };
+  
+  
+  
+    
+    const handleClickPanier = () => {
+       
+       //console.log( 'PANIER : ',book)
+       dispatch(AddToCart(produits))
+       dispatch(calculateTotal())
+  
+      toast.info(` le livre ${produits.titre}  de Poids : ${produits.poids} Kg est dans votre panier `,{
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "colored",
+      });
+    };
+  
+  
+   
+  
+  
 
   return <>
     <Head>

@@ -4,11 +4,11 @@ import styled from "styled-components";
 import slugify from "slugify";
 import {  toast ,} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { addVetement } from "@/lib/vetementHelpers";
-import { useRouter } from "next/router";
-import { addMateriaux } from "@/lib/materiauxHelpers";
+import { updateVetement } from "@/lib/vetementHelpers";
+import { updateMateriaux } from "@/lib/materiauxHelpers";
 
-interface BookData {
+interface Product {
+  
   nom: string;
   description: string;
   price: number;
@@ -23,26 +23,15 @@ interface BookData {
 
 interface Props {
   onSubmit: () => void;
-  size : boolean;
+  existingData : Product;
+  id : string
+
 }
 
-const ProductForm = ({ onSubmit , size }: Props) => {
+const ProductForm = ({ onSubmit , existingData , id}: Props) => {
     const [load, setLoad] = useState(false)
 
-
-
-    const [formData, setFormData] = useState<BookData>({
-    nom: "",
-    description: "",
-    price: 0,
-    poids: 0,
-    imageUrl1: "",
-    imageUrl2: "",
-    imageUrl3: "",
-    color: "",
-    size: "",
-    slug : ""
-  });
+  const [formData, setFormData] = useState<Product>(existingData);
 
   const  handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -53,24 +42,47 @@ const ProductForm = ({ onSubmit , size }: Props) => {
       });
       return;
     }
-    
-     if(size){
-        const response =  await addVetement(formData);
-      if(response){toast.success('book Added Successfully',{
-        position: toast.POSITION.TOP_RIGHT,
-        theme: "colored"
-      });}
-      setLoad(!load)
-      onSubmit()
-     }else{
-      const response =  await addMateriaux(formData);
-      if(response){toast.success('book Added Successfully',{
-        position: toast.POSITION.TOP_RIGHT,
-        theme: "colored"
-      });}
-      setLoad(!load)
-      onSubmit()
-     }
+     //console.log(formData);
+      if(formData.size){ //because materiaux does not have the field size so i will use same form again
+        const response =  await updateVetement(id,formData);
+        if(response){toast.success('Produits Modified Successfully',{
+          position: toast.POSITION.TOP_RIGHT,
+          theme: "colored"
+        });}
+        setLoad(!load)
+        onSubmit()
+        setFormData({nom: "",
+            description: "",
+            price: 0,
+            poids: 0,
+            imageUrl1: "",
+            imageUrl2 : "", 
+            imageUrl3 : "", 
+            color : "", 
+            size : "", 
+            slug  : " "} )
+        return;
+      }else{
+        if(formData.size){
+            const response =  await updateMateriaux(id,formData);
+            if(response){toast.success('Produits Modified Successfully',{
+              position: toast.POSITION.TOP_RIGHT,
+              theme: "colored"
+            });}
+            setLoad(!load)
+            onSubmit()
+            setFormData({nom: "",
+                description: "",
+                price: 0,
+                poids: 0,
+                imageUrl1: "",
+                imageUrl2 : "", 
+                imageUrl3 : "", 
+                color : "", 
+                slug  : " "} )
+            return;
+          }
+      }
       
     
   };
@@ -165,13 +177,13 @@ const ProductForm = ({ onSubmit , size }: Props) => {
           <Grid item xs={12} sm={6}>
             <TextField
               label="Couleur"
-              name="colour"
+              name="color"
               value={formData.color}
               onChange={handleInputChange}
               fullWidth
             />
           </Grid>
-          { size && <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6}>
             <TextField
               label="Taille"
               name="size"
@@ -179,7 +191,7 @@ const ProductForm = ({ onSubmit , size }: Props) => {
               onChange={handleInputChange}
               fullWidth
             />
-          </Grid>}
+          </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="contained" color="primary">
               Submit

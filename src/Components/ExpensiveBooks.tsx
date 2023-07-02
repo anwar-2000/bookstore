@@ -15,7 +15,7 @@ const ExpensiveBooks: React.FC<Props> = ({ expensiveBooks }) => {
   };
 
   return <>
-    <h1 style={{fontSize : '2.5rem' , textAlign : 'center' }}>NOS ARTICLES DIVERS ET RARES</h1>
+    <h1 style={{fontSize : '2.5rem' , textAlign : 'center' , fontFamily : 'Montserrat, sans-serif' , fontWeight : '700' }}>NOS ARTICLES DIVERS ET RARES</h1>
     <Container>
       {expensiveBooks.map((item: any) => (
         <BookItemSecond

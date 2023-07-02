@@ -19,7 +19,7 @@ const NavBar = () => {
 
   
   return <>
- <section className="flex items-center justify-center sticky top-0 h-20 mb-12 text-slate-900 bg-white border-b-2 border-slate-700 z-50">
+ <section className="flex items-center justify-center sticky top-0 h-20 mb-12 text-slate-900 bg-white border-b-2 border-slate-700 z-50 ">
   <div className="flex justify-between items-center w-screen ">
     <div className="container mx-auto flex items-center justify-between text-dark  font-bold gap-5 md:gap-0">
       <div className="flex gap-0 items-center justify-center">

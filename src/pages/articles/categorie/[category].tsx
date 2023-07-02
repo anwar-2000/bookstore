@@ -37,7 +37,7 @@ import styled from 'styled-components';
 
 
 const Index = ({data , url , category } : {data : [] , url : string , category : string}) => {
-  
+    const [searchTerm, setSearchTerm] = useState("");
     const [loading, setloading] = useState(true);
 
     const ItemCard = category === "Vetements" || category === "Cuirs" ;
@@ -55,13 +55,28 @@ const Index = ({data , url , category } : {data : [] , url : string , category :
     const getBookSlugHandler = (slug: string) => {
         router.push(`${url}/${slug}`); //pushing to details page api with the selected items SLUG
       };
+      let titre = "";
+      const filteredProdcuts = data?.filter((produit: any) => { 
+        titre = produit.nom;
+        if(!ItemCard) titre = produit.titre;
+        return titre && titre.toLowerCase().includes(searchTerm.toLowerCase());
+      });
 
 
   return  <Container>
-  {loading && <LoadingCards />}
+    { !loading && <div>
+    <div className="controls__input">
+      <h2>Rechercher Par Nom : </h2>
+    <input type="text"
+     placeholder="Rechercher ..."
+     value={searchTerm}
+     onChange={(e) => setSearchTerm(e.target.value)} />
+  </div>
+    </div>}
 
-  {data && !loading && !ItemCard && (
-    data.map((item: any, i: number) => (
+  {loading && <LoadingCards />}
+  <div className='items'>
+  { filteredProdcuts && !loading && !ItemCard &&  filteredProdcuts.map((item: any, i: number) => (
       <BookItemSecond
         key={i}
         title={item.titre}
@@ -70,11 +85,10 @@ const Index = ({data , url , category } : {data : [] , url : string , category :
         onClick={() => getBookSlugHandler(item.slug)}
         prix={item.prix}
       />
-    ))
-  )}
+    ))}
 
-  { !loading && ItemCard && (
-    data.map((item: any, i: number) => (
+{ !loading && ItemCard && (
+    filteredProdcuts.map((item: any, i: number) => (
       <ProductsItem
         key={i}
         title={item.nom}
@@ -86,6 +100,10 @@ const Index = ({data , url , category } : {data : [] , url : string , category :
       />
     ))
   )}
+
+  </div>
+
+ 
 </Container>
 }
 
@@ -95,9 +113,38 @@ const Container = styled.div`
     margin-top : 2rem;
     min-height : 100vh;
     display : flex;
-    align-items : start;
-    justify-content : center;
+    align-items : center;
+    justify-content : start;
+    flex-direction : column;
     gap : 2rem;
     flex-wrap : wrap;
     width : 100vw;
+      .items{
+        display : flex;
+           align-items : center;
+         justify-content : center;
+     
+    gap : 2rem;
+    flex-wrap : wrap;
+      }
+    .controls__input{
+
+      h2{
+        font-weight : 700;
+        font-family: 'Montserrat', sans-serif;
+      }
+      display : flex;
+      flex-wrap : wrap;
+      align-items : center;
+      justify-content : center;
+      gap : 1.5rem;
+      input {
+        
+        padding : 0.6rem 3rem;
+        padding-left : 0.5rem;
+        border-radius : 10px;
+        background : none;
+        outline : 2px solid black;
+      }
+    }
 `

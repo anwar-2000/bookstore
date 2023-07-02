@@ -73,6 +73,12 @@ const Container = styled.div`
     overflow:hidden;
 
   /* styles for screens smaller than 768px */
+  @media screen and (width: 767px) {
+   height : 80vh;
+   justify-content :center;
+   gap :1rem;
+   flex-direction : row;
+  }
   @media screen and (max-width: 767px) {
    height : 80vh;
    justify-content :center;
@@ -87,7 +93,6 @@ const Container = styled.div`
     gap : 0rem;
   }
  
-
  
 `
 
@@ -100,7 +105,8 @@ const Left = styled.div`
 
         h1 {
             margin-left : 1.5rem;
-            font-weight : bold;
+            font-weight: 400;
+            font-family: 'Montserrat', sans-serif;
             color : #174d17;
             font-size : 30px;
             width : 450px;
@@ -109,6 +115,8 @@ const Left = styled.div`
 
         button {
             background-color : #174d17;
+            font-weight: 400;
+            font-family: 'Montserrat', sans-serif;
             padding : 1rem;
             color : white;
             border-radius : 30px;
