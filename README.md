@@ -17,6 +17,7 @@ This project is a web application for a bookstore that sells books and clothing 
   Users can browse and purchase books and clothing items.
   Users can add items to their cart and proceed to checkout.
   Integration with Stripe allows secure and seamless payment processing.
+
 ##Tech_Stack
 
 - [NEXT13](https://nextjs.org/) - React framework for building the user interface.
@@ -24,6 +25,7 @@ This project is a web application for a bookstore that sells books and clothing 
 - [MONGODB](https://www.mongodb.com/) - Database system for storing and retrieving data.
 - [Cloudinary](https://www.cloudinary.com/) - Image Hosting Service.
 - [NEXTAUTH](https://next-auth.js.org/) - Authentication library for Next.js applications.
+- [STRIPE](https://stripe.com) - PAYMENT PROCESSING PLATFORM
 
 ## Project Structure
 
