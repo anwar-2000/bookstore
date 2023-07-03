@@ -65,7 +65,7 @@ const Index = ({data , url , category } : {data : [] , url : string , category :
 
   return( 
     <div className='min-h-96 text-center'>
-    { data.length === 0 ? <h1>0 Articles Pour L'instant</h1> : <Container>
+    { data.length === 0 ? <h1>0 Articles Pour L&apos;instant</h1> : <Container>
     { !loading && <div>
     <div className="controls__input">
       <h2>Rechercher Par Nom : </h2>
