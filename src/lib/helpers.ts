@@ -96,7 +96,7 @@ export const deleteBook = async (bookId : string) =>{
 
 // query  books based on categorie
   export const fetchBooksOfCategory = async (categorie : string) =>{
-    const response = await fetch(`/api/${categorie}`);
+    const response = await fetch(`${BASE_URL}/api/${categorie}`);
     const data = await response.json()
     if(data) return data
      return {}
@@ -104,6 +104,7 @@ export const deleteBook = async (bookId : string) =>{
 
  // query of a search input
  export const preparedFetchforInput = async (searchParam: string, searchValue: string) => {
+    console.log(searchParam)
     const response = await fetch(
       `/api/search?searchParam=${searchParam}&searchValue=${searchValue}`
     );
@@ -203,6 +204,21 @@ export const checkAdminStatus = async (email: string) => {
 
         return data;
    }
+
+   export const deleteDonsHelper = async (donId : string) =>{
+    try {
+        const options = {
+            method : "DELETE",
+            headers :{ "Content-Type" : "application/json"}
+        }
+        const response = await fetch(`/api/dons?donId=${donId}`,options)
+        const data = await response.json()
+
+        return data
+    } catch (error) {
+        return error
+    }
+ }
 
    /********************************** LOGIC FOR COMMENTS AND VIEWS */
 
@@ -310,4 +326,19 @@ export const addRetour = async (formData:Object) => {
     const data = await response.json()
 
     return data;
+}
+
+export const deleteRetourHelper = async (retourId : string) =>{
+  try {
+      const options = {
+          method : "DELETE",
+          headers :{ "Content-Type" : "application/json"}
+      }
+      const response = await fetch(`/api/retour?retourId=${retourId}`,options)
+      const data = await response.json()
+
+      return data
+  } catch (error) {
+      return error
+  }
 }

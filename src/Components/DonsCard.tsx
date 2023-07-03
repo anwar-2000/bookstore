@@ -1,7 +1,9 @@
+import { deleteDonsHelper } from '@/lib/helpers';
 import React from 'react'
 import styled from 'styled-components'
 
 interface Props {
+    id: string;
     name : string ;
     prenom : string;
     email : string;
@@ -9,7 +11,7 @@ interface Props {
     don : string;
 }
 
-const DonsCard:React.FC<Props> = ({name , prenom , email , numero , don}) => {
+const DonsCard:React.FC<Props> = ({name , prenom , email , numero , don , id}) => {
   return <Container>
             <Header>{name} {prenom}</Header>
             <a href={`mailto:${email}`} style={{textDecoration : 'underline'}}><small>{email}</small></a>
@@ -17,7 +19,7 @@ const DonsCard:React.FC<Props> = ({name , prenom , email , numero , don}) => {
             <Description>
                <mark>{don}</mark> 
             </Description>
-            <button>DELETE</button>
+            <button onClick={()=> deleteDonsHelper(id)}>DELETE</button>
   </Container>
 }
 

@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Oswald:wght@200;300;700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,400;1,900&family=Raleway:ital,wght@0,200;1,100&family=Shadows+Into+Light&display=swap');
+
+  @import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Bebas+Neue&family=Montserrat:wght@100;700&family=Oswald:wght@200;300;700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,400;1,900&family=Raleway:ital,wght@0,200;1,100&family=Shadows+Into+Light&display=swap');
+
 body{
     scroll-behavior: smooth;
     background-color:  #f2f3f4;

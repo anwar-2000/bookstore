@@ -3,12 +3,7 @@ import { getSession, signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function showToast(sessionUserEmail: string) {
-  toast.success(`Bonjour ${sessionUserEmail}`, {
-    position: toast.POSITION.TOP_RIGHT,
-    theme: "colored",
-  });
-}
+
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
@@ -24,35 +19,36 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return { props: { session } };
 }
 
-import AddBookComp from "@/Components/AddBookComp";
+
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useQuery } from "react-query";
-import { checkAdminStatus, deleteBook, fetchBooks } from "@/lib/helpers";
+import { checkAdminStatus, deleteBook,  } from "@/lib/helpers";
 import { ClipLoader } from "react-spinners";
-import UpdateBookComp from "@/Components/UpdateBookComp";
+
 import { useRouter } from "next/router";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
+
 import ActionButtons from "@/Components/ui/ActionButtons";
+import { deleteMateriaux, fetchMateriaux } from "@/lib/materiauxHelpers";
+import ProductForm from "@/Components/ProductForm";
+import UpdateProduct from "@/Components/UpdateProduct";
 
 
 interface MyPageProps {
   session: any;
-  existdata: {
-    bookId: "";
-    titre: "";
-    auteur: "";
-    categorie: "";
-    imageUrl1: "";
-    imageUrl2: "";
-    imageUrl3: "";
-    description: "";
-    rating: 0;
-    quantite: 0;
-    etat: "";
-    prix: 0;
-    poids : 0;
-  };
+   existdata: {
+     nom: "";
+     description: "";
+     price: 0;
+     poids: 0;
+     imageUrl1: "";
+     imageUrl2: "";
+     imageUrl3: "";
+     color: "";
+     size?: "";
+     slug : ""
+ };
 }
 
 const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
@@ -75,16 +71,11 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
           theme: "colored",
         });
         router.push("/users/login");
-      } else {
-        toast.success(`Bonjour Mr ${email}`, {
-          position: toast.POSITION.TOP_RIGHT,
-          theme: "colored",
-        });
       }
       checkAdmin();
     };
   }, [session.user.email]);
-  const [bookId, setBookId] = useState<string>("");
+  const [vetmentId, setvetmentId] = useState<string>("");
 
   const [showEditForm, setShowEditform] = useState<boolean>(false);
   const [showForm, setShowForm] = useState<boolean>(false);
@@ -97,23 +88,20 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
 
   /** REACT-QUERY */
   const { isLoading, data, isError, error, refetch } = useQuery(
-    ["books", page, limit],
-    () => fetchBooks(page, limit)
+    ["vetement", page, limit],
+    () => fetchMateriaux(page, limit)
   );
 
   useEffect(() => {
     refetch();
   }, [data, addSignal]);
 
-  useEffect(() => {
-    showToast(session.user.email);
-  }, [session.user.email]);
 
   /** CLICK HANDLERS */
-  const deleteBookFromIdClickHanlder = async (bookId: string) => {
-    //console.log(bookId);
+  const deleteBookFromIdClickHanlder = async (materiauxId: string) => {
+    //console.log(vetmentId);
     try {
-      const response = await deleteBook(bookId);
+      const response = await deleteMateriaux(materiauxId);
       !response &&
         toast.error("Book Not Deleted", {
           position: toast.POSITION.TOP_RIGHT,
@@ -128,8 +116,8 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
       //console.log(error);
     }
   };
-  const updateBookFromIdClickHanlder = async (theBookId: string) => {
-    setBookId(theBookId);
+  const updateBookFromIdClickHanlder = async (thevetmentId: string) => {
+    setvetmentId(thevetmentId);
   };
 
   /** LOGIC FOR CONTROLLING THE LIMIT AND PAGE */
@@ -143,8 +131,8 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
 
   /** FILTERING LOGIC */
 
-  const filteredBooks = data?.filter((book: any) => { 
-    const titre = book.titre;
+  const filteredBooks = data?.filter((produit: any) => { 
+    const titre = produit.nom;
     return titre && titre.toLowerCase().includes(searchTerm.toLowerCase());
   });
  
@@ -167,20 +155,25 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                 <h1>Ajouter Un Livre</h1>
               )}
               {showEditForm ? (
-                <UpdateBookComp
-                  onUpdate={() => setaddSignal(addSignal - 1)}
+                <div className="form">
+                <UpdateProduct
+                  onSubmit={() => setaddSignal(addSignal - 1)}
                   existingData={existingData}
-                  bookId={bookId}
+                  id={vetmentId}
                 />
+                </div>
               ) : (
-                <AddBookComp onAdd={() => setaddSignal(addSignal + 1)} />
+
+                <div className="form">
+                <ProductForm size={false}  onSubmit={() => setaddSignal(addSignal + 1)} />
+                </div>
               )}
             </FormDiv>
           )}
 
           <>
             <button id="showFormTrigger" onClick={() => setShowForm(!showForm)}>
-              {showForm ? "FERMER LE FORMULAIRE" : "AFFICHER LE FORMULAIRE"}{" "}
+              {showForm ? "FERMER LE FORMULAIRE" : "AFFICHER LE FORMULAIRE"}
             </button>
 
             {showEditForm && (
@@ -194,11 +187,11 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
               <ActionButtons />
             <div className="controls">
               <div className="controls__page">
-                <ArrowBigLeft onClick={minusPageHandler} /> Pages : {page}{" "}
+                <ArrowBigLeft onClick={minusPageHandler} /> Pages : {page}
                 <ArrowBigRight onClick={addPageHandler} />
               </div>
               <div className="controls__limit">
-                <ArrowBigLeft onClick={minusLimitHandler} /> Limite : {limit}{" "}
+                <ArrowBigLeft onClick={minusLimitHandler} /> Limite : {limit}
                 <ArrowBigRight onClick={addLimitHandler} />
               </div>
               <div className="controls__input">
@@ -224,28 +217,27 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                     <th>Image</th>
                     <th>Titre</th>
                     <th>Prix</th>
-                    <th>Quantité</th>
                     <th>Modifier</th>
                     <th>Supprimer</th>
                   </TR>
                 </thead>
 
                 <tbody>
-                  {filteredBooks.map((book: any) => (
-                    <TR key={book._id}>
+                  {filteredBooks.map((produit: any) => (
+                    <TR key={produit._id}>
                       <td>
-                        <img src={book.imageUrl1} alt={book.title} />
+                        <img src={produit.imageUrl1} alt={produit.nom} />
                       </td>
-                      <td>{book.titre}</td>
-                      <td>{book.prix}€</td>
-                      <td>{book.quantite}</td>
+                      <td>{produit.nom}</td>
+                      <td>{produit.price}€</td>
+                     
                       <td>
                         <button
                           id="edit"
                           onClick={() => {
-                            updateBookFromIdClickHanlder(book._id);
+                            updateBookFromIdClickHanlder(produit._id);
                             setShowEditform(true);
-                            setExistingData(book);
+                            setExistingData(produit);
                           }}
                         >
                           Modifier
@@ -253,7 +245,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                       </td>
                       <td>
                         <button
-                          onClick={() => deleteBookFromIdClickHanlder(book._id)}
+                          onClick={() => deleteBookFromIdClickHanlder(produit._id)}
                         >
                           Supprimer
                         </button>
@@ -287,8 +279,13 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding-bottom: 3rem;
+
   gap: 2rem;
   position : relative;
+
+  .form{
+    transform : translateX(33rem);
+  }
 
   .actions {
     position : absolute;

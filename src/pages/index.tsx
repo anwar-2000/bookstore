@@ -16,6 +16,7 @@ import { GetServerSidePropsContext } from "next";
 import { fetchHighPriceBooks } from "@/lib/helpers";
 import ExpensiveBooks from "@/Components/ExpensiveBooks";
 import styled from "styled-components";
+import FinalHero from "@/Components/FinalHero";
 
 
 
@@ -47,7 +48,7 @@ export default function Home({expensiveBooks} : any) {
 
         { isLoading ? <Loading />
         : <Container>
-        <Hero />
+        <FinalHero />
         <ExpensiveBooks expensiveBooks={expensiveBooks} />
         <AboutSection />
         <Localisation />

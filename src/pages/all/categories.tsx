@@ -1,3 +1,11 @@
+export async function getServerSideProps() {
+  const response = await fetchCategories();
+  const categories = response.categories;
+  //console.log(categories);
+  return { props: { categories } };
+}
+
+
 import { fetchCategories } from "@/lib/helpers";
 import { NextPage } from "next";
 import React, { useState } from "react";
@@ -116,12 +124,7 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
 
 export default Categories;
 
-export async function getServerSideProps() {
-  const response = await fetchCategories();
-  const categories = response.categories;
-  //console.log(categories);
-  return { props: { categories } };
-}
+
 
 const Container = styled.div`
   display: flex;

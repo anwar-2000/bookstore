@@ -104,7 +104,7 @@ interface MyPageProps {
     ) : (
       <>
         <div className="pagelivres">
-          <button onClick={()=> router.push('/dashboard')}> Gérer les Livres </button>
+          <button onClick={()=> router.push('/dashboard')}> Gérer les Produits </button>
           <button id="adminAjouter" onClick={()=> router.push('/users/')}> Ajouter Admin </button>
         </div>
         <Table>
