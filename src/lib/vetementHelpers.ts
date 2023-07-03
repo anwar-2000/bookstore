@@ -1,5 +1,5 @@
-//const BASE_URL:String ="https://emmtaboutique.com"
-const BASE_URL:String ="http://localhost:3000"
+const BASE_URL:String ="https://emmtaboutique.com"
+//const BASE_URL:String ="http://localhost:3000"
 
 
 export const fetchVetements = async (page = 1, limit = 10) => {
