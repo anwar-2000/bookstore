@@ -1,26 +1,44 @@
-export async function getServerSideProps(context : GetServerSidePropsContext) {
-   const category = context.params?.category as string;
-   let url = "/details"
-  // Use the parameter in your logic or fetch data based on the parameter
-  let data = []
-  if (category === 'Vetements') {
-    data = await fetchVetements();
-    url = "/articles/details/vetements"
-  }else if(category === 'Cuirs'){
-   data = await fetchMateriaux()
-   url = "/articles/details/materiaux"
-  }else {
-     data = await fetchBooksOfCategory(category)
-     //console.log(data)
+
+let cachedData: Record<string, any> = {};
+let cacheExpirationTime: Record<string, number> = {};
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const category = context.params?.category as string;
+  let url = '/details';
+  let data = [];
+
+  const now = Date.now();
+  if (
+    !cachedData[category] ||
+    !cacheExpirationTime[category] ||
+    now > cacheExpirationTime[category]
+  ) {
+    if (category === 'Vetements') {
+      data = await fetchVetements();
+      url = '/articles/details/vetements';
+    } else if (category === 'Cuirs') {
+      data = await fetchMateriaux();
+      url = '/articles/details/materiaux';
+    } else {
+      data = await fetchBooksOfCategory(category);
+    }
+
+    cachedData[category] = data;
+    cacheExpirationTime[category] = now + 60 * 60 * 1000; // cache expires in 1 hour
+  } else {
+    data = cachedData[category];
   }
 
-  // Pass the fetched data as props to the component
   return {
     props: {
-      data, url , category
+      data,
+      url,
+      category,
     },
   };
 }
+
+
 
 
 

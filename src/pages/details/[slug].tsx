@@ -1,5 +1,4 @@
-import { GetServerSidePropsContext } from 'next'
-import { getSession } from 'next-auth/react'
+import { GetServerSidePropsContext, GetStaticProps } from 'next'
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 
@@ -13,12 +12,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const data = book; 
   //console.log(data)
-  const session = await getSession(context);
+
 
   return {
-    props: { data, session, slug, views }
+    props: { data,  slug, views }
   };
 }
+
   
 
  import React, { useEffect, useState } from "react";

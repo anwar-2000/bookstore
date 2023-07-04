@@ -1,18 +1,24 @@
-export async function getServerSideProps(context : GetServerSidePropsContext) {
-      const expensiveBooks = await fetchHighPriceBooks(1,6);
+let cachedData : [];
+let cacheExpirationTime : number;
 
-      return { props: { expensiveBooks } };
+export async function getServerSideProps() {
+  const now = Date.now();
+
+  if (!cachedData || now > cacheExpirationTime) {
+    cachedData = await fetchHighPriceBooks(1, 6);
+    cacheExpirationTime = now + 2 * 60 * 60 * 1000; // cache expires in 2 hours
+    }
+
+  return { props: { expensiveBooks: cachedData } };
 }
 
 
 import AboutSection from "@/Components/About";
 import "react-toastify/dist/ReactToastify.css";
-import Hero from "@/Components/Hero";
 import Localisation from "@/Components/Localisation";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import Loading from "@/Components/ui/Loading";
-import { GetServerSidePropsContext } from "next";
 import { fetchHighPriceBooks } from "@/lib/helpers";
 import ExpensiveBooks from "@/Components/ExpensiveBooks";
 import styled from "styled-components";
@@ -27,13 +33,13 @@ export default function Home({expensiveBooks} : any) {
     // simulate page load delay
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 500);
   }, []);
   return <>
   <Head>
   <title>EMMAUS NAINTRE</title>
-  <link rel="icon" href="./logo.jpg" />
-  <meta property="og:image" content="https://emmtaboutique.com/logo.jpg"></meta>
+  <link rel="icon" href="https://emmtaboutique.com/logo.jpg" />
+  <meta property="og:image" content="https://emmtaboutique.com/emmaus1.jpg"></meta>
   <meta property="twitter:image" content="https://emmtaboutique.com/logo.jpg"></meta>
   <meta property="twitter:card" content="Emmaüs Naintré - Chatellerault "></meta>
   <meta property="twitter:title" content="La Boutique enligne Emmaüs Naintré"></meta>

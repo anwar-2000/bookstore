@@ -21,7 +21,7 @@ const zoomIn = keyframes`
     transform: scale(1.3);
   }
   100% {    
-    transform: scale(1.3);
+    transform: scale(2);
   }
 `;
 
@@ -29,17 +29,17 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: start;
-  margin-top : 10rem;
+  margin-top : 5rem;
   margin-left : 3rem;
   height: 100vh;
 
   @media screen and (max-width: 767px) {
-    margin-top : 16rem;
+    //margin-top : 16rem;
     margin-left : 1rem;
 }
 
   .loading-image {
-    animation: ${zoomIn} 5s ease-in-out;
+    animation: ${zoomIn} 400ms ease-in-out;
         width : 250px;
         mix-blend-mode : darken;
   }
