@@ -182,7 +182,7 @@ const Right = styled.div`
     }
     /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
-    transform : translateY(3rem);
+    transform : translateY(4.5rem);
   }
 
   /*styles for screens between 768px and 1024px */
