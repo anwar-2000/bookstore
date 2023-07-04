@@ -1,5 +1,5 @@
-//const BASE_URL:String ="https://emmtaboutique.com"
-const BASE_URL:String ="http://localhost:3000"
+const BASE_URL:String ="https://emmtaboutique.com"
+//const BASE_URL:String ="http://localhost:3000"
 
 
 export const fetchVetements = async (page = 1, limit = 10) => {
@@ -19,7 +19,6 @@ export const fetchVetements = async (page = 1, limit = 10) => {
     const data = await response.json();
     return data;
   };
-
 
 
  //posting a new book
