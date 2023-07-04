@@ -4,11 +4,13 @@ import styled from 'styled-components';
 
 const SectionContainer = styled.section`
   padding: 20px;
-
+  background : #ECD3C3;
+  width : 90vw;
 
   h1{
       font-size: 2.9rem;
-      font-weight: 400;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
         }
   `;
 
@@ -36,7 +38,9 @@ const ColumnsContainer = styled.div`
 
 const TextColumn = styled.div`
   flex: 1;
-  text-align : center;
+  text-align : start;
+     
+      font-family: 'Montserrat', sans-serif;
 `;
 
 const ImageColumn = styled.div`

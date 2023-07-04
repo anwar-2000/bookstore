@@ -84,7 +84,7 @@ const Dons: NextPage<MyPageProps>= ({ session }) => {
           <>
             <Items>
             {data.map((don:any , i : number) =>(
-                    <DonsCard don={don.dons} email={don.email} name={don.nom} numero={don.numero} prenom={don.prenom} key={i} />
+                    <DonsCard id={don._id} don={don.dons} email={don.email} name={don.nom} numero={don.numero} prenom={don.prenom} key={i} />
             ))}
             </Items>
           </>

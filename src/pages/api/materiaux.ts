@@ -1,6 +1,7 @@
+
 import {createMongoConnection} from "@/database/conn"
+import { deleteMateriaux, editMateriaux, postMateriaux, getMateriaux } from "@/database/materiauxControllers";
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { addRetour , deleteRetour, getAllRetour } from "@/database/Controllers";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -16,19 +17,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     switch(method){
       case 'GET' : 
-      getAllRetour(req,res)
+      getMateriaux(req,res)
       break;
           //res.status(200).json({method,name:'GET RESPONSE'});break;
       case 'POST' :
-        addRetour(req,res)
+        postMateriaux(req,res)
        // res.status(200).json({method,name:'POST RESPONSE'});
         break;
-        case 'DELETE' :
-          deleteRetour(req,res)
-         // res.status(200).json({method,name:'POST RESPONSE'});
-          break;
+      case 'PUT' :
+         editMateriaux(req,res)
+         // res.status(200).json({method,name:'PUT RESPONSE'});
+         break;
+      case 'DELETE' :
+            deleteMateriaux(req,res);
+           // res.status(200).json({method,name:'DELETE RESPONSE'});
+            break;
       default :
-            res.setHeader('Allow',['GET','POST',])
+            res.setHeader('Allow',['GET','POST','PUT','DELETE'])
             res.status(405).end(`Method ${method} is not ALLOWED`)
             break;
-    }}
+}}

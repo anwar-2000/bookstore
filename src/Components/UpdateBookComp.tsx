@@ -35,7 +35,11 @@ const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (Object.keys(formData).length === 0) {
-      return <h1>form empty</h1>;
+      toast.info('Le formulaire est vide !',{
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "colored"
+      });
+      return;
     }
     console.log(formData);
     await updateBook(bookId,formData);
@@ -44,6 +48,21 @@ const UpdateBookComp: FC<Props> = ({ existingData, onUpdate , bookId }) => {
       theme: "colored"
     });
     onUpdate();
+    setFormData({
+      titre: "",
+      auteur: "",
+      categorie: "",
+      imageUrl1: "",
+      imageUrl2: "",
+       imageUrl3: "",
+      description: "",
+      rating: 0,
+      quantite: 0,
+      etat: "",
+      prix: 0,
+      poids : 0,
+      slug: ""
+    })
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

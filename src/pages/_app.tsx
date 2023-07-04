@@ -17,6 +17,7 @@ import IWillGiveFunds from "@/Components/ui/IWillGiveFunds";
 
 
 import { Analytics } from '@vercel/analytics/react';
+import ProductsCatgeories from "@/Components/ui/ProductsCatgeories";
 
 //creating client
 const queryclient =  new QueryClient()
@@ -50,6 +51,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
       <SessionProvider session={pageProps.session}>
         <IWillGiveFunds />
         <NavBar />
+        <ProductsCatgeories />
         <MyApp Component={Component} pageProps={pageProps} router={router} />
         <Footer />
         <ToastContainer autoClose={4000}  key="unique_key" />

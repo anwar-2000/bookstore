@@ -6,6 +6,8 @@ import LesDonsBoutique from '@/models/LesDons';
 import BooksComments from '@/models/BooksComments'; 
 import ViewsModal from '@/models/Views';
 import LesRetour from '@/models/Retour';
+import Vetement from '@/models/Vetement';
+import Material from '@/models/Matriaux';
 
 //const BooksComments = mongoose.model('BooksComments')
 
@@ -137,15 +139,25 @@ export async function getSearchBooks(req: NextApiRequest, res: NextApiResponse) 
     let searchBooks;
     //console.error(searchParam , searchValue)
     if (searchParam && searchValue) {
-      searchBooks = await Livre.find(
-        { [searchParam]: { $regex: searchValue, $options: "i" } }, //case_in-sensative
-        { _id: 1, titre: 1, auteur: 1 , rating : 1 , imageUrl1 : 1 , prix : 1 }
-      );
+
+      if(searchParam === 'vetements'){
+        searchBooks = await Vetement.find(
+          { nom : { $regex: searchValue, $options: "i" } }, //case_in-sensative
+          { nom: 1, imageUrl1 : 1 , slug : 1 }
+        );
+      }else if(searchParam === "materiaux"){
+        searchBooks = await Material.find(
+          { nom : { $regex: searchValue, $options: "i" } }, //case_in-sensative
+          { nom: 1, imageUrl1 : 1 , slug :1 }
+        );
+      } else{
+        searchBooks = await Livre.find(
+          { [searchParam]: { $regex: searchValue, $options: "i" } }, //case_in-sensative
+          { _id: 1, titre: 1,  slug:1, imageUrl1 : 1  }
+        );
+      }
       //console.log("both params provided : " , searchBooks)
-    } else {
-      searchBooks = await Livre.find({}, { _id: 1, titre: 1, auteur: 1 , rating : 1 , imageUrl1 : 1 , prix : 1}).limit(10);
-      //console.log(" just one of the params provided : " , searchBooks)
-    }
+    } 
     if (!searchBooks) {
       res.status(404).json({ Error: "could not fetch from Search inputs" });
     }
@@ -256,6 +268,20 @@ export async function getDons (req: NextApiRequest, res: NextApiResponse) {
     }catch(err){
       return res.status(500).json({error :"error"});
     }
+}
+
+export async function deleteDon(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const {donId} = req.query;
+
+    if(donId){
+      const don = await LesDonsBoutique.findByIdAndDelete(donId)
+      return res.status(200).json(don)
+    }
+    res.status(404).json({error : "don Not Deleted"})
+  } catch (err) {
+    return res.status(500).json({ error: 'Error while Deleting the don' });
+  }
 }
 
 
@@ -421,4 +447,21 @@ export async function getAllRetour (req: NextApiRequest, res: NextApiResponse) {
     }catch(err){
       return res.status(500).json({error :"error"});
     }
+}
+
+export async function deleteRetour (req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const {retourId} = req.query;
+    console.log(retourId)
+    if(retourId){
+      const retour = await LesRetour.findOneAndDelete({ _id: retourId });
+      res.status(200).json(retour) // send comments data in the response
+    }else {
+      res.status(404).json('could not find retour id');   
+    }
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: "Error while deleting retour" });
+    res.end()
+  }
 }

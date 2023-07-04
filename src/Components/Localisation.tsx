@@ -4,7 +4,8 @@ import styled from 'styled-components';
 const Header = styled.h1`
   text-align: center;
   font-size: 2.9rem;
-  font-weight: 400;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
   margin-bottom : 2.5rem;
 
 `;

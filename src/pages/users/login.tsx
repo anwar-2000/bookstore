@@ -12,7 +12,7 @@ export default LoginPage
 
 const Container = styled.div`
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     margin-top: 5rem;
     min-height : 80vh;

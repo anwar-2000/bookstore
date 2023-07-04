@@ -1,5 +1,5 @@
 import { addBook } from '@/lib/helpers'
-import React, { FC, useReducer} from 'react'
+import React, { FC, useEffect, useReducer, useState} from 'react'
 import styled from 'styled-components'
 import {  toast ,} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,11 +26,19 @@ const formReducer = (state: Object, e: any) => {
 };
 
 const AddBookComp:FC<Props> = ({onAdd}) => {
+    const [load, setLoad] = useState(false)
+    useEffect(()=>{
+
+    },[load])
     const [formData,setFormData] = useReducer(formReducer,{}) 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-    if(Object.keys(formData).length == 0) {
-        return <h1>form empty</h1>
+    if(Object.keys(formData).length === 0) {
+      toast.info('Le formulaire est vide !',{
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "colored"
+      });
+      return;
     }
      //console.log(formData);
       const response =  await addBook(formData);
@@ -38,8 +46,8 @@ const AddBookComp:FC<Props> = ({onAdd}) => {
         position: toast.POSITION.TOP_RIGHT,
         theme: "colored"
       });}
+      setLoad(!load)
       onAdd()
-
       };
   return (
     <Container>

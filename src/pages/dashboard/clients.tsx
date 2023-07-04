@@ -12,7 +12,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return { props: { session } };
 }
 
-
 import { checkAdminStatus, fetchStripe } from "@/lib/helpers";
 import { Check, CircleSlashed } from "lucide-react";
 import { GetServerSidePropsContext, NextPage } from "next";

@@ -1,7 +1,9 @@
+import { deleteRetourHelper } from '@/lib/helpers';
 import React from 'react'
 import styled from 'styled-components'
 
 interface Props {
+    id : string;
     name : string ;
     email : string;
     address  : string;
@@ -10,7 +12,8 @@ interface Props {
     retour : string
 }
 
-const RetourCard:React.FC<Props> = ({name , address , email , numero , retour ,cause}) => {
+const RetourCard:React.FC<Props> = ({ id , name , address , email , numero , retour ,cause}) => {
+    console.log(id)
   return <Container>
             <Header>{name}</Header>
             <a href={`mailto:${email}`} style={{textDecoration : 'underline'}}><small>{email}</small></a>
@@ -20,7 +23,7 @@ const RetourCard:React.FC<Props> = ({name , address , email , numero , retour ,c
             </Description>
             <small>{cause}</small>
             <small>{address}</small>
-            <button>DELETE</button>
+            <button onClick={()=>deleteRetourHelper(id)}>DELETE</button>
   </Container>
 }
 

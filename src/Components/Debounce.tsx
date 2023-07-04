@@ -14,9 +14,10 @@ interface Props {
     resetValue : () => void;//empty value to hide the items after going to detail page
 }
 interface Book {
+    nom?:string,
     id : string;
-    _id : string;
-    titre : string;
+    slug : string;
+    titre? : string;
     imageUrl1 : string;
 }
 
@@ -63,15 +64,25 @@ const Debounce:React.FC<Props> = ({ searchParam, searchValue , resetValue}) => {
       fetchData();
     }, [debouncedValue]);
 
-    const handleClick = (bookId : string) => (event: React.MouseEvent<HTMLDivElement>) =>{
+    const handleClick = (book : Book) => (event: React.MouseEvent<HTMLDivElement>) =>{
         resetValue()
-        router.push(`/details/${bookId}`)
+
+        let url = '/details'
+
+        if(searchParam === "vetements"){
+          url=`/articles/details/${searchParam}`
+        }
+        if(searchParam === "materiaux"){
+          url=`/articles/details/${searchParam}`
+        }
+        router.push(`${url}/${book.slug}`)
     }
   return (<Container>
     <SimpleBar style={{ maxHeight: 300 }}>
       {!isLoading && books.map((book : Book) => (
-      <Item key={book.id} onClick={handleClick(book._id)}>
+      <Item key={book.id} onClick={handleClick(book)}>
         <img src={book.imageUrl1} alt={book.titre} />
+        {book.nom}
         {book.titre}
         </Item>
     ))}
@@ -117,5 +128,6 @@ const Item = styled.div`
         margin-right : 0.8rem;
         width : 60px;
         height : 60px;
+        border-radius : 10px;
     }
 `

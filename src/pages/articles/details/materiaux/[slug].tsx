@@ -1,29 +1,30 @@
-import { GetServerSidePropsContext, GetStaticProps } from 'next'
+import { GetServerSidePropsContext } from 'next'
+import { getSession } from 'next-auth/react'
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const slug = context.params?.slug as string;
   //console.log('SLUG IS',slug)
   // Fetch book and views in parallel using Promise.all
-  const [book, views] = await Promise.all([
-    fetchBook(slug),
+  const [cuir, views] = await Promise.all([
+    fetchMaterial(slug),
     fetchViews(slug)
   ]);
 
-  const data = book; 
-  //console.log(data)
-
+  const data = cuir;
+   
+  
+  const session = await getSession(context);
 
   return {
-    props: { data,  slug, views }
+    props: { data, session, slug, views }
   };
 }
-
   
 
  import React, { useEffect, useState } from "react";
   import styled from "styled-components";
-  import { addViewerToBook, fetchBook, fetchComments, fetchViews } from "@/lib/helpers";
+  import { addViewerToBook, fetchComments, fetchViews } from "@/lib/helpers";
   import { NextPage } from "next";
 import { Eye } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,176 +39,156 @@ import AddCommentComp from '@/Components/addCommentComp'
 
 import Link from 'next/link';
 import { SET_LIVRAISON } from '@/redux/reducers/Toggle';
+import { fetchMaterial } from '@/lib/materiauxHelpers';
 
 
-interface Book {
-    _id : string;
-    titre: string;
-    auteur: string;
-    description: string;
-    etat : string;
-    prix: number;
-    imageUrl1: string;
-    imageUrl2 : string;
-    imageUrl3 : string;
-    vendu : boolean,
-    status: string;
-    quantite : number,
-    date: Date;
-    rating: number;
-    poids : number;
-    date_du_livre : string,
-    categorie : string
-  }
+interface Produit {
+  _id : string;
+  nom: string;
+  description: string;
+  price: number;
+  imageUrl1: string;
+  imageUrl2 : string;
+  imageUrl3 : string;
+  vendu : boolean,
+  poids : number;
+  color : string;
+  size ?: string;
+}
 
   interface MyPageProps {
-    data: Book;
+    data: Produit;
     session : any;
     slug : string;
     views : number
   }
-const Index: NextPage<MyPageProps> = ({ data  , slug , views }) => {
-/**
- * 
- * fetching for comments based on if the user clicked or not
- */
-  const [comments, setComments] = useState([]);
-  const [toggleComments,setToggleComments]=useState<boolean>(false)
-
-/** //////////// for the free shipping ////////////*/
-
-const {isChecked} = useSelector((state:any)=>state.cart);
-//console.log("in details",isChecked)
-/****************************************** */
-
-const [isCheckedMondialRelay, setIsCheckedMondialRelay] = useState(false);
-const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
-
-
-
-  const handleFetchComments = async () => {
-    try {
-      const commentsData = await fetchComments(slug); 
-      setComments(commentsData);
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-    }
-  setToggleComments(true)
-  };
-
-  function refetch(){
-    handleFetchComments()
-  }
-    
-
-
-    const dispatch = useDispatch();
-    //console.log("***************" ,slug)
-
-
-  const [date,setDate] = useState<string>('')
+  const Index: NextPage<MyPageProps> = ({ data  , slug , views }) => {
+    //console.log(data)
   /**
    * 
-   * FORMATTING THE DATE
+   * fetching for comments based on if the user clicked or not
    */
-    useEffect(()=>{
-        const dateString = data.date;
-        const date = new Date(dateString);
-
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const year = date.getFullYear().toString().slice(-4);
-
-        setDate(`${day}-${month}-${year}`)
-
-    },[data.date]);
-
-    /**
-     * 
-     * ADD VIEWER COUNT TO BOOK -- DONE
-     */
-    useEffect(()=>{
-      addViewerToBook(slug)
-    },[]);
-
-  const { total } = useSelector((state: any) => state.cart);
-  const {showOptions} = useSelector((state:any)=>state.toggle);
-
-
-  let book = {
-    _id : data._id,
-    titre : data.titre,
-    prix : data.prix,
-    image : data.imageUrl1,
-    poids : data?.poids,
-    quantite : data.quantite,
-    total
-   }
-
-  const handleChatelleraultChange = () => {
-    dispatch(ChangeChecked());
-    setIsCheckedColissimo(false)
-    setIsCheckedMondialRelay(false)
-    
-    //recalculate logic
-    dispatch(reCalculate())
-
-
-    dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
-  }
-
-   const handleMondialRelayBox = () => {
-    dispatch(ChangeChecked());
-    setIsCheckedMondialRelay(true);
-    setIsCheckedColissimo(false);
-    dispatch(changeLivreur({type : "MONDIAL"}))
-    
-
-    //recalculate logic
-    dispatch(reCalculate())
-
-    dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
-  };
-
-  const handleColissimoBox = () => {
-    dispatch(ChangeChecked());
-    setIsCheckedMondialRelay(false);
-    setIsCheckedColissimo(true);
-    dispatch(changeLivreur({type : "COLISSIMO"}))
-
-    
-    //recalculate logic
-    dispatch(reCalculate())
-
-    dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
-  };
-
-
-
+    const [comments, setComments] = useState([]);
+    const [toggleComments,setToggleComments]=useState<boolean>(false)
   
-  const handleClickPanier = () => {
-     
-     //console.log( 'PANIER : ',book)
-     dispatch(AddToCart(book))
-     dispatch(calculateTotal())
-
-    toast.info(` le livre ${book.titre}  de Poids : ${book.poids} Kg est dans votre panier `,{
-      position: toast.POSITION.TOP_RIGHT,
-      theme: "colored",
-    });
-  };
-
-
- 
-
+  /** //////////// for the free shipping ////////////*/
+  
+  const {isChecked} = useSelector((state:any)=>state.cart);
+  //console.log("in details",isChecked)
+  /****************************************** */
+  
+  const [isCheckedMondialRelay, setIsCheckedMondialRelay] = useState(false);
+  const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
+  
+  
+  
+    const handleFetchComments = async () => {
+      try {
+        const commentsData = await fetchComments(slug); 
+        setComments(commentsData);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    setToggleComments(true)
+    };
+  
+    function refetch(){
+      handleFetchComments()
+    }
+      
+  
+  
+      const dispatch = useDispatch();
+      //console.log("***************" ,slug)
+  
+  
+    const [date,setDate] = useState<string>('')
+  
+      /**
+       * 
+       * ADD VIEWER COUNT TO BOOK -- DONE
+       */
+      useEffect(()=>{
+        addViewerToBook(slug)
+      },[]);
+  
+    const { total } = useSelector((state: any) => state.cart);
+    const {showOptions} = useSelector((state:any)=>state.toggle);
+  
+  
+    let produits = {
+      _id : data._id,
+      titre : data.nom,
+      prix : data.price,
+      image : data.imageUrl1,
+      poids : data?.poids,
+      total
+     }
+  
+    const handleChatelleraultChange = () => {
+      dispatch(ChangeChecked());
+      setIsCheckedColissimo(false)
+      setIsCheckedMondialRelay(false)
+      
+      //recalculate logic
+      dispatch(reCalculate())
+  
+  
+      dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
+    }
+  
+     const handleMondialRelayBox = () => {
+      dispatch(ChangeChecked());
+      setIsCheckedMondialRelay(true);
+      setIsCheckedColissimo(false);
+      dispatch(changeLivreur({type : "MONDIAL"}))
+      
+  
+      //recalculate logic
+      dispatch(reCalculate())
+  
+      dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
+    };
+  
+    const handleColissimoBox = () => {
+      dispatch(ChangeChecked());
+      setIsCheckedMondialRelay(false);
+      setIsCheckedColissimo(true);
+      dispatch(changeLivreur({type : "COLISSIMO"}))
+  
+      
+      //recalculate logic
+      dispatch(reCalculate())
+  
+      dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
+    };
+  
+  
+  
+    
+    const handleClickPanier = () => {
+       
+       //console.log( 'PANIER : ',book)
+       dispatch(AddToCart(produits))
+       dispatch(calculateTotal())
+  
+      toast.info(` le livre ${produits.titre}  de Poids : ${produits.poids} Kg est dans votre panier `,{
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "colored",
+      });
+    };
+  
+  
+   
+  
+  
 
   return <>
     <Head>
-      <title>{data.titre}</title>
+      <title>{data.nom}</title>
       <link rel="icon" href={data.imageUrl1} />
       <meta name="description" content="La boutique des livres Emmaus Chatellerault vend ses livres rares, ses BD, ses livres de poche à un prix compétitif."  />
       <meta name="keywords" content="Livres Rares,livres Anciens,Les BD,Livres Francais,Lives,Rares,Ancien,BD" />
-      <meta name="author" content={data?.auteur} />
       <meta property="og:title" content="Emmaus- Boutique chatellerault" />
       <meta property="og:description" content={data.description} />
     </Head>
@@ -219,29 +200,22 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
     <Section>
         <Container className="content">
           <Right>
-            <SwiperComponent imageUrl1={data.imageUrl1} imageUrl2={data.imageUrl2} imageUrl3={data.imageUrl3} titre={data.titre}/>
+            <SwiperComponent imageUrl1={data.imageUrl1} imageUrl2={data.imageUrl2} imageUrl3={data.imageUrl3} titre={data.nom}/>
             </Right>
           <Left>
             <div className="infos">
-              <h1>{data.titre}</h1>
-              <small>
-                <span>Auteur :</span> {data.auteur}
-              </small>
+              <h1>{data.nom}</h1>
               <details>
                 <summary>Description :</summary>
                <p>{data.description}</p>
               </details>
-              <details>
-                <summary>Etat :</summary>
-               <p>{data.etat}</p>
-              </details>
               <h6>
                 <span>Prix :</span>
-                <span className='font-thin '> {data.prix} €</span> 
+                <span className='font-thin '> {data.price} €</span> 
               </h6>
-              <small>
-                <span >Il reste <span className='text-blue-500'>{data.quantite} </span>  dans la boutique</span> 
-              </small>
+              <h6>
+                <span>couleur&apos;s&apos; :</span>{data.color} 
+              </h6>
               <h6>
                 <span>Poids :</span>{data.poids} Kg 
               </h6>
@@ -300,7 +274,7 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
 export default Index;
 
 const Section = styled.section`
- 
+  min-height : 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;

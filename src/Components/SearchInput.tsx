@@ -8,11 +8,10 @@ import Debounce from './Debounce'
 const SearchInput:FC = ({}) => {
     const [searchValue,setSearchValue] = useState<string>('')
     const [searchParam,setSearchParam] = useState<string>('titre')
-    const router = useRouter();
-    const searchInput = useRef<HTMLInputElement>(null)
+    const searchInput = useRef(null)
 
-    const changeParamHandler = () =>{
-        if (searchParam === 'titre') {setSearchParam('auteur')} else {setSearchParam('titre')}
+    const changeParamHandler = (e:any) =>{
+        setSearchParam(e.target.value)
     }
     const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) =>{
         setSearchValue(event.target.value);
@@ -21,13 +20,17 @@ const SearchInput:FC = ({}) => {
   <Container>
   <InputContainer>
     <select
+     
         value={searchParam}
+
         onChange={changeParamHandler}
         className="bg-transparent  text-slate-700 rounded-lg p-2"
       >
         <option value="">Select an option</option>
         <option value="auteur">Auteur</option>
         <option value="titre">Titre</option>
+        <option value="vetements">Vetements</option>
+        <option value="materiaux">Materiaux</option>
       </select>
     <div id='inputs'>
              <div className='inputs2'>
@@ -37,7 +40,7 @@ const SearchInput:FC = ({}) => {
                 autoComplete="false"
                 onChange={changeHandler}
                 value={searchValue}
-                placeholder="livre / auteur ..."
+                placeholder="livres / vetements ..."
                 className="md:p-2 m-2 rounded outline-none border-l-stone-900  bg-transparent text-slate-700 placeholder:text-slate-700 placeholder-shown:border-none focus:border-none block"
                 />
               <Search strokeWidth="4" color='black'  className="cursor-pointer block" />
@@ -98,6 +101,7 @@ const InputContainer = styled.div`
 
   select {
     border: solid 1.5px black;
+    
     padding: 1.1rem;
     border-radius: 10px;
     @media screen and (max-width: 768px) {
