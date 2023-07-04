@@ -8,9 +8,9 @@ import { useRouter } from 'next/router';
 const Infos = {
     
     images : [
-        'https://scontent-cdg4-1.xx.fbcdn.net/v/t39.30808-6/310851962_219997220357495_1335150304860865503_n.jpg?stp=cp6_dst-jpg&_nc_cat=102&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=-kj1B7_oTa4AX-wdJMT&_nc_ht=scontent-cdg4-1.xx&oh=00_AfAqBcqMBuQCPoxeR8Ayhm27BBl7Kx6uivzfx_99gYUVxQ&oe=64A365EF',
-      'https://scontent-cdg4-3.xx.fbcdn.net/v/t39.30808-6/312782248_221469720210245_322048792218595200_n.jpg?stp=cp6_dst-jpg&_nc_cat=104&ccb=1-7&_nc_sid=730e14&_nc_ohc=gaB5Rrdw06kAX9TJ_L-&_nc_ht=scontent-cdg4-3.xx&oh=00_AfCIFnsuSB2nOvup6j4Bbtn8oIXg7eFbPymGsNn7vvnF9g&oe=64A362A2',
-      'https://scontent-cdg4-2.xx.fbcdn.net/v/t1.6435-9/69293795_2385081864943794_5215617712268509184_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=cdbe9c&_nc_ohc=JEmVEHUm8a0AX-7tx5U&_nc_ht=scontent-cdg4-2.xx&oh=00_AfAxZAv9IOADJtnn2Dq-53R-lpxKSc-anzFacCsBJ4KaZg&oe=64C63977'
+      '/photo1.jpg',
+      '/photo2.jpg',
+      'https://scontent-cdg4-1.xx.fbcdn.net/v/t39.30808-6/310851962_219997220357495_1335150304860865503_n.jpg?stp=cp6_dst-jpg&_nc_cat=102&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=-kj1B7_oTa4AX-wdJMT&_nc_ht=scontent-cdg4-1.xx&oh=00_AfAqBcqMBuQCPoxeR8Ayhm27BBl7Kx6uivzfx_99gYUVxQ&oe=64A365EF',
     ],
     texts : [
       'Livres',

@@ -29,16 +29,18 @@ import FinalHero from "@/Components/FinalHero";
 
 export default function Home({expensiveBooks} : any) {
   const [isLoading, setIsLoading] = useState(true);
+  const [animationCount, setAnimationCount] = useState(0);
   useEffect(() => {
     // simulate page load delay
     setTimeout(() => {
       setIsLoading(false);
     }, 500);
+    setAnimationCount(1)
   }, []);
   return <>
   <Head>
   <title>EMMAUS NAINTRE</title>
-  <link rel="icon" href="https://emmtaboutique.com/logo.jpg" />
+  <link rel="icon" href="https://emmtaboutique.com/emmaus.jpg" />
   <meta property="og:image" content="https://emmtaboutique.com/emmaus1.jpg"></meta>
   <meta property="twitter:image" content="https://emmtaboutique.com/logo.jpg"></meta>
   <meta property="twitter:card" content="Emmaüs Naintré - Chatellerault "></meta>
@@ -52,7 +54,7 @@ export default function Home({expensiveBooks} : any) {
   <meta property="og:description" content="La boutique des livres Emmaus Naintré propose des livres rares, anciens, des bandes dessinées (BD) et des livres de poche à des prix compétitifs." />
 </Head>
 
-        { isLoading ? <Loading />
+        { isLoading && animationCount == 0 ? <Loading />
         : <Container>
         <FinalHero />
         <ExpensiveBooks expensiveBooks={expensiveBooks} />
