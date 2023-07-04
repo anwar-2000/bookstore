@@ -6,7 +6,7 @@ This project is a web application for a bookstore that sells books and clothing 
 
 ## Installation
 
-1. Clone the repository: git clone https://github.com/your-username/bookstore.git
+1. Clone the repository: git clone https://github.com/anwar-2000/bookstore.git
 2. Navigate to the project directory: cd bookstore
 3. npm install
 4. Configure environment variables:
