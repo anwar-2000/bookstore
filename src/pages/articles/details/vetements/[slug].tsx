@@ -1,27 +1,4 @@
-import { GetServerSidePropsContext } from 'next'
-import { getSession } from 'next-auth/react'
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-
-  const slug = context.params?.slug as string;
-  //console.log('SLUG IS',slug)
-  // Fetch book and views in parallel using Promise.all
-  const [book, views] = await Promise.all([
-    fetchVetement(slug),
-    fetchViews(slug)
-  ]);
-
-  const data = book; 
-  //console.log(data)
-  const session = await getSession(context);
-
-  return {
-    props: { data, session, slug, views }
-  };
-}
-  
-
- import React, { useEffect, useState } from "react";
+  import React, { useEffect, useState } from "react";
   import styled from "styled-components";
   import { addViewerToBook, fetchComments, fetchViews } from "@/lib/helpers";
   import { NextPage } from "next";
@@ -39,6 +16,9 @@ import AddCommentComp from '@/Components/addCommentComp'
 import Link from 'next/link';
 import { SET_LIVRAISON } from '@/redux/reducers/Toggle';
 import { fetchVetement } from '@/lib/vetementHelpers';
+import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
+import LoadingDetails from "@/Components/LoadingDetails";
 
 
 interface Produit {
@@ -55,13 +35,27 @@ interface Produit {
   size : string;
 }
 
-  interface MyPageProps {
-    data: Produit;
-    session : any;
-    slug : string;
-    views : number
-  }
-  const Index: NextPage<MyPageProps> = ({ data  , slug , views }) => {
+interface MyPageProps {
+  data : Produit
+  views : number
+}
+  const Index: NextPage<MyPageProps> = () => {
+    const router = useRouter();
+    const slug = router.query.slug as string;
+    const { data, isLoading } = useQuery<MyPageProps>(
+      ['VETEMENTdATA', slug],
+      async () => {
+        const [data, views] = await Promise.all([
+          fetchVetement(slug),
+          fetchViews(slug),
+        ]);
+  
+        return { data, views };
+      },
+      {
+        staleTime: 60 * 60 * 1000, // cache expires in 1 hour
+      }
+    );
     //console.log(data)
   /**
    * 
@@ -115,14 +109,15 @@ interface Produit {
     const {showOptions} = useSelector((state:any)=>state.toggle);
   
   
+    
     let produits = {
-      _id : data._id,
-      titre : data.nom,
-      prix : data.price,
-      image : data.imageUrl1,
-      poids : data?.poids,
-      total
-     }
+      _id: data?.data._id,
+      titre: data?.data.nom,
+      prix: data?.data.price,
+      image: data?.data.imageUrl1,
+      poids: data?.data.poids,
+      total,
+    };
   
     const handleChatelleraultChange = () => {
       dispatch(ChangeChecked());
@@ -182,40 +177,39 @@ interface Produit {
   
   
     return <>
-      <Head>
-        <title>{data.nom}</title>
-        <link rel="icon" href={data.imageUrl1} />
-        <meta name="description" content="La boutique des livres Emmaus Chatellerault vend ses livres rares, ses BD, ses livres de poche à un prix compétitif."  />
-        <meta name="keywords" content="Livres Rares,livres Anciens,Les BD,Livres Francais,Lives,Rares,Ancien,BD" />
-        <meta property="og:title" content="Emmaus- Boutique chatellerault" />
-        <meta property="og:description" content={data.description} />
-      </Head>
+        <Head>
+      <title>{data?.data.nom}</title>
+      <link rel="icon" href={data?.data.imageUrl1} />
+      <meta name="description" content="La boutique des livres Emmaus Chatellerault vend ses livres rares, ses BD, ses livres de poche à un prix compétitif."  />
+      <meta name="keywords" content="Livres Rares,livres Anciens,Les BD,Livres Francais,Lives,Rares,Ancien,BD" />
+      <meta property="og:title" content="Emmaus- Boutique chatellerault" />
+      <meta property="og:description" content={data?.data.description} />
+    </Head>
   
   
   
-  
-  
+     
       <Section>
-          <Container className="content">
+        { isLoading ? <LoadingDetails /> :  <Container className="content">
             <Right>
-              <SwiperComponent imageUrl1={data.imageUrl1} imageUrl2={data.imageUrl2} imageUrl3={data.imageUrl3} titre={data.nom}/>
+              <SwiperComponent imageUrl1={data?.data.imageUrl1 as string } imageUrl2={data?.data.imageUrl2 as string} imageUrl3={data?.data.imageUrl3 as string} titre={data?.data.nom as string}/>
               </Right>
             <Left>
               <div className="infos">
-                <h1>{data.nom}</h1>
+                <h1>{data?.data.nom}</h1>
                 <details>
                   <summary>Description :</summary>
-                 <p>{data.description}</p>
+                 <p>{data?.data.description}</p>
                 </details>
                 <h6>
                   <span>Prix :</span>
-                  <span className='font-thin '> {data.price} €</span> 
+                  <span className='font-thin '> {data?.data.price} €</span> 
                 </h6>
                 <h6>
-                  <span>Couleur&apos;s&apos; :</span>{data.color}  
+                  <span>Couleur&apos;s&apos; :</span>{data?.data.color}  
                 </h6>
                 <h6>
-                  <span>Poids :</span>{data.poids} Kg 
+                  <span>Poids :</span>{data?.data.poids} Kg 
                 </h6>
   
                   { showOptions && <div>
@@ -242,10 +236,10 @@ interface Produit {
                   </div>
                  <div className="rating">
                  <Eye id="star"  color="black"/>
-                  <h6>{views}</h6>
+                  <h6>{data?.views}</h6>
                 </div>
               </div>
-             { data?.vendu === false ? <div className="buttons">
+             { data?.data.vendu === false ? <div className="buttons">
                 <button onClick={handleClickPanier}>Ajouter au Panier</button>
                 <button style={{cursor : 'not-allowed'}}>Faire une offre</button>
               </div> : (
@@ -255,17 +249,18 @@ interface Produit {
               <button onClick={handleFetchComments} className="buttonComments">Afficher les Commentaires</button>
             </Left>
   
-          </Container>
+          </Container>}
          
       </Section>
-      <CommentsContainer>
+     { !isLoading && <CommentsContainer>
         {toggleComments &&  <AddCommentComp onAdd={refetch} slug={slug} />}
         {comments.length > 0 && 
             comments.map((item:any,i:number)=>(
               <Comments onLike={refetch} comment={item} key={i}/>
             ))
         }
-      </CommentsContainer>
+      </CommentsContainer>}
+      
       </>;
   };
   

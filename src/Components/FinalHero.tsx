@@ -15,7 +15,7 @@ const Infos = {
     texts : [
       'Livres',
       'Vêtements',
-      'Materieux Cuirs',
+      'Materiaux Cuir',
       'Divers Livres & ...'
     ]
   }
@@ -35,7 +35,7 @@ const FinalHero = () => {
   return <Container>
         <Left>
             <h1>
-               La Boutique Emmaüs Naintré vous vends <br/>  ses <span style={{color : 'black'}}>{Infos.texts[activeIndex]} </span>
+               La Boutique Emmaüs Naintré vous vend <br/>  ses <span style={{color : 'black'}}>{Infos.texts[activeIndex]} </span>
             </h1>
             <button onClick={()=>router.push('/all')}>Voir Nos Livres</button>
         </Left>

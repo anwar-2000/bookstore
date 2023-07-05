@@ -54,7 +54,7 @@ const ProductsItem:FC<Props> = ({title , image , color , size , prix , ...rest})
     };
   return <Container {...rest}>
         <div className='image__rating'>
-                <img src={image} alt={title} id="imgg" aria-details={title} title={title} loading="lazy"/>
+                <img src={image} alt={title} id="imgg" aria-details={title} title={title} />
         </div>
        {/* <div className='rating'> 
                <Star fill="yellow" color='black'  size={15} /><h6>{rating}</h6>

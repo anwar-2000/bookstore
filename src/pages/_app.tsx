@@ -30,7 +30,6 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       disable: 'phone' ,
     });
   },[])
-
   return (
     <>
     <Container>

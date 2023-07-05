@@ -10,10 +10,10 @@ const ProductsCatgeories = () => {
   return <Categorie>
  
   <div className='card cuirs'  onClick={()=>router.push('/articles/categorie/Cuirs')}>
-      <h1>Matériaux Cuirs</h1>
+      <h1>Matériaux Cuir</h1>
   </div>
   <div className='card Divers'  onClick={()=>router.push('/articles/categorie/Divers')}>
-      <h1>Divers</h1>
+      <h1> Livres Divers</h1>
   </div>
   <div className='card BD'  onClick={()=>router.push('/articles/categorie/BD')}>
       <h1>BD</h1>
@@ -47,11 +47,12 @@ const Categorie = styled.div`
         font-size : 16px;
         h1 {
             opacity : 0;
+            text-align : center;
+            
         }
         background-size : cover;
         border : solid 1px black;
         border-radius : 10px;
-        text-align : center;
         cursor : pointer;
         transition : all ease 400ms;
         
@@ -67,6 +68,7 @@ const Categorie = styled.div`
            /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
            width : 8rem;
+           height : 4rem;
   }
 
   /* styles for screens between 768px and 1024px */
@@ -88,10 +90,10 @@ const Categorie = styled.div`
         background-image : url('https://th.bing.com/th/id/R.f4b2532e6d87f7e977839508ba74b55a?rik=Wq4wNrUOsxCCQA&pid=ImgRaw&r=0');
     }
     .vetements{
-        background-image : url('https://images.wave.fr/images/demna-gvasalia-vetements.jpg');
+        background-image : url('https://th.bing.com/th/id/OIP.rFmGh74dla9UZwFUMH-KWwHaF9?pid=ImgDet&rs=1');
     }
     .Divers{
-        background-image : url('https://th.bing.com/th/id/OIP.asQK-53rcjr5WaJw_BapcgHaHa?pid=ImgDet&rs=1');
+        background-image : url('https://www.balsanencheres.com/uploads/auctions/22/-749120142.jpg');
     }
     .BD{
         background-image : url('https://th.bing.com/th/id/OIP.iGlt5FHMzBKy9BR99vs4dgHaJ-?pid=ImgDet&rs=1');

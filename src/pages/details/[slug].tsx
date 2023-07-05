@@ -1,26 +1,3 @@
-import { GetServerSidePropsContext, GetStaticProps } from 'next'
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-
-  const slug = context.params?.slug as string;
-  //console.log('SLUG IS',slug)
-  // Fetch book and views in parallel using Promise.all
-  const [book, views] = await Promise.all([
-    fetchBook(slug),
-    fetchViews(slug)
-  ]);
-
-  const data = book; 
-  //console.log(data)
-
-
-  return {
-    props: { data,  slug, views }
-  };
-}
-
-  
-
  import React, { useEffect, useState } from "react";
   import styled from "styled-components";
   import { addViewerToBook, fetchBook, fetchComments, fetchViews } from "@/lib/helpers";
@@ -38,6 +15,9 @@ import AddCommentComp from '@/Components/addCommentComp'
 
 import Link from 'next/link';
 import { SET_LIVRAISON } from '@/redux/reducers/Toggle';
+import { useQuery } from "react-query";
+import { useRouter } from "next/router";
+import LoadingDetails from "@/Components/LoadingDetails";
 
 
 interface Book {
@@ -61,12 +41,26 @@ interface Book {
   }
 
   interface MyPageProps {
-    data: Book;
-    session : any;
-    slug : string;
+    data : Book
     views : number
   }
-const Index: NextPage<MyPageProps> = ({ data  , slug , views }) => {
+    const Index: NextPage<MyPageProps> = () => {
+      const router = useRouter();
+      const slug = router.query.slug as string;
+      const { data, isLoading } = useQuery<MyPageProps>(
+        ['BooksData', slug],
+        async () => {
+          const [data, views] = await Promise.all([
+            fetchBook(slug),
+            fetchViews(slug),
+          ]);
+    
+          return { data, views };
+        },
+        {
+          staleTime: 60 * 60 * 1000, // cache expires in 1 hour
+        }
+      );
 /**
  * 
  * fetching for comments based on if the user clicked or not
@@ -105,23 +99,7 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
     //console.log("***************" ,slug)
 
 
-  const [date,setDate] = useState<string>('')
-  /**
-   * 
-   * FORMATTING THE DATE
-   */
-    useEffect(()=>{
-        const dateString = data.date;
-        const date = new Date(dateString);
-
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const year = date.getFullYear().toString().slice(-4);
-
-        setDate(`${day}-${month}-${year}`)
-
-    },[data.date]);
-
+  
     /**
      * 
      * ADD VIEWER COUNT TO BOOK -- DONE
@@ -135,12 +113,12 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
 
 
   let book = {
-    _id : data._id,
-    titre : data.titre,
-    prix : data.prix,
-    image : data.imageUrl1,
-    poids : data?.poids,
-    quantite : data.quantite,
+    _id : data?.data._id,
+    titre : data?.data.titre,
+    prix : data?.data.prix,
+    image : data?.data.imageUrl1,
+    poids : data?.data.poids,
+    quantite : data?.data.quantite,
     total
    }
 
@@ -203,13 +181,13 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
 
   return <>
     <Head>
-      <title>{data.titre}</title>
-      <link rel="icon" href={data.imageUrl1} />
+      <title>{data?.data.titre}</title>
+      <link rel="icon" href={data?.data.imageUrl1} />
       <meta name="description" content="La boutique des livres Emmaus Chatellerault vend ses livres rares, ses BD, ses livres de poche à un prix compétitif."  />
       <meta name="keywords" content="Livres Rares,livres Anciens,Les BD,Livres Francais,Lives,Rares,Ancien,BD" />
-      <meta name="author" content={data?.auteur} />
+      <meta name="author" content={data?.data.auteur} />
       <meta property="og:title" content="Emmaus- Boutique chatellerault" />
-      <meta property="og:description" content={data.description} />
+      <meta property="og:description" content={data?.data.description} />
     </Head>
 
 
@@ -217,33 +195,33 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
 
 
     <Section>
-        <Container className="content">
+       { isLoading ? <LoadingDetails /> : <Container className="content">
           <Right>
-            <SwiperComponent imageUrl1={data.imageUrl1} imageUrl2={data.imageUrl2} imageUrl3={data.imageUrl3} titre={data.titre}/>
+            <SwiperComponent imageUrl1={data?.data.imageUrl1 as string} imageUrl2={data?.data.imageUrl2 as string} imageUrl3={data?.data.imageUrl3 as string} titre={data?.data.titre as string}/>
             </Right>
           <Left>
             <div className="infos">
-              <h1>{data.titre}</h1>
+              <h1>{data?.data.titre}</h1>
               <small>
-                <span>Auteur :</span> {data.auteur}
+                <span>Auteur :</span> {data?.data.auteur}
               </small>
               <details>
                 <summary>Description :</summary>
-               <p>{data.description}</p>
+               <p>{data?.data.description}</p>
               </details>
               <details>
                 <summary>Etat :</summary>
-               <p>{data.etat}</p>
+               <p>{data?.data.etat}</p>
               </details>
               <h6>
                 <span>Prix :</span>
-                <span className='font-thin '> {data.prix} €</span> 
+                <span className='font-thin '> {data?.data.prix} €</span> 
               </h6>
               <small>
-                <span >Il reste <span className='text-blue-500'>{data.quantite} </span>  dans la boutique</span> 
+                <span >Il reste <span className='text-blue-500'>{data?.data.quantite} </span>  dans la boutique</span> 
               </small>
               <h6>
-                <span>Poids :</span>{data.poids} Kg 
+                <span>Poids :</span>{data?.data.poids} Kg 
               </h6>
 
                 { showOptions && <div>
@@ -270,10 +248,10 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
                 </div>
                <div className="rating">
                <Eye id="star"  color="black"/>
-                <h6>{views}</h6>
+                <h6>{data?.views}</h6>
               </div>
             </div>
-           { data?.vendu === false ? <div className="buttons">
+           { data?.data.vendu === false ? <div className="buttons">
               <button onClick={handleClickPanier}>Ajouter au Panier</button>
               <button style={{cursor : 'not-allowed'}}>Faire une offre</button>
             </div> : (
@@ -283,17 +261,18 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
             <button onClick={handleFetchComments} className="buttonComments">Afficher les Commentaires</button>
           </Left>
 
-        </Container>
+        </Container>}
        
     </Section>
-    <CommentsContainer>
+   { !isLoading && <CommentsContainer>
       {toggleComments &&  <AddCommentComp onAdd={refetch} slug={slug} />}
       {comments.length > 0 && 
           comments.map((item:any,i:number)=>(
             <Comments onLike={refetch} comment={item} key={i}/>
           ))
       }
-    </CommentsContainer>
+    </CommentsContainer>}
+
     </>;
 };
 
