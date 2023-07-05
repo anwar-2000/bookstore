@@ -50,6 +50,7 @@ export async function getMateriaux(req: NextApiRequest, res: NextApiResponse) {
   export async function postMateriaux(req: NextApiRequest, res: NextApiResponse) {
     try {
       const formData = req.body;
+      console.log(formData);
       if (!formData) {
         return res.status(404).json({ error: 'Form Data not provided' });
       }

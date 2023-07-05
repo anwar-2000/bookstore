@@ -38,10 +38,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   };
 }
 
-
-
-
-
 import BookItemSecond from '@/Components/ui/BookItemSecond'
 import LoadingCards from '@/Components/ui/LoadingCards';
 import ProductsItem from '@/Components/ui/ProductsItem';

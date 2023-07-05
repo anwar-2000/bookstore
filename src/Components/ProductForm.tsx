@@ -55,23 +55,22 @@ const ProductForm = ({ onSubmit , size }: Props) => {
     }
     
      if(size){
-        const response =  await addVetement(formData);
-      if(response){toast.success('book Added Successfully',{
+      const response =  await addVetement(formData);
+      if(response){toast.success('Produit Ajouté',{
         position: toast.POSITION.TOP_RIGHT,
         theme: "colored"
       });}
       setLoad(!load)
-      onSubmit()
-     }else{
-      const response =  await addMateriaux(formData);
-      if(response){toast.success('book Added Successfully',{
-        position: toast.POSITION.TOP_RIGHT,
-        theme: "colored"
-      });}
-      setLoad(!load)
-      onSubmit()
+      onSubmit();
+      return ;
      }
-      
+      const response =  await addMateriaux(formData);
+      if(response){toast.success('Produit Ajouté',{
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "colored"
+      });}
+      setLoad(!load)
+      onSubmit()      
     
   };
 
@@ -165,7 +164,7 @@ const ProductForm = ({ onSubmit , size }: Props) => {
           <Grid item xs={12} sm={6}>
             <TextField
               label="Couleur"
-              name="colour"
+              name="color"
               value={formData.color}
               onChange={handleInputChange}
               fullWidth

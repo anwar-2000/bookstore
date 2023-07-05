@@ -30,6 +30,7 @@ export const addMateriaux = async (formData:Object) => {
             headers :{ "Content-Type" : "application/json"},
             body : JSON.stringify(formData)
         }
+      //  console.log('HELPERS' , formData)
         const response = await fetch(`${BASE_URL}/api/materiaux`,options)
         const data = await response.json()
 
