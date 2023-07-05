@@ -191,23 +191,19 @@ interface Produit {
           <Right>
             <SwiperComponent imageUrl1={data?.data.imageUrl1 as string} imageUrl2={data?.data.imageUrl2 as string} imageUrl3={data?.data.imageUrl3 as string } titre={data?.data.nom as string}/>
             </Right>
-          <Left>
+          <Details>
             <div className="infos">
-              <h1>{data?.data.nom}</h1>
-              <details>
-                <summary>Description :</summary>
-               <p>{data?.data.description}</p>
-              </details>
-              <h6>
-                <span>Prix :</span>
-                <span className='font-thin '> {data?.data.price} €</span> 
-              </h6>
-              <h6>
-                <span>couleur&apos;s&apos; :</span>{data?.data.color} 
-              </h6>
-              <h6>
-                <span>Poids :</span>{data?.data.poids} Kg 
-              </h6>
+                    <h1>{data?.data.nom}</h1>
+                    <small>{data?.data.description}</small>
+              <div className='prices'>
+                  <h2> Prix : {data?.data.price}</h2>
+              </div>
+              <div className='prices'>
+                  <h2> Couleurs : {data?.data.color}</h2>
+              </div>
+              <div className='prices'>
+                  <h2> Poids : {data?.data.poids}</h2>
+              </div>
 
                 { showOptions && <div>
                 <label htmlFor='chatel' className="text-xl mt-xl text-center">Je suis de Chatellerault </label>
@@ -244,7 +240,7 @@ interface Produit {
             )}
 
             <button onClick={handleFetchComments} className="buttonComments">Afficher les Commentaires</button>
-          </Left>
+          </Details>
 
         </Container>}
        
@@ -335,7 +331,7 @@ const Container = styled.div`
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
     flex-direction: column;
-    transform : translateY(-20rem);
+    transform : translateY(-25rem);
     margin-bottom : 0rem;
   }
 
@@ -556,4 +552,116 @@ const CommentsContainer = styled.div`
     flex-wrap : wrap;
     gap : 2rem;
     margin-bottom : 3rem;
+`
+
+
+const Details = styled.div`
+    align-self : start;
+    flex:1;
+    display : flex;
+    flex-direction : column;
+
+     /* styles for screens smaller than 768px */
+  @media screen and (max-width: 767px) {
+        align-self : center;
+        margin-bottom : 2rem;
+        align-items : start;
+        justify-content : center;
+  }
+
+
+    h1{
+        font-weight : bold;
+        font-size : 15px;
+    }
+    .infos{
+        display : flex;
+        flex-direction : column;
+        align-items : start;
+        justify-content : start;
+        h1{
+            font-size : 37px;
+            font-weight : bold;
+            width : 30rem;
+        }
+        & small{
+            font-size : 12px;
+            color : black;
+            width : 15rem;
+        }
+
+             @media screen and (max-width: 767px) {
+                    h1{
+                    width : 20rem;
+                    font-size : 32px;
+                    font-weight : bold;}
+                      }
+        
+    }
+
+    .prices {
+        h2{
+            font-size : 25px;
+            font-weight : bold;
+            width : 20rem;
+        }
+    }
+    .colors {
+            display : flex;
+            gap : 0.6rem;
+            width : 12rem;
+            .circle{
+                width : 20px;
+                height : 20px;
+                background : black;
+                border-radius : 50%;
+
+                &:hover {
+                    cursor : pointer;
+                }
+            }
+        }
+    .quantite{
+        margin-top : 1rem;
+        background : #b4afaf;
+        border-radius : 10px;
+        display : flex;
+        align-items : center;
+        justify-content : center;
+        gap : 0.8rem;
+        width : 7rem;
+        font-size : 17px;
+    }
+    .buttons{
+        display : flex;
+        flex-wrap : wrap;
+        align-items : center;
+        justify-content : center;
+        gap : 0.8rem;
+        margin-top : 1.6rem;
+        margin-bottom : 2rem;
+        button:nth-child(2){
+            background : white;
+            color : black;
+        }
+        button {
+            background : #003e29;
+            border : solid 1.5px black;
+            padding: 0.5rem 1.5rem;
+            color : white;
+            border-radius : 15px;
+            transition : all ease-in 300ms;
+
+            &:hover{
+                background : black;
+                color : white;
+            }
+
+               /* styles for screens smaller than 768px */
+  @media screen and (max-width: 767px) {
+        padding : 0.5rem 0.6rem;
+  }
+        }
+    }
+
 `

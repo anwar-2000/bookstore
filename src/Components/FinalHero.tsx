@@ -86,6 +86,21 @@ const Container = styled.div`
    flex-direction : column;
   }
 
+      /* styles for screens between 768px and 1024px */
+      @media screen and (width: 820px) {
+           flex-direction: column;
+        }
+        @media screen and (width: 768px) {
+           flex-direction: column;
+           height : 60vh;
+        }
+
+        /* styles for screens between 768px and 1024px */
+      @media screen and (width: 912px) {
+           flex-direction: column;
+           height : 50vh;
+        }
+
   /*styles for screens between 768px and 1024px */
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     text-align : center;
@@ -130,7 +145,7 @@ const Left = styled.div`
       transform : translate(0.3rem,1.8rem);
       h1{
         text-align : center;
-        font-size : 15px;
+      
         width : 250px;
         align-self : start;
         font-size : 25px;
@@ -142,7 +157,41 @@ const Left = styled.div`
         align-self : end;
         transform : translate(-1rem ,-1.5rem);
       }
-  }
+  }     
+
+  @media screen and (width: 412px) {
+          transform : translate(0.3rem,-2rem);
+        }
+
+
+  @media screen and (width: 912px) {
+    transform : translate(1rem,5rem);
+      h1{
+        font-weight : bolder;
+        font-size :  30px !important;
+      }
+      button {
+           padding : 0.5rem 4rem;   
+               } 
+        }
+    /* styles for screens between 768px and 1024px */
+    @media screen and (width: 820px) {
+           transform : translateY(3rem);
+
+           button {
+            padding : 0.5rem 4rem;
+           }
+        }
+
+        @media screen and (width: 768px) {
+            transform : translateY(2rem);
+
+            button {
+            padding : 0.5rem 4rem;
+            transform : translateX(2rem);
+           }
+        }
+
 
   /*styles for screens between 768px and 1024px */
   @media screen and (min-width: 768px) and (max-width: 1024px) {
@@ -184,6 +233,22 @@ const Right = styled.div`
   @media screen and (max-width: 767px) {
     transform : translateY(4.5rem);
   }
+
+    /* styles for screens between 768px and 1024px */
+    @media screen and (width: 820px) {
+           transform : translateY(3rem);
+        }
+
+        @media screen and (width: 768px) {
+            transform : translateY(3rem);
+        }
+
+        @media screen and (width: 912px) {
+            transform : translateY(5rem);
+        }
+        @media screen and (width: 412px) {
+          transform : translateY(10em);
+        }
 
   /*styles for screens between 768px and 1024px */
   @media screen and (min-width: 768px) and (max-width: 1024px) {

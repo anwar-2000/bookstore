@@ -205,9 +205,9 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
               <small>
                 {data?.data.description === "" ? data?.data.description : 'Pas de description'}
               </small>
-              <small>
-                ETAT : {data?.data.etat}
-              </small>
+              </div>
+              <div className='prices'>
+                  <h2> Etat : {data?.data.etat}</h2>
               </div>
               <div className='prices'>
                   <h2> Auteur : {data?.data.auteur}</h2>
@@ -278,7 +278,6 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
 export default Index;
 
 const Section = styled.section`
- 
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -310,8 +309,7 @@ const Section = styled.section`
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
     gap: 4rem;
-   // margin-top : 3rem;
-   // padding-bottom : 20rem;
+   border : red solid ;
     .buttonComments{
       transform : translateY(2rem);
     }
@@ -336,12 +334,11 @@ const Section = styled.section`
   }
 `;
 const Container = styled.div`
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   flex-direction: row;
   justify-content: center;
- 
   //margin-bottom : 3rem;
   gap: 4rem;
 
@@ -351,6 +348,7 @@ const Container = styled.div`
     transform : translateY(-25rem);
     margin-bottom : 0rem;
   }
+
 
   /* styles for screens between 768px and 1024px */
   @media screen and (min-width: 768px) and (max-width: 1024px) {
@@ -600,7 +598,7 @@ const Details = styled.div`
             width : 30rem;
         }
         & small{
-            font-size : 10px;
+            font-size : 12px;
             color : black;
             width : 15rem;
         }
@@ -618,6 +616,7 @@ const Details = styled.div`
         h2{
             font-size : 25px;
             font-weight : bold;
+            width : 20rem;
         }
     }
     .colors {
