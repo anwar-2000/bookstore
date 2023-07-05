@@ -309,7 +309,7 @@ const Section = styled.section`
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
     gap: 4rem;
-   border : red solid ;
+ 
     .buttonComments{
       transform : translateY(2rem);
     }
