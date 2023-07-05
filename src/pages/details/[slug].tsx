@@ -199,30 +199,29 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
           <Right>
             <SwiperComponent imageUrl1={data?.data.imageUrl1 as string} imageUrl2={data?.data.imageUrl2 as string} imageUrl3={data?.data.imageUrl3 as string} titre={data?.data.titre as string}/>
             </Right>
-          <Left>
+          <Details>
             <div className="infos">
               <h1>{data?.data.titre}</h1>
               <small>
-                <span>Auteur :</span> {data?.data.auteur}
+                {data?.data.description === "" ? data?.data.description : 'Pas de description'}
               </small>
-              <details>
-                <summary>Description :</summary>
-               <p>{data?.data.description}</p>
-              </details>
-              <details>
-                <summary>Etat :</summary>
-               <p>{data?.data.etat}</p>
-              </details>
-              <h6>
-                <span>Prix :</span>
-                <span className='font-thin '> {data?.data.prix} €</span> 
-              </h6>
+              <small>
+                ETAT : {data?.data.etat}
+              </small>
+              </div>
+              <div className='prices'>
+                  <h2> Auteur : {data?.data.auteur}</h2>
+              </div>
+              <div className='prices'>
+                        <h2>{data?.data.prix} € </h2>
+              </div>
+
               <small>
                 <span >Il reste <span className='text-blue-500'>{data?.data.quantite} </span>  dans la boutique</span> 
               </small>
-              <h6>
-                <span>Poids :</span>{data?.data.poids} Kg 
-              </h6>
+               <div className='prices'>
+                        <h2>{data?.data.poids} Kg </h2>
+              </div>
 
                 { showOptions && <div>
                 <label htmlFor='chatel' className="text-xl mt-xl text-center">Je suis de Chatellerault </label>
@@ -250,7 +249,7 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
                <Eye id="star"  color="black"/>
                 <h6>{data?.views}</h6>
               </div>
-            </div>
+            
            { data?.data.vendu === false ? <div className="buttons">
               <button onClick={handleClickPanier}>Ajouter au Panier</button>
               <button style={{cursor : 'not-allowed'}}>Faire une offre</button>
@@ -259,7 +258,7 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
             )}
 
             <button onClick={handleFetchComments} className="buttonComments">Afficher les Commentaires</button>
-          </Left>
+          </Details>
 
         </Container>}
        
@@ -286,7 +285,7 @@ const Section = styled.section`
   justify-content: start;
   overflow-x:hidden;
   gap: 2rem;
-  //min-height : 100vh;
+  min-height : 100vh;
 
 #livreur:checked{
     background-color: #00ff4c !important;       
@@ -337,19 +336,19 @@ const Section = styled.section`
   }
 `;
 const Container = styled.div`
-  min-height: 80vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: row;
   justify-content: center;
-  margin-top : 2rem;
+ 
   //margin-bottom : 3rem;
   gap: 4rem;
 
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
     flex-direction: column;
-    transform : translateY(-20rem);
+    transform : translateY(-25rem);
     margin-bottom : 0rem;
   }
 
@@ -570,4 +569,113 @@ const CommentsContainer = styled.div`
     flex-wrap : wrap;
     gap : 2rem;
     margin-bottom : 3rem;
+`
+const Details = styled.div`
+    align-self : start;
+    flex:1;
+    display : flex;
+    flex-direction : column;
+
+     /* styles for screens smaller than 768px */
+  @media screen and (max-width: 767px) {
+        align-self : center;
+        margin-bottom : 2rem;
+        align-items : start;
+        justify-content : center;
+  }
+
+
+    h1{
+        font-weight : bold;
+        font-size : 15px;
+    }
+    .infos{
+        display : flex;
+        flex-direction : column;
+        align-items : start;
+        justify-content : start;
+        h1{
+            font-size : 37px;
+            font-weight : bold;
+            width : 30rem;
+        }
+        & small{
+            font-size : 10px;
+            color : black;
+            width : 15rem;
+        }
+
+             @media screen and (max-width: 767px) {
+                    h1{
+                    width : 20rem;
+                    font-size : 32px;
+                    font-weight : bold;}
+                      }
+        
+    }
+
+    .prices {
+        h2{
+            font-size : 25px;
+            font-weight : bold;
+        }
+    }
+    .colors {
+            display : flex;
+            gap : 0.6rem;
+            width : 12rem;
+            .circle{
+                width : 20px;
+                height : 20px;
+                background : black;
+                border-radius : 50%;
+
+                &:hover {
+                    cursor : pointer;
+                }
+            }
+        }
+    .quantite{
+        margin-top : 1rem;
+        background : #b4afaf;
+        border-radius : 10px;
+        display : flex;
+        align-items : center;
+        justify-content : center;
+        gap : 0.8rem;
+        width : 7rem;
+        font-size : 17px;
+    }
+    .buttons{
+        display : flex;
+        flex-wrap : wrap;
+        align-items : center;
+        justify-content : center;
+        gap : 0.8rem;
+        margin-top : 1.6rem;
+        margin-bottom : 2rem;
+        button:nth-child(2){
+            background : white;
+            color : black;
+        }
+        button {
+            background : #003e29;
+            border : solid 1.5px black;
+            padding: 0.5rem 1.5rem;
+            color : white;
+            border-radius : 15px;
+            transition : all ease-in 300ms;
+
+            &:hover{
+                background : black;
+                color : white;
+            }
+
+               /* styles for screens smaller than 768px */
+  @media screen and (max-width: 767px) {
+        padding : 0.5rem 0.6rem;
+  }
+        }
+    }
+
 `
