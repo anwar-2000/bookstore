@@ -22,28 +22,34 @@ const NavBar = () => {
  <section className="flex items-center justify-center sticky top-0 h-20 mb-12 text-slate-900 bg-white border-b-2 border-slate-700 z-50 ">
   <div className="flex justify-between items-center w-screen ">
     <div className="container mx-auto flex items-center justify-between text-dark  font-bold gap-5 md:gap-0">
-      <div className="flex gap-0 items-center justify-center">
+      <div className="flex gap-0 items-center justify-center transform translate-x-1 md:translate-x-0">
         <img
           src={imageUrl}
           title="Emmaus-chatellerault-Boutique des livres rares" aria-details="livres rares et anciens disponibles dans la boutique emmaus chatellerault a un prix compététif"
-          className=" sm:ml-6 h-24 w-28 max-h-70 object-contain mr-4 rounded cursor-pointer "
+          className=" sm:ml-6 h-24 w-28 max-h-70 object-contain mr-4 rounded cursor-pointer transform translate-x-7 md:translate-x-0"
           
         />
             <Link href={`https://emmtaboutique.com/all`}>
-            <div className="md:block md:mr-8 lg:block">
+            <div className="md:block hidden lg:block pr-1">
               <h3 className="whitespace-nowrap ml-3">Explorer</h3>
             </div>
           </Link>
+          <Link href={`https://emmtaboutique.com/actualité`}>
+            <div className="md:block md:mr-2 lg:block pr-2">
+              <h3 className="whitespace-nowrap ml-3 transform translate-x-1 md:translate-x-0">Actualité</h3>
+            </div>
+          </Link>
+
           </div>
           <div className="flex items-center justify-center gap-5 md:justify-end">
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center md:justify-evenly">
               <div className="hidden md:block md:mr-8" >
                 <SearchInput />
               </div>
             </div>
           </div>
           <Link href="/">
-            <div className="md:hidden block lg:block " >
+            <div className="md:hidden block lg:block transform translate-x-2 md:translate-x-0 " >
               <h3 >Accueil</h3>
             </div>
           </Link>

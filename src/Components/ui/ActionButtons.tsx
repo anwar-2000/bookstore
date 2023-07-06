@@ -30,6 +30,17 @@ const ActionButtons = () => {
         animate="visible"
       >
         
+        <Button variant="outlined" className="" onClick={() => router.push("/dashboard/actualite")}>
+            Actualité
+        </Button>
+      </motion.div>
+
+      <motion.div
+        variants={buttonVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        
         <Button variant="outlined" className="" onClick={() => router.push("/dashboard")}>
             Livres
         </Button>

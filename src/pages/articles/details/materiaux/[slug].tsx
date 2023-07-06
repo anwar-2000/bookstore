@@ -318,7 +318,7 @@ const Section = styled.section`
   }
 `;
 const Container = styled.div`
-  min-height: 80vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   flex-direction: row;

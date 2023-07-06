@@ -68,7 +68,7 @@ export default BookItemSecond;
 
 const Container = styled.div`
     cursor : pointer;
-    width: 10rem;
+    width: 11rem;
     display: grid;
     place-items: center;
     border-radius: 5%;
