@@ -34,7 +34,7 @@ const NavBar = () => {
               <h3 className="whitespace-nowrap ml-3">Explorer</h3>
             </div>
           </Link>
-          <Link href={`https://emmtaboutique.com/actualité`}>
+          <Link href={`https://emmtaboutique.com/actualites`}>
             <div className="md:block md:mr-2 lg:block pr-2">
               <h3 className="whitespace-nowrap ml-3 transform translate-x-1 md:translate-x-0">Actualité</h3>
             </div>

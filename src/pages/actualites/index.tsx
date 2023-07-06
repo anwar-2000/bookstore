@@ -44,7 +44,7 @@ const Index = () => {
     <>
       <Head>
         <title>Emmaus Boutique - Actualités</title>
-        <link rel="icon" href="/logo.jpg" />
+        <link rel="icon" href="https://emmtaboutique.com/logo.jpg" />
         <meta name="description" content={data && data[0].description} />
         <meta name="keywords" content="Livres Rares,livres Anciens,Les BD,Livres Francais,Lives,Rares,Ancien,BD" />
         <meta
