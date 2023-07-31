@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc>http://emmtaboutique.com/</loc>
+   </url>
+   <url>
+      <loc>http://emmtaboutique.com/categorie/cuir</loc>
+   </url>
+   <url>
+      <loc>http://emmtaboutique.com/categorie/vetements</loc>
+   </url>
+   <url>
+      <loc>http://emmtaboutique.com/categorie/</loc>
+   </url>
+   <url>
+      <loc>http://emmtaboutique.com/categorie/materiaux</loc>
+   </url>
+   <url>
+   <loc>http://emmtaboutique.com/emmausNaintre</loc>
+</url>
+<url>
+   <loc>http://emmtaboutique.com/all/</loc>
+</url>
+
+<url>
+   <loc>http://emmtaboutique.com/articles/categorie/</loc>
+</url>
+
+<url>
+   <loc>http://emmtaboutique.com/all/categories/</loc>
+</url>
+<url>
+   <loc>http://emmtaboutique.com/actualites/</loc>
+</url>
+</urlset>
