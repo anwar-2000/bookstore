@@ -10,10 +10,8 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-interface Props {}
-
 const Index = () => {
-  const {isChecked} = useSelector((state:any)=> state.cart)
+    const {isChecked} = useSelector((state:any)=> state.cart)
     const router = useRouter()
     const containerRef = useRef<HTMLDivElement>(null)
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 })

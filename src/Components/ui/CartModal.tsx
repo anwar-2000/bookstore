@@ -52,8 +52,8 @@ const CartModal = () => {
 
 
   if (!isMounted) return null;
-
-async function handlePaypalPayment(e:any) {
+/**PAYPAL FUNC
+ * async function handlePaypalPayment(e:any) {
   e.preventDefault();
   const { email, address, postalCode } = formData;
   let PaypalData = {
@@ -75,6 +75,9 @@ async function handlePaypalPayment(e:any) {
       // Handle error here
     }
   }
+ * 
+ */
+
   
   const handleStripe = async () => {
     
@@ -113,17 +116,6 @@ async function handlePaypalPayment(e:any) {
 
     stripe?.redirectToCheckout({ sessionId: data.id });
   };
-
-
-  
-  /*const handleFormChange = (e:any) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value
-    }));
-  };*/
-
 
   return createPortal(
     <>

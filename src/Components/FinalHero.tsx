@@ -35,7 +35,7 @@ const FinalHero = () => {
   return <Container>
         <Left>
             <h1>
-               La Boutique Emmaüs Naintré vous vend <br/>  ses <span style={{color : 'black'}}>{Infos.texts[activeIndex]} </span>
+               Emmaüs Châtellerault-Naintré vous vend <br/>  ses <span style={{color : 'black'}}>{Infos.texts[activeIndex]} </span>
             </h1>
             <button onClick={()=>router.push('/all')}>Voir Nos Livres</button>
         </Left>
@@ -91,7 +91,7 @@ const Container = styled.div`
            flex-direction: column;
         }
         @media screen and (width: 768px) {
-           flex-direction: column;
+          // flex-direction: column;
            height : 60vh;
         }
 
@@ -159,8 +159,11 @@ const Left = styled.div`
       }
   }     
 
-  @media screen and (width: 412px) {
+      @media screen and (width: 412px) {
           transform : translate(0.3rem,-2rem);
+        }
+        @media screen and (width: 425px) {
+          transform : translateY(4.3rem);
         }
 
 
@@ -240,7 +243,7 @@ const Right = styled.div`
         }
 
         @media screen and (width: 768px) {
-            transform : translateY(3rem);
+            transform : translateY(1rem);
         }
 
         @media screen and (width: 912px) {

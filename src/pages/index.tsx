@@ -30,6 +30,7 @@ import styled from "styled-components";
 import FinalHero from "@/Components/FinalHero";
 import { useQuery } from "react-query";
 import LoadingCards from "@/Components/ui/LoadingCards";
+import { toast } from "react-toastify";
 
 
 
@@ -44,12 +45,21 @@ export default function Home() {
       setIsLoading(false);
     }, 500);
     setAnimationCount(1)
-
-
   }, []);
 
 
-
+    if(animationCount === 0 ){
+      toast("❤️ Bienvenue sur la boutique en ligne d'Emmaüs Châtellerault-Naintré", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+    }
 
   return <>
   <Head>
