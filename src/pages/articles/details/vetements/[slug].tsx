@@ -207,6 +207,9 @@ interface MyPageProps {
               <div className='prices'>
                   <h2> Poids : {data?.data.poids} Kg</h2>
               </div>
+              <div className='prices'>
+                  <h2> Taille : {data?.data.size} </h2>
+              </div>
   
                   { showOptions && <div>
                   <label htmlFor='chatel' className="text-xl mt-xl text-center">Je suis de Chatellerault </label>
