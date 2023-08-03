@@ -57,7 +57,8 @@ export async function getVetements(req: NextApiRequest, res: NextApiResponse) {
       const vetement = await Vetement.create(formData);
       res.status(201).json(vetement);
     } catch (err) {
-      return res.status(500).json({ error: 'Error while creating vetement' });
+      console.log(err)
+      return res.status(500).json({ error: err });
     }
   }
   

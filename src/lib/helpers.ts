@@ -2,7 +2,6 @@
 const BASE_URL:String ="https://emmtaboutique.com"
 //const BASE_URL:String ="http://localhost:3000"
 
-
 export const fetchBooks = async (page = 1, limit = 10) => {
     const response = await fetch(`/api/books?page=${page}&limit=${limit}`);
     const data = await response.json();

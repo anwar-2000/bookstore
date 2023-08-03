@@ -199,13 +199,13 @@ interface MyPageProps {
                     <h1>{data?.data.nom}</h1>
                     <small>{data?.data.description}</small>
               <div className='prices'>
-                  <h2> Prix : {data?.data.price}</h2>
+                  <h2> Prix : {data?.data.price} €</h2>
               </div>
               <div className='prices'>
-                  <h2> Couleurs : {data?.data.color}</h2>
+                  <h2> Couleurs : {data?.data.color} </h2>
               </div>
               <div className='prices'>
-                  <h2> Poids : {data?.data.poids}</h2>
+                  <h2> Poids : {data?.data.poids} Kg</h2>
               </div>
   
                   { showOptions && <div>
