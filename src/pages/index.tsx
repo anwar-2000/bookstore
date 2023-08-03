@@ -11,7 +11,7 @@ function HomePage() {
 
   return (
     <>
-      { isLoading ? <LoadingCards count={6}  /> :  <ExpensiveBooks expensiveBooks={expensiveBooks} />}
+      { isLoading ? <LoadingCards count={6}  /> : <ExpensiveBooks expensiveBooks={expensiveBooks} />}
        
     </>
   );
@@ -49,7 +49,7 @@ export default function Home() {
 
 
     if(animationCount === 0 ){
-      toast("❤️ Bienvenue sur la boutique en ligne d'Emmaüs Châtellerault-Naintré", {
+      toast("☀️ Bienvenue sur la boutique en ligne d'Emmaüs Châtellerault-Naintré", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -57,7 +57,7 @@ export default function Home() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
+        theme: "light",
         });
     }
 
