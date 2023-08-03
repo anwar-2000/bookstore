@@ -1,7 +1,6 @@
 import React from 'react';
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
 
-interface Props {}
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -11,7 +10,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang='fr' title='Emmaüs Naintré - Boutique en ligne pour vendre les livres Rares , Anciens , les Beaux Livres , lex BDs , Les Livres de collections , les Objects de Collections ... a un prix compététif'>
+      <Html lang='fr' title='Emmaüs Chatellerault - Naintré - Boutique en ligne pour vendre les livres Rares , Anciens , les Beaux Livres , lex BDs , Les Livres de collections , les Objects de Collections ... a un prix compététif'>
         <Head />
         <body>      
           <Main />
