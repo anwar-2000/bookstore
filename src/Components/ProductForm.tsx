@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { addVetement } from "@/lib/vetementHelpers";
 import { useRouter } from "next/router";
 import { addMateriaux } from "@/lib/materiauxHelpers";
+import { addMusic } from "@/lib/MusicHelpers";
 
 interface BookData {
   nom: string;
@@ -16,7 +17,7 @@ interface BookData {
   imageUrl1: string;
   imageUrl2: string;
   imageUrl3: string;
-  color: string;
+  color?: string;
   size?: string;
   slug : string
 }
@@ -24,9 +25,10 @@ interface BookData {
 interface Props {
   onSubmit: () => void;
   size : boolean;
+  color : boolean;
 }
 
-const ProductForm = ({ onSubmit , size }: Props) => {
+const ProductForm = ({ onSubmit , size , color }: Props) => {
     const [load, setLoad] = useState(false)
 
 
@@ -63,12 +65,14 @@ const ProductForm = ({ onSubmit , size }: Props) => {
       setLoad(!load)
       onSubmit();
       return ;
-     }
-      const response =  await addMateriaux(formData);
+     } else if (!color){
+      const response =  await addMusic(formData);
       if(response){toast.success('Produit Ajouté',{
         position: toast.POSITION.TOP_RIGHT,
         theme: "colored"
       });}
+     }
+      
       setLoad(!load)
       onSubmit()      
     
@@ -161,7 +165,7 @@ const ProductForm = ({ onSubmit , size }: Props) => {
               fullWidth
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+         {color && <Grid item xs={12} sm={6}>
             <TextField
               label="Couleur"
               name="color"
@@ -169,7 +173,7 @@ const ProductForm = ({ onSubmit , size }: Props) => {
               onChange={handleInputChange}
               fullWidth
             />
-          </Grid>
+          </Grid>}
           { size && <Grid item xs={12} sm={6}>
             <TextField
               label="Taille"

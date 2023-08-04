@@ -39,7 +39,6 @@ const NavBar = () => {
               <h3 className="whitespace-nowrap ml-3 transform translate-x-1 md:translate-x-0">Actualité</h3>
             </div>
           </Link>
-
           </div>
           <div className="flex items-center justify-center gap-5 md:justify-end">
             <div className="flex items-center justify-center md:justify-evenly">
@@ -86,3 +85,6 @@ const NavBar = () => {
   
 
 export default NavBar
+
+
+

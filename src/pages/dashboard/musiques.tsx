@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext, NextPage } from "next";
-import { getSession, signOut } from "next-auth/react";
+import { getSession} from "next-auth/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -30,9 +30,10 @@ import { useRouter } from "next/router";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 
 import ActionButtons from "@/Components/ui/ActionButtons";
-import { deleteMateriaux, fetchMateriaux } from "@/lib/materiauxHelpers";
+import {fetchMateriaux } from "@/lib/materiauxHelpers";
 import ProductForm from "@/Components/ProductForm";
 import UpdateProduct from "@/Components/UpdateProduct";
+import { deleteMusic, fetchMusics } from "@/lib/MusicHelpers";
 
 
 interface MyPageProps {
@@ -45,7 +46,7 @@ interface MyPageProps {
      imageUrl1: "";
      imageUrl2: "";
      imageUrl3: "";
-     color: "";
+     color?: "";
      size?: "";
      slug : ""
  };
@@ -87,9 +88,9 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
   const [limit, setLimit] = useState(20);
 
   /** REACT-QUERY */
-  const { isLoading, data, isError, error, refetch } = useQuery(
-    ["vetement", page, limit],
-    () => fetchMateriaux(page, limit)
+  const { isLoading, data, error, refetch } = useQuery(
+    ["musiques", page, limit],
+    () => fetchMusics(page, limit)
   );
 
   useEffect(() => {
@@ -98,16 +99,16 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
 
 
   /** CLICK HANDLERS */
-  const deleteBookFromIdClickHanlder = async (materiauxId: string) => {
+  const deleteBookFromIdClickHanlder = async (musiqueId: string) => {
     //console.log(vetmentId);
     try {
-      const response = await deleteMateriaux(materiauxId);
+      const response = await deleteMusic(musiqueId);
       !response &&
-        toast.error("Book Not Deleted", {
+        toast.error("article Not Deleted", {
           position: toast.POSITION.TOP_RIGHT,
           theme: "colored",
         });
-      toast.success("Book Deleted", {
+      toast.success("article Deleted", {
         position: toast.POSITION.TOP_RIGHT,
         theme: "colored",
       });
@@ -131,14 +132,14 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
 
   /** FILTERING LOGIC */
 
-  const filteredBooks = data?.filter((produit: any) => { 
+  const filteredProducts = data?.filter((produit: any) => { 
     const titre = produit.nom;
     return titre && titre.toLowerCase().includes(searchTerm.toLowerCase());
   });
  
   return (
     <>
-      {/** if Error when  Fetching notify it */}
+      {/** if Error when Fetching notify it */}
       {error &&
         toast.error(`Error : ${error}`, {
           position: toast.POSITION.TOP_RIGHT,
@@ -150,9 +151,9 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
           {showForm && (
             <FormDiv>
               {showEditForm ? (
-                <h1>Modifier Le Livre</h1>
+                <h1>Modifier L&apos;article</h1>
               ) : (
-                <h1>Ajouter Un Livre</h1>
+                <h1>Ajouter Un article</h1>
               )}
               {showEditForm ? (
                 <div className="form">
@@ -165,7 +166,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
               ) : (
 
                 <div className="form">
-                <ProductForm size={false} onSubmit={() => setaddSignal(addSignal + 1)} color={false} />
+                <ProductForm size={false} color={false}  onSubmit={() => setaddSignal(addSignal + 1)} />
                 </div>
               )}
             </FormDiv>
@@ -181,7 +182,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                 id="showFormTrigger"
                 onClick={() => setShowEditform(!showForm)}
               >
-                Formulaire de rajouter les Livres
+                Formulaire de rajouter les Articles
               </button>
             )}
               <ActionButtons />
@@ -223,7 +224,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                 </thead>
 
                 <tbody>
-                  {filteredBooks.map((produit: any) => (
+                  {filteredProducts.map((produit: any) => (
                     <TR key={produit._id}>
                       <td>
                         <img src={produit.imageUrl1} alt={produit.nom} />

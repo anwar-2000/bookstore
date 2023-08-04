@@ -162,7 +162,7 @@ const Index: NextPage<MyPageProps> = ({ session, existdata }) => {
                 </div>
               ) : (
                 <div className="form">
-                <ProductForm size={true} onSubmit={() => setaddSignal(addSignal + 1)} />
+                <ProductForm size={true} onSubmit={() => setaddSignal(addSignal + 1)} color={true} />
                 </div>
               )}
             </FormDiv>

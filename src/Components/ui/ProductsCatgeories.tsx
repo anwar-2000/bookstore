@@ -4,7 +4,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 
-
 const ProductsCatgeories = () => {
     const router = useRouter();
   return <Categorie>
@@ -23,6 +22,9 @@ const ProductsCatgeories = () => {
   </div>
   <div className='card rares'  onClick={()=>router.push('/articles/categorie/Histoire')}>
       <h1>Livres D&apos;Histoire</h1>
+  </div>
+  <div className='card music'  onClick={()=>router.push('/articles/categorie/Musiques')}>
+      <h1>Musique</h1>
   </div>
 </Categorie>
 }
@@ -70,18 +72,12 @@ const Categorie = styled.div`
            width : 8rem;
            height : 4rem;
   }
-
-  /* styles for screens between 768px and 1024px */
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
-       // margin-top : 5rem;
-  }
-
-
-  @media screen and (min-width: 912px) and (max-width: 1024px) {
-    
-  }
         
     
+    }
+    .music{
+        background-image : url('https://www.tubefilter.com/wp-content/uploads/2015/11/vinyl-records.jpg');
+
     }
     .rares{
         background-image : url('https://static.vecteezy.com/system/resources/previews/000/691/409/original/bookshelf-in-library-vector.jpg');

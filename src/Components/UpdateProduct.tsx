@@ -16,7 +16,7 @@ interface Product {
   imageUrl1: string;
   imageUrl2: string;
   imageUrl3: string;
-  color: string;
+  color?: string;
   size?: string;
   slug : string
 }

@@ -9,6 +9,7 @@ import { fetchMateriaux } from '@/lib/materiauxHelpers';
 import { fetchVetements } from '@/lib/vetementHelpers';
 import { useQuery } from 'react-query';
 import Head from 'next/head';
+import { fetchMusics } from '@/lib/MusicHelpers';
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -24,6 +25,9 @@ const Index = () => {
   } else if (category === 'Cuirs') {
     fetchData = fetchMateriaux;
     url = '/articles/details/materiaux';
+  }else if (category === 'Musiques') {
+    fetchData = fetchMusics;
+    url = '/articles/details/musiques';
   } else {
     fetchData = () => fetchBooksOfCategory(category);
   }
@@ -35,8 +39,7 @@ const Index = () => {
       staleTime: 60 * 60 * 1000, // cache expires in 1 hour
     }
   );
-
-  const ItemCard = category === 'Vetements' || category === 'Cuirs';
+  const ItemCard = category === 'Vetements' || category === 'Cuirs' || category === "Musiques";
 
   const getBookSlugHandler = (slug: string) => {
     router.push(`${url}/${slug}`); //pushing to details page api with the selected items SLUG
@@ -63,9 +66,9 @@ const Index = () => {
 
 
 
-    <div className="min-h-96 text-center ">
+    <div className="min-h-screen text-center">
       {data?.length === 0 ? (
-        <h1>0 Articles Pour L&apos;instant</h1>
+        <h1 className='text-2xl'>0 Articles Pour L&apos;instant</h1>
       ) : (
         <Container>
           {!isLoading && (
@@ -130,7 +133,7 @@ const Container = styled.div`
     flex-wrap : wrap;
     width : 100vw;
       .items{
-        display : flex;
+         display : flex;
            align-items : center;
          justify-content : center;
          width : 90vw;
@@ -149,7 +152,6 @@ const Container = styled.div`
       justify-content : center;
       gap : 1.5rem;
       input {
-        
         padding : 0.6rem 3rem;
         padding-left : 0.5rem;
         border-radius : 10px;
