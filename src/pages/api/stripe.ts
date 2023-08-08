@@ -74,7 +74,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
       }
 
-
       const params: Stripe.Checkout.SessionCreateParams = {
         submit_type: 'pay',
         mode: 'payment',
