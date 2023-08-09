@@ -8,7 +8,7 @@ const LoadingDetails = () => {
     
   return <BigContainer>
   <Container>
-    <Skeleton variant="rectangular" width={500} height={800} />
+    <Skeleton variant="rectangular" width={500} height={400} />
     <Details>
       <div className="infos">
         <h1>
@@ -84,19 +84,8 @@ const Container = styled.div`
         margin-top : 5rem;
   }
 
-
-  @media screen and (min-width: 912px) and (max-width: 1024px) {
-    
-  }
-
 `
 
-const Images = styled.div`
-    
-    display : grid;
-    place-items : center;
-    align-self : center;
-`
 const Details = styled.div`
     align-self : start;
     flex:1;
