@@ -1,9 +1,9 @@
 
-const BASE_URL:String ="https://emmtaboutique.com"
+const BASE_URL:String ="https://emmaus-chatelleraudais.vercel.app"
 //const BASE_URL:String ="http://localhost:3000"
 
 export const fetchBooks = async (page = 1, limit = 10) => {
-    const response = await fetch(`/api/books?page=${page}&limit=${limit}`);
+    const response = await fetch(`${BASE_URL}/api/books?page=${page}&limit=${limit}`);
     const data = await response.json();
     return data;
   };
@@ -42,7 +42,7 @@ export const addBook = async (formData:Object) => {
             headers :{ "Content-Type" : "application/json"},
             body : JSON.stringify(formData)
         }
-        const response = await fetch(`/api/books`,options)
+        const response = await fetch(`${BASE_URL}/api/books`,options)
         const data = await response.json()
 
         return data
@@ -59,7 +59,7 @@ export const updateBook = async (bookId : string ,formData:Object) =>{
             headers :{ "Content-Type" : "application/json"},
             body : JSON.stringify(formData)
         }
-        const response = await fetch(`/api/books?bookId=${bookId}`,options)
+        const response = await fetch(`${BASE_URL}/api/books?bookId=${bookId}`,options)
         const data = await response.json()
 
         return data
@@ -76,7 +76,7 @@ export const deleteBook = async (bookId : string) =>{
             method : "DELETE",
             headers :{ "Content-Type" : "application/json"}
         }
-        const response = await fetch(`/api/books?bookId=${bookId}`,options)
+        const response = await fetch(`${BASE_URL}/api/books?bookId=${bookId}`,options)
         const data = await response.json()
 
         return data
@@ -104,7 +104,7 @@ export const deleteBook = async (bookId : string) =>{
  export const preparedFetchforInput = async (searchParam: string, searchValue: string) => {
     console.log(searchParam)
     const response = await fetch(
-      `/api/search?searchParam=${searchParam}&searchValue=${searchValue}`
+      `${BASE_URL}/api/search?searchParam=${searchParam}&searchValue=${searchValue}`
     );
     //console.log("data before converting t JSON" , response)
     const data = await response.json();
@@ -122,7 +122,7 @@ export const addUser = async (formData:Object) =>{
             headers :{ "Content-Type" : "application/json"},
             body : JSON.stringify(formData)
         }
-        const response = await fetch(`/api/register`,options)
+        const response = await fetch(`${BASE_URL}/api/register`,options)
         const data = await response.json()
 
         return data
@@ -139,7 +139,7 @@ export const checkAdminStatus = async (email: string) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       };
-      const response = await fetch(`/api/checkUserAdmin`, options);
+      const response = await fetch(`${BASE_URL}/api/checkUserAdmin`, options);
       if (!response.ok) {
         throw new Error(`HTTP error ${response.status}`);
       }
@@ -152,7 +152,7 @@ export const checkAdminStatus = async (email: string) => {
   };
 //fetch users
   export const fetchUsers = async (page = 1, limit = 10) => {
-    const response = await fetch(`/api/users?page=${page}&limit=${limit}`);
+    const response = await fetch(`${BASE_URL}/api/users?page=${page}&limit=${limit}`);
     const data = await response.json();
     return data;
   };
@@ -163,7 +163,7 @@ export const checkAdminStatus = async (email: string) => {
             method : "DELETE",
             headers :{ "Content-Type" : "application/json"}
         }
-        const response = await fetch(`/api/users?userEmail=${userEmail}`,options)
+        const response = await fetch(`${BASE_URL}/api/users?userEmail=${userEmail}`,options)
         const data = await response.json()
 
         return data
@@ -176,7 +176,7 @@ export const checkAdminStatus = async (email: string) => {
   /********************************** CLIENTS AND PAYMENTS FOR STRIPE ********************************************************* */
 
   export const fetchStripe = async () => {
-    const response = await fetch(`/api/stripeclients/clients`);
+    const response = await fetch(`${BASE_URL}/api/stripeclients/clients`);
     const data = await response.json();
     return data;
   };
@@ -185,7 +185,7 @@ export const checkAdminStatus = async (email: string) => {
 
   export const getAllFunds = async () => {
     
-      const response =  await fetch(`/api/dons`);
+      const response =  await fetch(`${BASE_URL}/api/dons`);
       const data = await response.json()
 
       return data;
@@ -197,7 +197,7 @@ export const checkAdminStatus = async (email: string) => {
       headers :{ "Content-Type" : "application/json"},
       body : JSON.stringify(formData)
        }
-        const response =  await fetch(`/api/dons`,options);
+        const response =  await fetch(`${BASE_URL}/api/dons`,options);
         const data = await response.json()
 
         return data;
@@ -209,7 +209,7 @@ export const checkAdminStatus = async (email: string) => {
             method : "DELETE",
             headers :{ "Content-Type" : "application/json"}
         }
-        const response = await fetch(`/api/dons?donId=${donId}`,options)
+        const response = await fetch(`${BASE_URL}/api/dons?donId=${donId}`,options)
         const data = await response.json()
 
         return data
@@ -221,7 +221,7 @@ export const checkAdminStatus = async (email: string) => {
    /********************************** LOGIC FOR COMMENTS AND VIEWS */
 
    export const fetchComments = async (slug :string , page = 1, limit = 10) => {
-    const response = await fetch(`/api/comments?slug=${slug}&page=${page}&limit=${limit}`);
+    const response = await fetch(`${BASE_URL}/api/comments?slug=${slug}&page=${page}&limit=${limit}`);
     const data = await response.json();
     return data;
   };
@@ -234,7 +234,7 @@ export const addCommentToBook = async (formData:Object) => {
           headers :{ "Content-Type" : "application/json"},
           body : JSON.stringify(formData)
       }
-      const response = await fetch(`/api/comments`,options)
+      const response = await fetch(`${BASE_URL}/api/comments`,options)
       const data = await response.json()
 
       return data
@@ -250,7 +250,7 @@ export const addCommentlikes = async (commentId:string,state:string) => {
           headers :{ "Content-Type" : "application/json"},
           body : ""
       }
-      const response = await fetch(`/api/comments?commentId=${commentId}&state=${state}`,options)
+      const response = await fetch(`${BASE_URL}/api/comments?commentId=${commentId}&state=${state}`,options)
       const data = await response.json()
 
       return data
@@ -276,7 +276,7 @@ export const addCommentlikes = async (commentId:string,state:string) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ slug }),
     };
-    const response = await fetch(`/api/views`, options);
+    const response = await fetch(`${BASE_URL}/api/views`, options);
     const data = await response.json();
 
     return data;
@@ -294,7 +294,7 @@ export const PaypalOrder = async (orderData:Object) => {
           headers :{ "Content-Type" : "application/json"},
           body : JSON.stringify(orderData)
       }
-      const response = await fetch(`/api/paypal`,options)
+      const response = await fetch(`${BASE_URL}/api/paypal`,options)
       const data = await response.json()
 
       return data
@@ -308,7 +308,7 @@ export const PaypalOrder = async (orderData:Object) => {
 
 export const getAllRetour = async () => {
     
-  const response =  await fetch(`/api/retour`);
+  const response =  await fetch(`${BASE_URL}/api/retour`);
   const data = await response.json()
 
   return data;
@@ -320,7 +320,7 @@ export const addRetour = async (formData:Object) => {
   headers :{ "Content-Type" : "application/json"},
   body : JSON.stringify(formData)
    }
-    const response =  await fetch(`/api/retour`,options);
+    const response =  await fetch(`${BASE_URL}/api/retour`,options);
     const data = await response.json()
 
     return data;
@@ -332,7 +332,7 @@ export const deleteRetourHelper = async (retourId : string) =>{
           method : "DELETE",
           headers :{ "Content-Type" : "application/json"}
       }
-      const response = await fetch(`/api/retour?retourId=${retourId}`,options)
+      const response = await fetch(`${BASE_URL}/api/retour?retourId=${retourId}`,options)
       const data = await response.json()
 
       return data

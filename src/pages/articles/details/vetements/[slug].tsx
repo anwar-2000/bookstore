@@ -4,7 +4,7 @@
   import { NextPage } from "next";
 import { Eye } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { AddToCart, calculateTotal , ChangeChecked, changeLivreur, reCalculate} from "@/redux/reducers/Cart";
+import { AddToCart, calculateTotal , ChangeChecked, changeLivreur} from "@/redux/reducers/Cart";
 //import getStripe from "@/lib/getStripe";
 import { toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
@@ -94,8 +94,7 @@ interface MyPageProps {
       const dispatch = useDispatch();
       //console.log("***************" ,slug)
   
-  
-    const [date,setDate] = useState<string>('')
+
   
       /**
        * 
@@ -105,7 +104,7 @@ interface MyPageProps {
         addViewerToBook(slug)
       },[]);
   
-    const { total } = useSelector((state: any) => state.cart);
+    const { total , items } = useSelector((state: any) => state.cart);
     const {showOptions} = useSelector((state:any)=>state.toggle);
   
   
@@ -123,10 +122,7 @@ interface MyPageProps {
       dispatch(ChangeChecked());
       setIsCheckedColissimo(false)
       setIsCheckedMondialRelay(false)
-      
-      //recalculate logic
-      dispatch(reCalculate())
-  
+    
   
       dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
     }
@@ -138,8 +134,6 @@ interface MyPageProps {
       dispatch(changeLivreur({type : "MONDIAL"}))
       
   
-      //recalculate logic
-      dispatch(reCalculate())
   
       dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
     };
@@ -150,9 +144,6 @@ interface MyPageProps {
       setIsCheckedColissimo(true);
       dispatch(changeLivreur({type : "COLISSIMO"}))
   
-      
-      //recalculate logic
-      dispatch(reCalculate())
   
       dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
     };
@@ -211,13 +202,13 @@ interface MyPageProps {
                   <h2> Taille : {data?.data.size} </h2>
               </div>
   
-                  { showOptions && <div>
+                  { showOptions && items === 0 &&  <div>
                   <label htmlFor='chatel' className="text-xl mt-xl text-center">Je suis de Chatellerault </label>
                   <input id='chatel' type={'checkbox'} checked={isChecked}
                   onChange={handleChatelleraultChange}/>
                   </div>}
                 
-                { showOptions && <div className='flex gap-3 items-center justify-center'>
+                { showOptions && items === 0 && <div className='flex gap-3 items-center justify-center'>
                  <h6><label htmlFor='livreur' className="text-xl mt-xl text-center">Mondial Relay</label>
                  <input className='ml-3' id='livreur' type={'checkbox'} 
                   onChange={handleMondialRelayBox} />

@@ -21,45 +21,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'POST') {
     try {
-      const { cart, total , isChecked } = req.body;
-
-      
-      const priceToPay = total * 100;
+      const {cart} = req.body
 
 
-      console.log(total , priceToPay , isChecked)
-     // console.log('Cart:', cart); 
+     //console.log("total" + " " + total ,"price to pay" + " " +  priceToPay , "is checked" + " " + isChecked)
+     //console.log('Cart:', cart); 
 
 
-
-      
-
-      let lineItems = [];
-
-      if(cart.length === 1) {
-         lineItems = cart.map((item: any) => {
-          return {
-            price_data: {
-              currency: 'eur',
-              product_data: {
-                name: item.titre,
-                images: [item.image],
-              },
-              unit_amount: isChecked &&  total !== 'undefined'
-              ? Math.floor(item.prix * 100)
-              : !isChecked &&  total === 'undefined'
-                ? Math.floor((item.poids * item.quantite + item.prix) * 100)
-                : !isChecked &&  total !== 'undefined'
-                  ? Math.floor(total * 100)
-                  : 0,
-            },
-            quantity: item.quantite,
-          };
-        });
-      }
-     
-      if(cart.length > 1){
+      let lineItems = [];     
+      if(cart.length >= 1){
        lineItems = cart.map((item: any) => {
+        const unitAmount =  Math.floor(item.prix * 100);
+        //console.log("line items : " , item.titre , unitAmount)
           return {
             price_data: {
               currency: 'eur',
@@ -67,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 name: item.titre,
                 images: [item.image],
               },
-              unit_amount: Math.floor(priceToPay - (item.prix * 100)),
+              unit_amount: unitAmount,
             },
             quantity: item.quantite,
           };
@@ -91,7 +64,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (session.payment_status === 'paid') {
         for (const item of cart) {
           const book = await Livre.findById(item._id);
-          console.log('TRYING TO DELETE THE BOOK : ',book)
+          console.log('TRYING TO UPDATE THE BOOK : ',book)
       
           if (book.quantite === 1) {
              await Livre.findByIdAndUpdate(item._id, { vendu: true });

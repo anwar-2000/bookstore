@@ -5,7 +5,7 @@
   import { NextPage } from "next";
 import { Eye } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { AddToCart, calculateTotal , ChangeChecked, changeLivreur, reCalculate} from "@/redux/reducers/Cart";
+import { AddToCart, calculateTotal , ChangeChecked, changeLivreur} from "@/redux/reducers/Cart";
 //import getStripe from "@/lib/getStripe";
 import { toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
@@ -102,7 +102,7 @@ interface Produit {
         addViewerToBook(slug)
       },[]);
   
-    const { total } = useSelector((state: any) => state.cart);
+    const { total , items } = useSelector((state: any) => state.cart);
     const {showOptions} = useSelector((state:any)=>state.toggle);
   
     let produits = {
@@ -118,9 +118,7 @@ interface Produit {
       dispatch(ChangeChecked());
       setIsCheckedColissimo(false)
       setIsCheckedMondialRelay(false)
-      
-      //recalculate logic
-      dispatch(reCalculate())
+ 
   
   
       dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
@@ -133,8 +131,6 @@ interface Produit {
       dispatch(changeLivreur({type : "MONDIAL"}))
       
   
-      //recalculate logic
-      dispatch(reCalculate())
   
       dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
     };
@@ -145,9 +141,6 @@ interface Produit {
       setIsCheckedColissimo(true);
       dispatch(changeLivreur({type : "COLISSIMO"}))
   
-      
-      //recalculate logic
-      dispatch(reCalculate())
   
       dispatch(SET_LIVRAISON()) // hididing other options for the rest of buying
     };
@@ -205,13 +198,13 @@ interface Produit {
                   <h2> Poids : {data?.data.poids}</h2>
               </div>
 
-                { showOptions && <div>
+                { showOptions && items === 0 && <div>
                 <label htmlFor='chatel' className="text-xl mt-xl text-center">Je suis de Chatellerault </label>
                 <input id='chatel' type={'checkbox'} checked={isChecked}
                 onChange={handleChatelleraultChange}/>
                 </div>}
               
-              { showOptions && <div className='flex gap-3 items-center justify-center'>
+              { showOptions && items === 0 && <div className='flex gap-3 items-center justify-center'>
                <h6><label htmlFor='livreur' className="text-xl mt-xl text-center">Mondial Relay</label>
                <input className='ml-3' id='livreur' type={'checkbox'} 
                 onChange={handleMondialRelayBox} />

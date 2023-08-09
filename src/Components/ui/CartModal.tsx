@@ -29,7 +29,7 @@ const CartModal = () => {
 
   const [isMounted, setIsMounted] = useState(false);
   const showModal = useSelector((state: any) => state.show);
-  const { total } = useSelector((state: any) => state.cart);
+  const { total , totalPoids } = useSelector((state: any) => state.cart);
   const { cart } = useSelector((state: any) => state.cart);
 
   // to update the total if user changes the livreur
@@ -138,26 +138,12 @@ const CartModal = () => {
         {cart.length === 0 && <h4> 0 Livres Dans Votre Panier </h4>}
 
         <div className="total_pay">
-          <h3>Total : {total} €</h3>
+          <div className="totals">
+           <h3>Prix Total : {total} €</h3>
+           <h3>Poids Total : {totalPoids} Kg</h3>
+          </div>
           <button onClick={handleStripe}>Payer</button>
-          {//<button onClick={()=>setShowForm(!showForm)}><FaCcPaypal /></button>
-          }
         </div>
-         {/* PayPal Form */}
-      { /*showForm && (
-        <form onSubmit={handlePaypalPayment}>
-          <input type="email" placeholder="Email" 
-            onChange={handleFormChange}
- />
-          <input type="text" placeholder="Address" 
-            onChange={handleFormChange}
- />
-          <input type="text" placeholder="Postal Code" 
-            onChange={handleFormChange}
- />
-          <button type="submit">Payer</button>
-        </form>
-      ) */}
       </Container>
     </>,
     document.getElementById("modal-root") as HTMLElement
@@ -191,6 +177,7 @@ const Container = styled.div`
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    overflow-y : scroll;
   }
   h1 {
     font-size: 2.5rem;
@@ -212,8 +199,15 @@ const Container = styled.div`
     flex-direction: column;
     gap: 1rem;
 
+    .totals{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    }
+
     button {
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 3rem;
       border-radius: 17px;
       transition: all ease 400ms;
       background-color: #0cc779;
@@ -227,10 +221,12 @@ const Container = styled.div`
 
   @media only screen and (max-width: 768px) {
     width: 80%;
-    height: 40%;
+    height: 50%;
     padding: 1rem;
     font-size: 0.8rem;
-
+    .items{
+      height : 60%;
+    }
     h1 {
       font-size: 2rem;
     }
@@ -238,13 +234,20 @@ const Container = styled.div`
     h3 {
       padding: 0.5rem 1rem;
       margin: 1rem;
+      font-size : 10px;
     }
 
-    .total_pay button {
-      padding: 0.5rem;
+    .total_pay {
+
+    .totals{
+
+       //gap: 0.5rem;
+    }
+     button {
+      padding: 0.5rem 3rem;
       font-size: 0.8rem;
     }
-  }
+  }}
 `;
 const Overlay = styled.div`
   position: fixed;

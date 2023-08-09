@@ -46,17 +46,17 @@ const CartItem:FC<Props> = ({ _id ,titre , prix , poids ,image, quantite}) => {
         poids
        }
     const addItemHandler = () =>{
-        console.log(book)
+        //console.log(book)
         dispatch(AddToCart(book));
         dispatch(calculateTotal());
      }
   return <Container>
         <div className='img'>
-            <img src={image} alt={titre} />
+        <img src={image} alt={titre} />
         </div>
         <div className='infos'>
-        <h2>{titre} || </h2>
-        <h4>{prix} € || </h4>
+        <h2>{titre} - </h2>
+        <h4>{prix} € - </h4>
         <h4>Q° : {quantite}</h4>
         </div>
 
@@ -103,4 +103,35 @@ const Container = styled.div`
             }
         }
     }
+
+    @media only screen and (max-width: 768px) {
+        .img{
+        img{
+            width : 20px;
+            height: 20px;
+        }
+        margin-right: 2rem;
+    }
+    .infos{
+        font-size: 9px;
+        h2{
+            width : 30px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+    .cancel{
+        button {
+           
+            margin-left: 2rem;
+            border-radius: 5px;
+            transition: all ease 400ms;
+            &:hover{
+                background-color: white;
+                padding: 0.2rem 0.4rem;
+            }
+        }
+    }
+   }
 `

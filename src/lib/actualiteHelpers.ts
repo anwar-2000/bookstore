@@ -1,5 +1,5 @@
 
-const BASE_URL:String ="https://emmtaboutique.com"
+const BASE_URL:String ="https://emmaus-chatelleraudais.vercel.app"
 //const BASE_URL:String ="http://localhost:3000"
 
 
