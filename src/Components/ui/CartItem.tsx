@@ -74,8 +74,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color : gray;
-    font-family: 'Bad Script', cursive;
+    color : #080808;
     .img{
         img{
             width : 40px;
