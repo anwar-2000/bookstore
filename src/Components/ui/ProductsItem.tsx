@@ -70,7 +70,7 @@ export default ProductsItem;
 
 const Container = styled.div`
     cursor : pointer;
-    width: 15rem;
+    width: 12rem;
     display: grid;
     place-items: center;
     border-radius: 5%;

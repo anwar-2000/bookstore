@@ -1,7 +1,7 @@
 function HomePage() {
   const { data: expensiveBooks, isLoading } = useQuery(
     'expensiveBooks',
-    () => fetchHighPriceBooks(1, 6),
+    () => fetchHighPriceBooks(1, 10),
     {
       staleTime: 2 * 60 * 60 * 1000, // cache expires in 2 hours .
     }
@@ -49,7 +49,7 @@ export default function Home() {
 
 
     if(animationCount === 0 ){
-      toast("☀️ Bienvenue sur la boutique en ligne d'Emmaüs Châtellerault-Naintré", {
+      toast("☀️ Bienvenue sur la boutique en ligne d'articles rares d'Emmaüs Châtellerault-Naintré", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,

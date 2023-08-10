@@ -36,7 +36,7 @@ const NavBar = () => {
           </Link>
           <Link href={`https://emmtaboutique.com/actualites`}>
             <div className="md:block md:mr-2 lg:block pr-2">
-              <h3 className="whitespace-nowrap ml-3 transform translate-x-1 md:translate-x-0">Actualité</h3>
+              <h3 className="whitespace-nowrap ml-3 transform translate-x-1 md:translate-x-0">Actualités</h3>
             </div>
           </Link>
           </div>
@@ -52,9 +52,9 @@ const NavBar = () => {
               <h3 >Accueil</h3>
             </div>
           </Link>
-          <Link href="/dons">
+          <Link href="/users/login">
             <div className="hidden lg:block">
-              <h3>Donner</h3>
+              <h3>Se Connecter</h3>
             </div>
           </Link>
           <div className="flex items-center justify-end">

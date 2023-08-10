@@ -13,7 +13,7 @@ const Infos = {
       '/photo2.jpg',
     ],
     texts : [
-      'Livres',
+      'Livres Rares',
       'Vêtements',
       'Materiaux Cuir',
       'Divers Livres & ...'
@@ -31,13 +31,21 @@ const FinalHero = () => {
         }, 3000);
         return () => clearInterval(interval);
   }, []);
+
+  const handleButtonClick = (text : string) => {
+    console.log(text)
+    if(text === "Livres Rares") {router.push('/all');}
+    else if(text === "Vêtements") {router.push('/articles/categorie/Vetements');}
+    else if(text === "Materiaux Cuir") {router.push('/articles/categorie/Cuirs');}
+    
+};
       
   return <Container>
         <Left>
             <h1>
                Emmaüs Châtellerault-Naintré vous vend <br/>  ses <span style={{color : 'black'}}>{Infos.texts[activeIndex]} </span>
             </h1>
-            <button onClick={()=>router.push('/all')}>Voir Nos Livres</button>
+            <button onClick={()=>handleButtonClick(Infos.texts[activeIndex])}>Voir Nos {Infos.texts[activeIndex]}</button>
         </Left>
         <Right>
         <AnimatePresence mode='wait'>

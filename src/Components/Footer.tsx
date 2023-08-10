@@ -66,6 +66,9 @@ const Footer: React.FC = () => {
       <ListContainer>
       <div className='flex gap-2 text-xs'>
       <Link id='link' href="/retour" className='text-white font-semibold'>Retour & remboursement</Link>
+      <Link href="/dons"className='text-white font-semibold' id='link'>
+               || Donner des articles ||
+          </Link>
       <Link id='link' href="/rgpd" className='text-white font-semibold'>|| RGPD ||</Link>
       <Link id='link' href="/conditionsgenerale" className='text-white font-semibold'>Conditions Générales</Link>
       </div>
