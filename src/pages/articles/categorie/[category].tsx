@@ -91,6 +91,7 @@ const Index = () => {
               !ItemCard &&
               filteredProdcuts.map((item: any, i: number) => (
                 <BookItemSecond
+                  high_price={item.high_price}
                   key={i}
                   title={item.titre}
                   image={item.imageUrl1}

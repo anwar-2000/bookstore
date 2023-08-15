@@ -60,6 +60,7 @@ const Favories = () => {
               }}
             >
               <BookItemSecond
+                        high_price={book.high_price}
                         key={i}
                         title={book.titre}
                         image={book.image} rating={0} prix={book.prix}/>
