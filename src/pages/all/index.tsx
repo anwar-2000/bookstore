@@ -131,6 +131,7 @@ const Index = () => {
                     }}
                   >
                     <BookItemSecond
+                      high_price={book.high_price}
                       key={i}
                       title={book.titre}
                       image={book.imageUrl1}

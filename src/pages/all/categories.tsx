@@ -103,10 +103,12 @@ const Categories: NextPage<MyPageProps> = ({ categories }) => {
                 rating: number;
                 slug: string;
                 prix: number;
+                high_price : number;
               },
               i: number
             ) => (
               <BookItemSecond
+                high_price={book.high_price}
                 key={i}
                 title={book.titre}
                 image={book.imageUrl1}

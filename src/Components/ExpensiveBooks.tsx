@@ -19,6 +19,7 @@ const ExpensiveBooks: React.FC<Props> = ({ expensiveBooks }) => {
     <Container>
       {expensiveBooks.map((item: any) => (
         <BookItemSecond
+          high_price={item.high_price}
           key={item._id}
           title={item.titre}
           image={item.imageUrl1}

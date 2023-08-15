@@ -6,9 +6,10 @@ interface Props extends React.HTMLAttributes<HTMLElement>{
     image : string
     rating : number
     prix : number
+    high_price : number
 }
 
-const BookItemSecond:FC<Props> = ({title , image , rating, prix , ...rest}) => {
+const BookItemSecond:FC<Props> = ({title , image , rating, prix , high_price , ...rest}) => {
     const [favorite, setFavorite] = useState<boolean>(false);
 
     useEffect(() => {
@@ -54,12 +55,9 @@ const BookItemSecond:FC<Props> = ({title , image , rating, prix , ...rest}) => {
         <div className='image__rating'>
                 <img src={image} alt={title} id="imgg" aria-details={title} title={title} />
         </div>
-       {/* <div className='rating'> 
-               <Star fill="yellow" color='black'  size={15} /><h6>{rating}</h6>
-</div>*/}
        <div className='heart' onClick={favoriteclickHandler}><Heart fill={favorite ? 'red' : 'none'} color='red' size={18} /></div> 
        <h2>{title}</h2>
-       <h6 id='prix'> Prix : {prix} €</h6>
+       <h6 id='prix'>{high_price !== 0 && <span style={{textDecoration : 'line-through' , color : 'red' , marginRight : '5px'}}>{high_price}</span>}{prix} € </h6>
        
   </Container>
 }
@@ -68,7 +66,7 @@ export default BookItemSecond;
 
 const Container = styled.div`
     cursor : pointer;
-    width: 15rem;
+    width: 14rem;
     display: grid;
     place-items: center;
     border-radius: 5%;
@@ -112,6 +110,7 @@ const Container = styled.div`
 
     #prix {
         transform: translateY(-1rem);
-        font-size: 12px;
+        font-size: 14px;
+        color : green;
     }
 `
