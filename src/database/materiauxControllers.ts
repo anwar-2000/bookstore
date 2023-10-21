@@ -55,7 +55,7 @@ export async function getMateriaux(req: NextApiRequest, res: NextApiResponse) {
         return res.status(404).json({ error: 'Form Data not provided' });
       }
       const material = await Material.create(formData);
-      res.status(201).json(material);
+      res.status(200).json(material);
     } catch (err) {
       return res.status(500).json({ error: 'Error while creating material' });
     }

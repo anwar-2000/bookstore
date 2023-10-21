@@ -65,7 +65,7 @@ export async function postBook(req: NextApiRequest, res: NextApiResponse) {
       return res.status(404).json({ error: 'Form Data not provided' });
     }
     const book = await Livre.create(formData);
-    res.status(201).json(book);
+    res.status(200).json(book);
   } catch (err) {
     return res.status(500).json({ error: 'Error while creating book' });
   }
@@ -181,7 +181,7 @@ export async function addUser(req: NextApiRequest, res: NextApiResponse){
     if(existingUser) {return res.status(422).json({message : "User Already in DB"})}
     const user = await User.create(formData);
     //console.log(user);
-    res.status(201).json({user});
+    res.status(200).json({user});
   } catch (err) {
     console.log(err); return res.status(500).json({error :"error"});
   }
@@ -250,7 +250,7 @@ export async function addDon(req: NextApiRequest, res: NextApiResponse){
     }
     const Don = await LesDonsBoutique.create(formData);
     //console.log('Don : ',Don);
-    res.status(201).json({Don});
+    res.status(200).json({Don});
   } catch (err) {
     //console.log(err);
      return res.status(500).json({error :"error"});
@@ -347,7 +347,7 @@ export async function addComment(req: NextApiRequest, res: NextApiResponse){
     }
     const commentaires = await BooksComments.create(formData);
     //console.log('Don : ',Don);
-    res.status(201).json({commentaires});
+    res.status(200).json({commentaires});
   } catch (err) {
     //console.log(err);
      return res.status(500).json({error :"error"});
@@ -429,7 +429,7 @@ export async function addRetour(req: NextApiRequest, res: NextApiResponse){
     }
     const Retour = await LesRetour.create(formData);
     //console.log('Don : ',Don);
-    res.status(201).json({Retour});
+    res.status(200).json({Retour});
   } catch (err) {
     //console.log(err);
      return res.status(500).json({error :"error"});

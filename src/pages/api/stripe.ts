@@ -24,9 +24,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const {cart} = req.body
 
 
-     //console.log("total" + " " + total ,"price to pay" + " " +  priceToPay , "is checked" + " " + isChecked)
-     //console.log('Cart:', cart); 
-
 
       let lineItems = [];     
       if(cart.length >= 1){

@@ -9,9 +9,6 @@ export default async function handler(
 ) {
     // Allow requests from anywhere (CORS)
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
-    // createMongoConnection().catch(()=>res.status(405).json({error : 'Error in the connection'}))
    try {
     await createMongoConnection();
   } catch (err) {

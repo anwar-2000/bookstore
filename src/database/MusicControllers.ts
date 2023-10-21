@@ -48,7 +48,7 @@ export async function getMusic(req: NextApiRequest, res: NextApiResponse) {
         return res.status(404).json({ error: 'Form Data not provided' });
       }
       const music = await MusicProduct.create(formData);
-      res.status(201).json(music);
+      res.status(200).json(music);
     } catch (err) {
       return res.status(500).json({ error: 'Error while creating music' + err });
     }
