@@ -1,6 +1,5 @@
 # Bookstore
 
-![Project Logo](/images/home1.png)
 
 This project is a web application for a bookstore that sells books and clothing items. It is built using Next.js, NextAuth for authentication, Stripe for payments, and Material-UI (MUI) for the user interface.
 
