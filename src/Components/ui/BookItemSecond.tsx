@@ -57,7 +57,7 @@ const BookItemSecond:FC<Props> = ({title , image , rating, prix , high_price , .
         </div>
        <div className='heart' onClick={favoriteclickHandler}><Heart fill={favorite ? 'red' : 'none'} color='red' size={18} /></div> 
        <h2>{title}</h2>
-       <h6 id='prix'>{high_price !== 0 && <span style={{textDecoration : 'line-through' , color : 'red' , marginRight : '5px'}}>{high_price}</span>}{prix} € </h6>
+       <h6 id='prix'>{high_price !== 0 && <span style={{textDecoration : 'line-through' , color : 'red' , marginRight : '5px'}}>{high_price}€</span>}{prix} € </h6>
        
   </Container>
 }
@@ -66,11 +66,11 @@ export default BookItemSecond;
 
 const Container = styled.div`
     cursor : pointer;
-    width: 14rem;
+    width: 12rem;
     display: grid;
     place-items: center;
     border-radius: 5%;
-    filter: drop-shadow(0 0 0.4rem grey);
+    filter: drop-shadow(0 0 0.3rem grey);
      /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
         width : 8.5rem;
@@ -78,11 +78,13 @@ const Container = styled.div`
     h2{
         text-align: center;
         transform: translateY(-0.9rem);
-        width: 8rem;
+        width: 12rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        
+        @media screen and (max-width: 767px) {
+        width : 8.5rem;
+  }
     }
     
     #imgg{
@@ -91,7 +93,7 @@ const Container = styled.div`
         height: 200px;
     }
     .heart{
-        transform: translateY(2.8rem);
+        transform: translateY(3.2rem);
     }
     .rating{
         display: flex;

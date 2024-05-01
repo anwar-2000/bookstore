@@ -24,7 +24,7 @@ const SearchInput:FC = ({}) => {
         value={searchParam}
 
         onChange={changeParamHandler}
-        className="bg-transparent  text-slate-700 rounded-lg p-2"
+        className="bg-transparent  text-slate-400  p-2 focus:outline-none"
       >
         <option value="">Select an option</option>
         <option value="auteur">Auteur</option>
@@ -40,10 +40,10 @@ const SearchInput:FC = ({}) => {
                 autoComplete="false"
                 onChange={changeHandler}
                 value={searchValue}
-                placeholder="livres / vetements ..."
-                className="md:p-2 m-2 rounded outline-none border-l-stone-900  bg-transparent text-slate-700 placeholder:text-slate-700 placeholder-shown:border-none focus:border-none block"
+                placeholder="Rechercher ici ..."
+                className="md:p-2 m-2 rounded outline-none focus:outline-none border-l-stone-900  bg-transparent text-slate-300 placeholder:text-slate-400 placeholder-shown:border-none focus:border-none block"
                 />
-              <Search strokeWidth="4" color='black'  className="cursor-pointer block" />
+              <Search strokeWidth="2" color='grey'  className="cursor-pointer block" />
               </div>
               {searchValue.length!==0 &&
    <div className='items'>
@@ -99,11 +99,9 @@ const InputContainer = styled.div`
     }
   }
 
-  select {
-    border: solid 1.5px black;
-    
+  select {    
     padding: 1.1rem;
-    border-radius: 10px;
+    border-bottom: solid 1px grey;
     @media screen and (max-width: 768px) {
       padding : 0.6rem 0.7rem;
   }
@@ -124,9 +122,9 @@ const InputContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    border: solid 1.5px black;
+    border-bottom: solid 1px grey;
     padding-right: 0.5rem;
-    border-radius: 10px;
+
   }
     
   /* Adding media queries here */

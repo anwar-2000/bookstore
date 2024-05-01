@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "@/redux/reducers/Cart";
 import SearchInput from "./SearchInput";
-import { useRouter } from "next/router";
 
 
 const NavBar = () => {
@@ -13,13 +12,12 @@ const NavBar = () => {
   //const BASE_URL2:string ="http://localhost:3000"
 
   const imageUrl = `${BASE_URL}/emmaus2.png`;
-  const router = useRouter()
   const {items} = useSelector((state:any)=>state.cart)
   const dispatch = useDispatch()
 
   
   return <>
- <section className="flex items-center justify-center sticky top-0 h-20 mb-12 text-slate-900 bg-white border-b-2 border-slate-700 z-50 ">
+ <section className="bg-slate-700 flex items-center justify-center sticky top-0 h-20  text-white  border-b-2 border-slate-700 z-50 ">
   <div className="flex justify-between items-center w-screen ">
     <div className="container mx-auto flex items-center justify-between text-dark  font-bold gap-5 md:gap-0">
       <div className="flex gap-0 items-center justify-center transform translate-x-1 md:translate-x-0">
@@ -52,9 +50,9 @@ const NavBar = () => {
               <h3 >Accueil</h3>
             </div>
           </Link>
-          <Link href="/users/login">
+          <Link href="/emmausNaintre">
             <div className="hidden lg:block">
-              <h3>Se Connecter</h3>
+              <h3>Nous somme ?</h3>
             </div>
           </Link>
           <div className="flex items-center justify-end">

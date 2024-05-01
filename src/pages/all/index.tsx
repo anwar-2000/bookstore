@@ -12,6 +12,8 @@ import { PuffLoader
 } from "react-spinners";
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
+import ProductsCatgeories from "@/Components/ui/ProductsCatgeories";
+import NavBar from "@/Components/NavBar";
 
 
 const variants = {
@@ -60,7 +62,7 @@ const Index = () => {
     router.push(`/details/${slug}`); //pushing to details page api with the selected items Slugs
   };
   return <>
-        
+      <ProductsCatgeories />
       <Head>
       <title>Nos Livres : Explore</title>
       <link rel="icon" href="emmaus.jpg" />
@@ -104,7 +106,7 @@ const Index = () => {
         >
           <MainContent>
           <div className="explore">
-              <h1>Tous nos livres :</h1>  
+              <h1>Nos Livres:</h1>  
             </div>
 
             <motion.div
@@ -175,7 +177,7 @@ const Container = styled(motion.div)`
   display: flex;
   overflow: hidden;
   position : relative;
-
+  margin-top : 2rem;
   /* styles for screens smaller than 768px */
   @media screen and (max-width: 767px) {
     sideNAv {

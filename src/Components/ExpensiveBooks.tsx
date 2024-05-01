@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
@@ -15,7 +16,7 @@ const ExpensiveBooks: React.FC<Props> = ({ expensiveBooks }) => {
   };
 
   return <>
-    <h1 style={{fontSize : '2.5rem' , textAlign : 'center' , fontFamily : 'Montserrat, sans-serif' , fontWeight : '700' }}>NOS ARTICLES DIVERS ET RARES</h1>
+    <h1 style={{fontSize : '2.5rem' , alignSelf:"start", textAlign : "start" , paddingLeft : "2rem" , fontFamily : 'Libre Baskerville, serif' , fontWeight : '400' }}>NOS ARTICLES DIVERS ET RARES:</h1>
     <Container>
       {expensiveBooks.map((item: any) => (
         <BookItemSecond
@@ -28,6 +29,7 @@ const ExpensiveBooks: React.FC<Props> = ({ expensiveBooks }) => {
           onClick={() => getBookSlugHandler(item.slug)}
         />
       ))}
+      <Link href="/all"><button>Voir plus</button></Link>
     </Container>
     </>;
 };
@@ -35,11 +37,20 @@ const ExpensiveBooks: React.FC<Props> = ({ expensiveBooks }) => {
 export default ExpensiveBooks;
 
 const Container = styled.div`
- 
+
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap : wrap;
   gap: 1rem;
-
+  button{
+    margin-top : 2rem;
+    color : white;
+    padding : 1rem 4rem;
+    background : #334155;
+    font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: italic;
+    border-radius : 10px;
+  }
 `;

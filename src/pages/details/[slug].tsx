@@ -266,6 +266,7 @@ const [isCheckedColissimo, setIsCheckedColissimo] = useState(false);
 export default Index;
 
 const Section = styled.section`
+  margin-top:2rem;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -321,7 +322,7 @@ const Section = styled.section`
   }
 `;
 const Container = styled.div`
-  min-height: 90vh;
+
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -339,6 +340,7 @@ const Container = styled.div`
 
   /* styles for screens between 768px and 1024px */
   @media screen and (min-width: 768px) and (max-width: 1024px) {
+    transform : translateY(-45rem);
     flex-direction: column;
   }
 `;

@@ -9,7 +9,7 @@ const FooterContainer = styled.footer`
   align-items: center;
   padding: 20px;
   border-top : solid 2px black;
-  background-color : #009FE3;
+  background-color : #334155;
   width: 100%;
   height : 5rem;  
 

@@ -32,7 +32,6 @@ const Hero = () => {
         <Right>
           <img src="/book1.jpeg" alt='book1'  id="book1" />
           <img src="/book2.jpg" alt='book2'  id="book2"  />
-
           <small>+2000 Livres</small>
         </Right>
       </Container>

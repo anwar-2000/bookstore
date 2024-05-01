@@ -32,18 +32,20 @@ const ProductsCatgeories = () => {
 export default ProductsCatgeories
 
 const Categorie = styled.div`
-    transform : translateY(-2rem);
+    transform : translateY(2rem);
+    padding-bottom : 2rem ;
+    margin-left : 3rem;
     display : flex;
     gap : 2rem;
     align-items : center;
     justify-content : center;
     flex-wrap : wrap;
-    width : 100vw;
+    width : 90vw;
     color : black;
   
 
     .card{
-        width : 12rem;
+        width : 10.5rem;
         padding : 1rem;
         height : 3.5rem;
         font-size : 16px;
@@ -54,10 +56,9 @@ const Categorie = styled.div`
         }
         background-size : cover;
         border : solid 1px black;
-        border-radius : 10px;
+        border-radius : 6px;
         cursor : pointer;
         transition : all ease 400ms;
-        
         &:hover{
             background : black;
             color : white;

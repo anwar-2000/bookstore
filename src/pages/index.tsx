@@ -1,7 +1,7 @@
 function HomePage() {
   const { data: expensiveBooks, isLoading } = useQuery(
     'expensiveBooks',
-    () => fetchHighPriceBooks(1, 10),
+    () => fetchHighPriceBooks(1, 24),
     {
       staleTime: 2 * 60 * 60 * 1000, // cache expires in 2 hours .
     }
@@ -17,49 +17,22 @@ function HomePage() {
   );
 }
 
-
-import AboutSection from "@/Components/About";
 import "react-toastify/dist/ReactToastify.css";
 import Localisation from "@/Components/Localisation";
 import Head from "next/head";
-import { Suspense, useEffect, useState } from "react";
-import Loading from "@/Components/ui/Loading";
+import { Suspense } from "react";
 import { fetchHighPriceBooks } from "@/lib/helpers";
 import ExpensiveBooks from "@/Components/ExpensiveBooks";
 import styled from "styled-components";
-import FinalHero from "@/Components/FinalHero";
 import { useQuery } from "react-query";
 import LoadingCards from "@/Components/ui/LoadingCards";
-import { toast } from "react-toastify";
+import EmmausHero from "@/Components/EmmausHero";
 
 
 
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [animationCount, setAnimationCount] = useState(0);
 
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-    setAnimationCount(1)
-  }, []);
-
-
-    if(animationCount === 0 ){
-      toast("☀️ Bienvenue sur la boutique en ligne d'articles rares d'Emmaüs Châtellerault-Naintré", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
-    }
 
   return <>
   <Head>
@@ -79,16 +52,15 @@ export default function Home() {
   <meta property="og:description" content="La boutique des livres Emmaus Naintré propose des livres rares, anciens, des bandes dessinées (BD) et des livres de poche à des prix compétitifs." />
 </Head>
 
-        { isLoading && animationCount == 0 ? <Loading />
-        : <Container>
-        <FinalHero />
+    <Container>
+        <EmmausHero />
         <Suspense>
           <HomePage />
         </Suspense>
-        <AboutSection />
+        {/* <AboutSection /> */}
         <Localisation />
         </Container>
-        }
+       
     </>
   
 }

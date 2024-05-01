@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Header = styled.h1`
-  text-align: center;
+  align-self: start;
+  margin-left : 2rem;
   font-size: 2.9rem;
-  font-weight: 700;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: italic;
   margin-bottom : 2.5rem;
 
 `;
@@ -57,13 +59,18 @@ const LeftContainer = styled.div`
       flex-direction : column;
       align-items:center;
       justify-content: center;
-      background : #009FE3;
       color : black;
       padding : 0.9rem;
       border-radius : 20px;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       transition : 1s all ease;
-
+      &:hover{
+        background : #334155;
+        color : white;
+        h3{
+          color:white;
+        }
+      }
       p{
         font-size  : 12px;
       }
@@ -76,7 +83,7 @@ const LeftContainer = styled.div`
         text-align : center;
         font-weight : bolder;
         margin-bottom : 0.3rem;
-        color : white;
+        color : #334155;
       }
 
 

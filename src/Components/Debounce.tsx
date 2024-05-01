@@ -99,13 +99,14 @@ const Container = styled.div`
     gap : 1rem;
     align-items:start;
     justify-content : start;
-    background : white;
+    background : #334155;
     height : 20rem;
     border-radius : 20px;
     width : 15rem;
     height : auto;
     position : relative;
     padding-bottom : 0.8rem;
+    color:white;
     padding : 0.8rem;
 
 
