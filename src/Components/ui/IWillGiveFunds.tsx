@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 const IWillGiveFunds = () => {
   return <Container>
-            <Link href={'https://www.helloasso.com/associations/association-emmaus-chatelleraudais'}>"j&apos;aide Emmaûs - cagnotte en ligne"</Link>
+            <Link href={'https://www.helloasso.com/associations/association-emmaus-chatelleraudais'}>j&apos;aide Emmaûs - cagnotte en ligne</Link>
   </Container>
 }
 
