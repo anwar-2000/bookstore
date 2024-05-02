@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "@/redux/reducers/Cart";
 import SearchInput from "./SearchInput";
+import MobileNav from "./ui/MobileNav";
 
 
 const NavBar = () => {
@@ -18,7 +19,7 @@ const NavBar = () => {
   
   return <>
  <section className="bg-slate-700 flex items-center justify-center sticky top-0 h-20  text-white  border-b-2 border-slate-700 z-50 ">
-  <div className="flex justify-between items-center w-screen ">
+  <div className="hidden md:flex justify-between items-center w-screen ">
     <div className="container mx-auto flex items-center justify-between text-dark  font-bold gap-5 md:gap-0">
       <div className="flex gap-0 items-center justify-center transform translate-x-1 md:translate-x-0">
         <img
@@ -73,6 +74,9 @@ const NavBar = () => {
             </button>
           </div>
         </div>
+       </div>
+       <div className="block md:hidden">
+         <MobileNav />
        </div>
     </section>
 

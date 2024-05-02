@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import  {useState , useEffect} from 'react'
 import styled from 'styled-components'
-import NavBar from './NavBar'
 
 interface Props {}
 
@@ -35,7 +34,11 @@ const EmmausHero = () => {
               height={600}
             />
     </ImagesContainer>
-    <Text>
+    <Text
+      initial ={{opacity : 0}}
+      whileInView={{opacity : 1}}
+      transition={{delay : 1 , duration : 0.4}}
+    >
         <h1>Bienvenue chez</h1>
         <h1>Emmaüs Châtellerault</h1>
         <small> votre destination pour des découvertes uniques !</small>
@@ -66,16 +69,15 @@ const ImagesContainer = styled.div`
         position: absolute;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.6); /* Couleur de fond du backdrop avec transparence */
+        background-color: rgba(0, 0, 0, 0.6); 
     }
     img {
         width : 100%;
-        height : 100%;
-        
+        height : 100%;   
     }
 `
 
-const Text = styled.div`
+const Text = styled(motion.div)`
    display : flex;
    align-items : center;
    justify-content:center;
@@ -114,7 +116,7 @@ const Text = styled.div`
     }
     button{
       padding : 0.4rem 2rem;
-      margin-top : 4rem;
+      margin-top : 0rem;
     }
   }
 `

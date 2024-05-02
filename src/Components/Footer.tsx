@@ -11,10 +11,10 @@ const FooterContainer = styled.footer`
   border-top : solid 2px black;
   background-color : #334155;
   width: 100%;
-  height : 5rem;  
+  min-height : 5rem;  
 
   @media (max-width: 768px) {
-    justify-content : center;
+    justify-content : start;
   }
   
 `;
@@ -23,6 +23,7 @@ const ListContainer = styled.div`
   display: flex;
   align-items : center;
   justify-content : center;
+  
 
   #link:hover{
       color : black;
@@ -42,6 +43,9 @@ const List = styled.ol`
   gap : 1.2rem;
   align-items : center;
   justify-content : center;
+  @media (max-width: 768px) {
+    margin-top : 1rem;
+  }
 `;
 
 const Image = styled.img`
@@ -64,12 +68,12 @@ const Footer: React.FC = () => {
   return (
     <FooterContainer>
       <ListContainer>
-      <div className='flex gap-2 text-xs'>
+      <div className='flex gap-2 text-xs flex-col md:flex-row'>
       <Link id='link' href="/retour" className='text-white font-semibold'>Retour & remboursement</Link>
       <Link href="/dons"className='text-white font-semibold' id='link'>
-               || Donner des articles ||
+                Donner des articles 
           </Link>
-      <Link id='link' href="/rgpd" className='text-white font-semibold'>|| RGPD ||</Link>
+      <Link id='link' href="/rgpd" className='text-white font-semibold'> RGPD </Link>
       <Link id='link' href="/conditionsgenerale" className='text-white font-semibold'>Conditions Générales</Link>
       </div>
         <List>

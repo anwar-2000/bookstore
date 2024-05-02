@@ -41,7 +41,7 @@ const SearchInput:FC = ({}) => {
                 onChange={changeHandler}
                 value={searchValue}
                 placeholder="Rechercher ici ..."
-                className="md:p-2 m-2 rounded outline-none focus:outline-none border-l-stone-900  bg-transparent text-slate-300 placeholder:text-slate-400 placeholder-shown:border-none focus:border-none block"
+                className="text-center md:text-start md:p-2 m-2 rounded outline-none focus:outline-none border-l-stone-900  bg-transparent text-slate-300 placeholder:text-slate-400 placeholder-shown:border-none focus:border-none block"
                 />
               <Search strokeWidth="2" color='grey'  className="cursor-pointer block" />
               </div>
@@ -104,6 +104,7 @@ const InputContainer = styled.div`
     border-bottom: solid 1px grey;
     @media screen and (max-width: 768px) {
       padding : 0.6rem 0.7rem;
+      text-align : center;
   }
   }
 
@@ -115,6 +116,7 @@ const InputContainer = styled.div`
     @media screen and (max-width: 768px) {
         flex-direction : row;
         gap : 0.8rem;
+        
   }
   }
 
@@ -129,13 +131,17 @@ const InputContainer = styled.div`
     
   /* Adding media queries here */
   @media (max-width: 768px) {
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     gap: 1rem;
+    
 
     #inputs {
       flex-direction: row;
-      margin-left: 0; /* Remove the margin-left */
+      margin-left: 0; 
       gap: 0.5rem;
+      
     }
   }
 `;

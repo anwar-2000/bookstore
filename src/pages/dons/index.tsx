@@ -78,7 +78,7 @@ export default function  Index () {
         </div>
         
        <div className='button'>
-       <Button type='submit'>Ajouter</Button>
+       <Button type='submit'>Envoyer</Button>
        </div>
       </Form>
     </Container>
@@ -88,20 +88,20 @@ export default function  Index () {
 
 const Container = styled.div`
   width: 100%;
-  height: 70vh;
+  height: 100vh;
   display: flex;
-  margin-top : 1.8rem;
-  margin-bottom : 5rem;
   gap: 2rem;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background : #334155;
+  color : white;
   font-family: 'Playfair Display SC', serif;
 
   h1 {
     font-family: 'Playfair Display SC', serif;
     font-size : 3rem;
-    color : black;
+    color : white;
     font-weight : bold;
 
      /* styles for screens smaller than 768px */
@@ -149,13 +149,19 @@ const FormGroup = styled.div`
   margin-right: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 100%;
+  width: 25rem;
   padding: 10px;
+  height : 3rem;
   box-sizing: border-box;
   font-size: 16px;
   color: #555;
   outline: none;
   transition: border-color 0.3s ease-in-out;
+
+       /* styles for screens smaller than 768px */
+       @media screen and (max-width: 767px) {
+        width : 100%;
+    }
 }
 
 input[type='text']:focus, input[type='number']:focus, input[type='radio']:focus , textarea:focus , input[type='date']:focus {
