@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import  {useState , useEffect} from 'react'
-import styled from 'styled-components'
+import { motion } from &apos;framer-motion&apos;;
+import Link from &apos;next/link&apos;;
+import  {useState , useEffect} from &apos;react&apos;
+import styled from &apos;styled-components&apos;
 
 interface Props {}
 
@@ -9,9 +9,9 @@ const EmmausHero = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const ImagesInfos = {
         images : [
-          '/boutique.jpg',
-          '/photo1.jpg',
-          '/photo2.jpg',
+          &apos;/boutique.jpg&apos;,
+          &apos;/photo1.jpg&apos;,
+          &apos;/photo2.jpg&apos;,
         ],
       }
       useEffect(() => {
@@ -27,7 +27,7 @@ const EmmausHero = () => {
                 initial={{ opacity: 0 , background : "black"}}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1.5, yoyo: Infinity }}
-              id='images'
+              id=&apos;images&apos;
               alt="Emmaus Naintré"
               src={ImagesInfos.images[activeIndex]}
               width={540}
@@ -42,7 +42,7 @@ const EmmausHero = () => {
         <motion.small 
         initial ={{opacity : 0}}
       whileInView={{opacity : 1}}
-      transition={{delay : 1 , duration : 0.4}}>Notre boutique en ligne vous permet de dénicher des objets farfelus, rares, ou plus courants mais tout aussi intéressants, comme si vous étiez dans l'un des rayons d'un de nos 4 lieux de vente.
+      transition={{delay : 1 , duration : 0.4}}>Notre boutique en ligne vous permet de dénicher des objets farfelus, rares, ou plus courants mais tout aussi intéressants, comme si vous étiez dans l&apos;un des rayons d&apos;un de nos 4 lieux de vente.
 
 Vous y trouverez des livres anciens mais aussi des plus récents, des objets vintage mais pas que, des vêtements pour toutes et tous, des chaussures, de la maroquinerie, mais aussi de quoi intéresser les plus jeunes avec des jeux et livres jeunesse.</motion.small>
         <Link href="/all"><motion.button
